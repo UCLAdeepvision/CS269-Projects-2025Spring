@@ -1,0 +1,22 @@
+title: 2025S, UCLA CS269 Course Projects
+name: "2025S, UCLA CS269 Course Projects"
+author: UCLAdeepvision
+baseurl: "/CS269-Projects-2025Spring"
+description: Course projects for UCLA CS269, Seminar on AI Agents and Foundation Models
+profile_url: "http://UCLAdeepvision.github.io"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+excerpt_separator: <!--more-->
+plugins:
+  - jekyll-feed
+  - jekyll-archives
+exclude:
+  - Gemfile
+  - Gemfile.lock
+kramdown:
+  input: GFM
+  auto_ids: true
+  syntax_highlighter: rouge
+  toc_levels: 1..3
