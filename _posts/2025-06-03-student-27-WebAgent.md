@@ -1,8 +1,8 @@
 ---
 layout: post
 comments: true
-title: WebAgent: A Quick Survey on Web Agents
-author: 
+title: A Quick Survey on Web Agents
+author: Genglin Liu (Student 27)
 date: 2025-06-03
 ---
 
@@ -183,7 +183,7 @@ frequent. To achieve this, we will:
    - Process incoming visual data effectively.  
 
 3. **Incorporate a reinforcement learning (RL) algorithm**  
-   - Train the camera’s decision-making process.  
+   - Train the camera's decision-making process.  
 
 4. **Engineer a reward function**  
    - Emphasize maintaining clear sightlines.  
