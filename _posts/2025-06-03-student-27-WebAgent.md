@@ -7,27 +7,7 @@ date: 2025-06-03
 ---
 
 
-> In this study, we present a framework for enabling
-robots to locate and focus on objects that are partially or fully
-occluded within their environment. We split up any robotic tasks
-into two steps: Localization, where the robot searches for objects
-of interest, and Task Completion, where the robot completes the
-task after finding the object. We propose Peekaboo, a solution
-to the Localization stage to find partially or even fully occluded
-objects. We train a reinforcement learning algorithm to teach
-the robot to actively reposition its camera to optimize visibility
-of occluded objects. The key features include engineering a
-reward function that incentivizes effective object localization and
-setting up a comprehensive training environment. We develop
-a simulation environment with randomness to learn to localize
-from numerous initial viewpoints. Our approach also includes
-the implementation of a vision encoder for processing visual
-input, which allows the robot to interpret and respond to
-objects and occlusions. We design metrics to quantify the model’s
-performance, demonstrating its capability to handle occlusions
-without any human intervention at all. The results of this work
-showcase the potential for robotic systems to actively improve
-their perception in cluttered or obstructed environments.
+> Web agents are a new class of agents that can interact with the web. They are able to navigate the web, search for information, and perform tasks. They are a type of multi-modal agent that can use text, images, and other modalities to interact with the web.
 
 
 <!--more-->
