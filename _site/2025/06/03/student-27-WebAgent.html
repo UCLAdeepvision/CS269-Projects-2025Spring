@@ -16,26 +16,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>A Quick Survey on Web Agents</title>
+    <title>Recent Developments in GUI Web Agents</title>
 
     <meta name="description" content="Web agents are a new class of agents that can interact with the web. They are able to navigate the web, search for information, and perform tasks. They are a...">
 
     <meta content="2025S, UCLA CS269 Course Projects" property="og:site_name">
     
-        <meta content="A Quick Survey on Web Agents" property="og:title">
+        <meta content="Recent Developments in GUI Web Agents" property="og:title">
     
     
         <meta content="article" property="og:type">
     
     
-        <meta content="Web agents are a new class of agents that can interact with the web. They are able to navigate the web, search for information, and perform tasks. They are a type of multi-modal agent that can use text, images, and other modalities to interact with the web." property="og:description">
+        <meta content="Web agents are a new class of agents that can interact with the web. They are able to navigate the web, search for information, and perform tasks. They are a type of multi-modal agent that can use text, images, and other modalities to interact with the web. Since 2024, we..." property="og:description">
     
     
         <meta content="http://localhost:4000/2025/06/03/student-27-WebAgent.html" property="og:url">
     
 <!--
     
-        <meta content="Genglin Liu (Student 27)" property="article:author">
+        <meta content="Genglin Liu (Student 27), James Shiffer (Student 25)" property="article:author">
         <meta content="http://localhost:4000/about/" property="article:author">
      -->
 
@@ -81,11 +81,11 @@
     <!-- Twitter cards -->
     <!-- <meta name="twitter:site"    content="@">
     <meta name="twitter:creator" content="@UCLAdeepvision">
-    <meta name="twitter:title"   content="A Quick Survey on Web Agents">
+    <meta name="twitter:title"   content="Recent Developments in GUI Web Agents">
 
     
         <meta name="twitter:description" content="<blockquote>
-  <p>Web agents are a new class of agents that can interact with the web. They are able to navigate the web, search for information, and perform tasks. They are a type of multi-modal agent that can use text, images, and other modalities to interact with the web.</p>
+  <p>Web agents are a new class of agents that can interact with the web. They are able to navigate the web, search for information, and perform tasks. They are a type of multi-modal agent that can use text, images, and other modalities to interact with the web. Since 2024, we have seen a surge in the development of web agents, with many new agents being developed and released. In this blog post, we survey the recent developments in the field of web and particularly GUI agents, and provide a comprehensive overview of the state of the art. We review core benchmarks - WebArena, VisualWebArena, Mind2Web, and AssistantBench — that have enabled systematic measurement of these capabilities. We discuss the backbone vision-language models that power these agents, as well as the recent advancement in reasoning.</p>
 </blockquote>
 
 ">
@@ -142,7 +142,7 @@
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">A Quick Survey on Web Agents</h1>
+    <h1 class="post-title" itemprop="name headline">Recent Developments in GUI Web Agents</h1>
     <p class="post-meta">
 
       <time datetime="2025-06-03T00:00:00-07:00" itemprop="datePublished">
@@ -151,7 +151,7 @@
       </time>
 
       <span itemprop="author" itemscope itemtype="http://schema.org/Person">
-        by <span itemprop="name">Genglin Liu (Student 27)</span>
+        by <span itemprop="name">Genglin Liu (Student 27), James Shiffer (Student 25)</span>
       </span>
 
       <!-- <span>
@@ -171,7 +171,7 @@
 
   <div class="post-content" itemprop="articleBody">
     <blockquote>
-  <p>Web agents are a new class of agents that can interact with the web. They are able to navigate the web, search for information, and perform tasks. They are a type of multi-modal agent that can use text, images, and other modalities to interact with the web.</p>
+  <p>Web agents are a new class of agents that can interact with the web. They are able to navigate the web, search for information, and perform tasks. They are a type of multi-modal agent that can use text, images, and other modalities to interact with the web. Since 2024, we have seen a surge in the development of web agents, with many new agents being developed and released. In this blog post, we survey the recent developments in the field of web and particularly GUI agents, and provide a comprehensive overview of the state of the art. We review core benchmarks - WebArena, VisualWebArena, Mind2Web, and AssistantBench — that have enabled systematic measurement of these capabilities. We discuss the backbone vision-language models that power these agents, as well as the recent advancement in reasoning.</p>
 </blockquote>
 
 <!--more-->
@@ -192,56 +192,10 @@
 </ul>
 
 <h2 id="introduction">Introduction</h2>
-<p>In dynamic and cluttered environments, robotic systems
-with visual perception capabilities must be able to adapt their
-viewpoints to maintain visibility of target objects, even when
-occlusions or obstacles obstruct their line of sight. Traditional
-robotic vision systems often address this requirement by either
-using a large array of static sensors, usually cameras, pointing in different orientations, or by moving a single
-sensor in a predetermined path. Both approaches have their
-downsides. Arrays of static sensors are far more expensive than
-using a single sensor, and rely on the motion of their agent
-to acquire new viewpoints. Sensors that follow predetermined
-paths lack the flexibility to capture environment-dependent
-information about complex scenes common in real-world
-settings. These limitations serve as critical bottlenecks slowing
-the advancement of vision-based robotics. Active Vision is a
-promising field that aims to address these challenges. The goal
-of Active Vision is to mimic the way that humans perceive
-their environment: by learning to move and orient a single
-sensor in ways that capture information important for completing some task.</p>
 
-<p>Active Vision avoids the shortcomings of
-the other two approaches; the agent uses a single controllable
-sensor, as opposed to an array of fixed sensors to perceive
-its environment, and the agent can learn to manipulate its
-sensor in response to its environment in nuanced ways that
-a predetermined approach could not.</p>
+<p>Graphical User Interface (GUI) web agents are autonomous agents that interact with websites much like a human user – by clicking, typing, and reading on web pages. In recent years, especially since 2023/2024, there has been rapid progress in developing general-purpose GUI web agents powered by large (multimodal) language models (LLMs). These agents aim to follow high-level instructions (e.g. “Find the cheapest red jacket on an online store and add it to the cart”) and execute various tasks across different websites.</p>
 
-<p>Recent advances in reinforcement learning (RL) have looked
-into enabling robots to learn behaviors directly from their
-interactions with the environment, making it possible to train
-autonomous systems to explore the environment, allowing
-for active perception. In robotic vision tasks, RL algorithms
-can enable a camera mounted on a robotic arm to not only
-locate objects but also to continuously adjust its position
-to avoid occlusions and improve object visibility. However,
-developing such an RL framework requires overcoming several
-challenges, including creating a robust training environment
-that mimics the need to shift camera perspectives, and engineering reward functions that incentivize behavior promoting
-consistent visibility.</p>
-
-<p>We propose Peekaboo, an approach that addresses many
-of the shortcomings of previous methods. Peekaboo’s key
-insight is that the Localization and Task Completion steps in
-manipulation tasks can be decoupled with minimal loss of
-generality. In practice, when humans perform manipulation
-tasks, we search our environment for an object before extending a hand in its direction to grasp it. The same logic applies here. Any manipulation task first requires the agent
-to localize the object, along with anything else critical for
-completing the task. Peekaboo focuses on this Localization
-step, but unlike previous works is designed to be robust to
-very heavy occlusions, and allows the camera to be controlled
-with many degrees of freedom.</p>
+<p>A key challenge driving current research is reasoning capability: GUI agents must plan multi-step actions, handle dynamic web content, hop between different web pages, and sometimes recover from mistakes or unexpected outcomes. This report surveys recent developments in this area, emphasizing how new architectures and training methods have enhanced reasoning, with a special focus on e-commerce applications (a domain that is naitively multi-modal, and demands sophisticated multi-step reasoning, such as searching for products, comparing options, and completing purchases). We also contrast these GUI agents with earlier text-based web agents to highlight differences in reasoning approaches.</p>
 
 <h2 id="prior-works">Prior Works</h2>
 
