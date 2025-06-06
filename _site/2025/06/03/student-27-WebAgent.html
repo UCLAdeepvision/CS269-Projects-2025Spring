@@ -181,6 +181,9 @@
   <li><a href="#core-benchmarks" id="markdown-toc-core-benchmarks">Core Benchmarks</a>    <ul>
       <li><a href="#visualwebarena" id="markdown-toc-visualwebarena">VisualWebArena</a></li>
       <li><a href="#mind2web" id="markdown-toc-mind2web">Mind2Web</a></li>
+      <li><a href="#online-mind2web" id="markdown-toc-online-mind2web">Online-Mind2Web</a></li>
+      <li><a href="#webvoyager" id="markdown-toc-webvoyager">WebVoyager</a></li>
+      <li><a href="#realwebassist" id="markdown-toc-realwebassist">RealWebAssist</a></li>
     </ul>
   </li>
   <li><a href="#references" id="markdown-toc-references">References</a></li>
@@ -222,7 +225,17 @@
 
 <h3 id="mind2web">Mind2Web</h3>
 
-<p>Mind2Web is introduced as the first large-scale dataset for developing and evaluating a “generalist” web agent – one that can follow natural language instructions to complete complex tasks on any website [6].</p>
+<p>Mind2Web is introduced as the first large-scale dataset for developing and evaluating a “generalist” web agent – one that can follow natural language instructions to complete complex tasks on any website [6]. Prior benchmarks often used either simulated web pages or a limited set of websites/tasks, which risked overfitting. Mind2Web instead emphasizes breadth and diversity: it contains over 2,000 tasks collected from 137 real-world websites spanning 31 domains (e-commerce, social media, travel, etc.). Each task is open-ended (expressed in natural language) and comes with a human-crowdsourced action sequence demonstrating how to complete it, providing both a goal specification and a ground-truth solution path.</p>
+
+<h3 id="online-mind2web">Online-Mind2Web</h3>
+
+<p>Online-Mind2Web is a follow-up benchmark that addresses a critical question: Are web agents as competent as some benchmarks suggest, or are we seeing an illusion of progress? [7] The authors of this study argue that previously reported results might be overly optimistic due to evaluation on static or simplified environments. Online-Mind2Web instead evaluates agents in a live web setting, where they must perform tasks on actual, up-to-date websites – thus exposing them to real-world variability and unpredictability. It consists of 300 diverse tasks spanning 136 popular websites, collected to approximate how real users would instruct an agent online. This includes tasks across domains like shopping, travel, social media, etc., similar in spirit to Mind2Web’s diversity but executed on the real web.</p>
+
+<p>The authors developed an LLM-as-a-Judge system called WebJudge to automatically evaluate whether an agent succeeded in a given task, with minimal human labor. WebJudge uses an LLM to analyze the agent’s action history and the resulting web states (with key screenshots) to decide if the goal was achieved. This method achieved about 85% agreement with human evaluators on success judgments, substantially higher consistency than prior automatic metrics, substantially higher consistency than prior automatic metrics.</p>
+
+<h3 id="webvoyager">WebVoyager</h3>
+
+<h3 id="realwebassist">RealWebAssist</h3>
 
 <h2 id="references">References</h2>
 
@@ -236,7 +249,9 @@
 
 <p>[5] Yang, Jianwei, Hao Zhang, Feng Li, Xueyan Zou, Chunyuan Li, and Jianfeng Gao. “Set-of-mark prompting unleashes extraordinary visual grounding in gpt-4v.” arXiv preprint arXiv:2310.11441 (2023).</p>
 
-<p>[6] Xue, Tianci, Weijian Qi, Tianneng Shi, Chan Hee Song, Boyu Gou, Dawn Song, Huan Sun, and Yu Su. “An illusion of progress? assessing the current state of web agents.” arXiv preprint arXiv:2504.01382 (2025).</p>
+<p>[6] Deng, Xiang, Yu Gu, Boyuan Zheng, Shijie Chen, Sam Stevens, Boshi Wang, Huan Sun, and Yu Su. “Mind2web: Towards a generalist agent for the web.” Advances in Neural Information Processing Systems 36 (2023): 28091-28114.</p>
+
+<p>[7] Xue, Tianci, Weijian Qi, Tianneng Shi, Chan Hee Song, Boyu Gou, Dawn Song, Huan Sun, and Yu Su. “An illusion of progress? assessing the current state of web agents.” arXiv preprint arXiv:2504.01382 (2025).</p>
 
   </div>
 
