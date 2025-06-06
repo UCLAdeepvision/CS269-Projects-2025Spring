@@ -23,7 +23,7 @@ The focus of this study blog is to delve into and analyze the various state-of-t
 
 ### 1.1 What Are Diffusion Models?
 
-![Diffusion Process]({{ '/assets/images/group-09/diffusion_process.png'  | relative_url }})
+![Diffusion Process]({{ '/assets/images/student-16-18/diffusion_process.png'  | relative_url }})
 
 
 
@@ -35,7 +35,7 @@ While diffusion models are highly effective and can generate incredible results,
 
 ### 1.2 UNet: The Original Workhorse
 
-![UNet]({{ '/assets/images/group-09/unet.png'  | relative_url }})
+![UNet]({{ '/assets/images/student-16-18/unet.png'  | relative_url }})
 
 ​									*Figure from HuggingFace Diffusion Course*
 
@@ -47,11 +47,13 @@ While effective in generating images, UNet has limitations in **scalability** an
 
 ### 1.3 Latent Transformer-based Advances: DiT, Cross-DiT, SiT
 
-![DiT]({{ '/assets/images/group-09/dit.png'  | relative_url }})
+![DiT]({{ '/assets/images/student-16-18/dit.png'  | relative_url }})
 
 ​							*Figure from DiT paper [3].*
 
-To overcome the limitations of UNet, researchers attempted to replace the convolutional backbones of diffusion models with transformers, giving rise to the transformer-based diffusion model. In addition, to reduce the input size passed into the transformers, researchers utilize a Variational Autoencoder (VAE) to encode input to a smaller latent space and decode output back to the original image dimensions (will be discussed further). One of the very first well-performing models, DiT (Diffusion Transformer, 2023), replaces the main backbone with a Vision Transformer (ViT) architecture [3]. Their results showed very good scalability as well as superior performance compared to most state-of-the-art diffusion models during that time. As such, many future papers on diffusion models reference and utilize DiT quite frequently. Another work, Cross-DiT, extends this idea by introducing cross-attention layers, enabling textual information to influence the image generation process. Lastly, in 2024, a new type of transformer-based diffusion model, SiT, built upon the DiT backbone architecture in terms of learning, objective function, and sampling. Their results showed that SiT surpasses DiT uniformly with the same model structure and number of parameters [4]. Since then, SiT remained one of the top state-of-the-art diffusion models utilized in research. 
+To overcome the limitations of UNet, researchers attempted to replace the convolutional backbones of diffusion models with transformers, giving rise to the transformer-based diffusion model. One of the very first well-performing models, DiT (Diffusion Transformer, 2023), replaces the main backbone with a Vision Transformer (ViT) architecture [3]. Their results showed very good scalability as well as superior performance compared to most state-of-the-art diffusion models during that time. As such, many future papers on diffusion models reference and utilize DiT quite frequently. Another work, Cross-DiT, extends this idea by introducing cross-attention layers, enabling textual information to influence the image generation process. Lastly, in 2024, a new type of transformer-based diffusion model, SiT, built upon the DiT backbone architecture in terms of learning, objective function, and sampling. Instead of predicting noise at each time step, it predicts the trajectories between the noise and data, improving robustness and stability. Their results showed that SiT surpasses DiT uniformly with the same model structure and number of parameters [4]. Since then, SiT remained one of the top state-of-the-art diffusion models utilized in research.
+
+In addition, to reduce the input size passed into the transformers, researchers utilize a Variational Autoencoder (VAE) to encode input to a smaller latent space and decode output back to the original image dimensions (will be discussed further). This can be simply added to existing transformer diffusion models to improve their efficiency significantly. As a result, these types of diffusion models are termed latent diffusion models and are used in many papers such as REPA.
 
 While transformer-based diffusion models have experienced rapid attention and improvement, they still suffer from some limitations. For example, when incorporating text or other modalities into these diffusion models, they usually merge the embeddings together into a single image embedding. This means that textual input attends to image features while modalities utilize shared weights, stripping the modalities of a lot of information. As a result, the expressiveness of the diffusion models are significantly limited.
 
@@ -66,7 +68,7 @@ While FID is used as the main metric when comparing the performance of diffusion
 
 ## 2. Stable Diffusion  (Dec 2021) [8]: 
 
-<img src="{{ '/assets/images/group-09/ldm.png'  | relative_url }}" alt="ldm" style="zoom:100%;" />
+<img src="{{ '/assets/images/student-16-18/ldm.png'  | relative_url }}" alt="ldm" style="zoom:100%;" />
 
 This paper, "High-Resolution Image Synthesis with Latent Diffusion Models" ([https://arxiv.org/abs/2112.10752v2](https://arxiv.org/abs/2112.10752v2)), addresses the high computational cost and slow inference of traditional diffusion models (DMs) while aiming to democratize high-resolution image synthesis.
 
@@ -94,7 +96,7 @@ This paper introduces a method to make high-resolution image synthesis more comp
 
 ### 3.1 Diffusion Process: Curved Path and Its Drawbacks
 
-<img src="{{ '/assets/images/group-09/curvedPath.png'  | relative_url }}" alt="curvedPath" style="zoom:50%;" />
+<img src="{{ '/assets/images/student-16-18/curvedPath.png'  | relative_url }}" alt="curvedPath" style="zoom:50%;" />
 
 ​		*Figure from The Paradox of Diffusion Distillation (*[*https://sander.ai/2024/02/28/paradox.html*](https://sander.ai/2024/02/28/paradox.html)*).*
 
@@ -105,9 +107,9 @@ Traditional diffusion models follow a curved transition path between the noise d
 ### 3.2 Rectified Flow: A Straighter Path
 Stable Diffusion 3 addresses these limitations by introducing Rectified Flow (RF), a method that defines the diffusion trajectory as a **straight-line** interpolation between noise and data. 
 
-<img src="{{ '/assets/images/group-09/rf_forward_1.png'  | relative_url }}" alt="rf_forward_1" style="zoom:50%;" />
+<img src="{{ '/assets/images/student-16-18/rf_forward_1.png'  | relative_url }}" alt="rf_forward_1" style="zoom:50%;" />
 
-<img src="{{ '/assets/images/group-09/rf_forward_2.png'  | relative_url }}" alt="rf_forward_2" style="zoom:50%;" />
+<img src="{{ '/assets/images/student-16-18/rf_forward_2.png'  | relative_url }}" alt="rf_forward_2" style="zoom:50%;" />
 
 This modification significantly speeds up sampling and reduces the likelihood of cumulative errors. 
 
@@ -117,26 +119,26 @@ This modification significantly speeds up sampling and reduces the likelihood of
 
 Initially, the model is trained to predict the velocity vector along this path and the flow matching objective is:
 
-<img src="{{ '/assets/images/group-09/fm_obj.png'  | relative_url }}" alt="rf_forward_2" style="zoom:50%;" />
+<img src="{{ '/assets/images/student-16-18/fm_obj.png'  | relative_url }}" alt="rf_forward_2" style="zoom:50%;" />
 
 
 
 Later, the objective is reformulated as a noise prediction task, making training more tractable and efficient. The final conditional flow matching objective becomes:
 
-<img src="{{ '/assets/images/group-09/cfm_obj.png'  | relative_url }}" alt="rf_forward_2" style="zoom:50%;" />
+<img src="{{ '/assets/images/student-16-18/cfm_obj.png'  | relative_url }}" alt="rf_forward_2" style="zoom:50%;" />
 
 where it measure the distance between predicted noise and true noised added in the forward pass.
 
 ### 3.3 Logit-Normal Sampling
 Instead of sampling timesteps uniformly, SD3 uses a logit-normal distribution to select timesteps during training: 
 
-<img src="{{ '/assets/images/group-09/lg_norm.png'  | relative_url }}" alt="lg_norm" style="zoom:50%;" />
+<img src="{{ '/assets/images/student-16-18/lg_norm.png'  | relative_url }}" alt="lg_norm" style="zoom:50%;" />
 
 
 
 This strategy emphasizes the **intermediate timesteps**—those that are more challenging and informative—while reducing focus on the endpoints, which are easier to denoise. 
 
-<img src="{{ '/assets/images/group-09/lg_norm_vis.png'  | relative_url }}" alt="lg_norm_vis" style="zoom:50%;" />
+<img src="{{ '/assets/images/student-16-18/lg_norm_vis.png'  | relative_url }}" alt="lg_norm_vis" style="zoom:50%;" />
 
 
 
@@ -146,7 +148,7 @@ This targeted learning approach enhances both the efficiency and generalization 
 
 ### 3.4 Architecture Overview
 
-<img src="{{ '/assets/images/group-09/mmdit.png'  | relative_url }}" alt="mmdit" style="zoom:100%;" />
+<img src="{{ '/assets/images/student-16-18/mmdit.png'  | relative_url }}" alt="mmdit" style="zoom:100%;" />
 
 ​						*Figure from Stable Diffusion 3 paper ([https://arxiv.org/abs/2403.03206](https://arxiv.org/abs/2403.03206)).*
 
@@ -181,7 +183,7 @@ SD3's performance was rigorously evaluated using both standard quantitative metr
 
 #### 3.6.1 Benchmark Result
 
-<img src="{{ '/assets/images/group-09/bench_eval.png'  | relative_url }}" alt="bench_eval" style="zoom:60%;" />
+<img src="{{ '/assets/images/student-16-18/bench_eval.png'  | relative_url }}" alt="bench_eval" style="zoom:60%;" />
 
 The largest variant of SD3 (depth=38 with DPO) achieves state-of-the-art performance across all major benchmarks, outperforming both open-source and closed models such as DALLE-3. Evaluation metrics include CLIP score, FID, T2I-CompBench, and GenEval.
 
@@ -189,19 +191,19 @@ The largest variant of SD3 (depth=38 with DPO) achieves state-of-the-art perform
 
 #### 3.6.2 Human Evaluation
 
-<img src="{{ '/assets/images/group-09/human_eval.png'  | relative_url }}" alt="human_eval" style="zoom:60%;" />
+<img src="{{ '/assets/images/student-16-18/human_eval.png'  | relative_url }}" alt="human_eval" style="zoom:60%;" />
 
 In blind pairwise comparisons, human raters preferred SD3-generated images more than 50% of the time across various prompts. SD3 showed particular improvements in color accuracy, spatial coherence, and semantic relevance to text prompts.
 
 #### 3.6.3 Architecture Insights
 
-<img src="{{ '/assets/images/group-09/architecture_comparison.png'  | relative_url }}" alt="architecture_comparison" style="zoom:60%;" />
+<img src="{{ '/assets/images/student-16-18/architecture_comparison.png'  | relative_url }}" alt="architecture_comparison" style="zoom:60%;" />
 
 Empirical studies reveal that increasing the number of latent channels (e.g., to 16) significantly improves image fidelity and reconstruction. MM-DiT consistently outperforms previous transformer-based architectures like DiT, CrossDiT, and UViT. Furthermore, QK-Normalization plays a crucial role in preventing instability in attention logits, thus enabling reliable training under mixed precision.
 
 #### 3.6.4 Sampling Efficiency and Scaling
 
-<img src="{{ '/assets/images/group-09/scaling.png'  | relative_url }}" alt="scaling" style="zoom:60%;" />
+<img src="{{ '/assets/images/student-16-18/scaling.png'  | relative_url }}" alt="scaling" style="zoom:60%;" />
 
 Larger SD3 models not only generate higher-quality outputs but also require fewer sampling steps due to better alignment with the rectified flow objective. Increasing both model depth and training duration correlates with reduced validation loss and improved perceptual quality.
 
@@ -210,7 +212,7 @@ Larger SD3 models not only generate higher-quality outputs but also require fewe
 ### 3.7. Community Impact and Future Work
 
 #### 3.7.1 SD3 in 2025
-<img src="{{ '/assets/images/group-09/rank.png'  | relative_url }}" alt="rank" style="zoom:50%;" />
+<img src="{{ '/assets/images/student-16-18/rank.png'  | relative_url }}" alt="rank" style="zoom:50%;" />
 
 As of May 2025, SD3.5 (released in October 2024) ranks 17th on the Hugging Face text-to-image leaderboard. Despite the growing dominance of closed-source models, SD3’s open-source release remains a cornerstone for transparency and research reproducibility in generative AI.
 
@@ -230,7 +232,7 @@ Stability AI released implementation code for inference. The link is [https://gi
 
 The architecture of the codebase is below:
 
-<img src="{{ '/assets/images/group-09/implementation_architecture.png'  | relative_url }}" alt="implementation_architecture" style="zoom:50%;" />
+<img src="{{ '/assets/images/student-16-18/implementation_architecture.png'  | relative_url }}" alt="implementation_architecture" style="zoom:50%;" />
 
 The SD3 implementation consists of the following key components:
 
@@ -286,13 +288,13 @@ In addition, I prepare a inference **demo code** on Google Colab which you can a
 
 
 ## 4. REPA: Representation Alignment (Oct 2024) [10]
-REPA is a simple regularization technique utilized during pre-training to align the visual representations of transformer-based diffusion models to the visual representations of pre-trained unsupervised vision transformers. Even though the technique is simple, it improves the generation quality and convergence speed of transformer-based diffusion models significantly, performing better than most state-of-the-art diffusion models. After publication, REPA has achieved moderate success, being cited and utilized as benchmarks in various papers.
+REPA is a simple regularization technique utilized during pre-training to align the visual representations of latent transformer-based diffusion models to the visual representations of pre-trained unsupervised vision transformers. Even though the technique is simple, it improves the generation quality and convergence speed of transformer-based diffusion models significantly, performing better than most state-of-the-art diffusion models. After publication, REPA has achieved moderate success, being cited and utilized as benchmarks in various papers.
 
 ### 4.1 Motivation
 When analyzing the characteristics of diffusion models, the authors discovered a paper that uncovered an interesting correlation between generation quality and internal visual representation. This paper, titled Denoising Diffusion Autoencoders are Unified Self-supervised Learners, found that diffusion models learn discriminative features in hidden states similar to vision encoders [11]. However, because diffusion models are trained to optimize generation rather than vision representation, these hidden states are not as strong. In addition, they found that models with better generation had better vision representation. This led the REPA authors to observe that "The main challenge in training diffusion models stems from the need to learn a high-quality internal representation h". 
 
 <figure>
-    <img src="{{ '/assets/images/group-09/REPA_observation.png'  | relative_url }}" alt="REPA_observation" />
+    <img src="{{ '/assets/images/student-16-18/REPA_observation.png'  | relative_url }}" alt="REPA_observation" />
     <figcaption><i>(Analysis on vision representation of latent transformer-based diffusion models. Better vision represention == better generation. )</i></figcaption>
 </figure>
 
@@ -301,7 +303,7 @@ When analyzing the characteristics of diffusion models, the authors discovered a
 If the diffusion model's internal representations have high vision representation, then their performance will improve significantly. To ground their hypothesis, the authors first observed how the internal representations of current state-of-the-art diffusion models (such as SiT) compared to the representations of the best vision transformers (such as DINOv2). Vision transformers are self-supervised and trained to focus on having good vision representation and classify images, making them a good comparison to test vision representation. From their brief survey, the authors found a significant gap between the vision representations, with SiT having very poort representation compared to DINOv2. While longer training sessions resulted in slightly better representation, diffusion models in general had poor vision representation compared to vision transformers.
 
 <figure>
-    <img src="{{ '/assets/images/group-09/REPA_SiT_Observation.png'  | relative_url }}" alt="REPA_SiT_Observation" />
+    <img src="{{ '/assets/images/student-16-18/REPA_SiT_Observation.png'  | relative_url }}" alt="REPA_SiT_Observation" />
     <figcaption><i>(Analysis on current vision representation of SiT diffusion model. Shown that vision representation is poor compared to vision encoders. CKNNA dictates the correlation between the representations of different models, higher is better.)</i></figcaption>
 </figure>
 
@@ -309,15 +311,15 @@ If the diffusion model's internal representations have high vision representatio
 From their study, the authors' main goal was to improve the internal vision representation of diffusion models. To do this, they proposed REPA, a pre-training regularization technique that encourages diffusion models to improve their vision representation. The idea is to calculate the similarity between the image embeddings of a pre-trained vision transformer and the internal representations of each layer of the diffusion model to regularize the objective function. Of course, the two embeddings are in different dimensions at first. Thus, the authors pass the internal representation through a MLP to give the embedding the same dimensionality as the external embedding. Then, they utilize a simple similarity function such as cosine-similiarity or cross-entropy to compare the two before adding it to the final objective function.
 
 <figure>
-    <img src="{{ '/assets/images/group-09/REPA_approach.png'  | relative_url }}" alt="REPA_approach" />
+    <img src="{{ '/assets/images/student-16-18/REPA_approach.png'  | relative_url }}" alt="REPA_approach" style="width: 80%; height: auto;" />
     <figcaption><i>(Diagram of how REPA regularizes the diffusion model.)</i></figcaption>
 </figure>
 
 ### 4.3 Evaluation
-The authors evaluated REPA by pre-training transformer diffusion models (mainly DiT and SiT) with various different vision transformers that provide the external representations for REPA. From their results, they found that REPA significantly improves the vision representation of diffusion models in general, surpassing most state-of-the-art models.
+The authors evaluated REPA by pre-training latent transformer diffusion models (mainly DiT and SiT) with various different vision transformers that provide the external representations for REPA. From their results, they found that REPA significantly improves the vision representation of diffusion models in general, surpassing most state-of-the-art models.
 
 <figure>
-    <img src="{{ '/assets/images/group-09/REPA_improvement.png'  | relative_url }}" alt="REPA_improvement" />
+    <img src="{{ '/assets/images/student-16-18/REPA_improvement.png'  | relative_url }}" alt="REPA_improvement" />
     <figcaption><i>(Visual representation of diffusion models increased significantly.)</i></figcaption>
 </figure>
 
@@ -326,7 +328,7 @@ The authors evaluated REPA by pre-training transformer diffusion models (mainly 
 In addition, both generation quality and convergence improve significantly, with models requiring only around 25% of the original amount of training to reach the same performance.
 
 <figure>
-    <img src="{{ '/assets/images/group-09/REPA_comparison_othermodels.png'  | relative_url }}" alt="REPA_comparison_othermodels" />
+    <img src="{{ '/assets/images/student-16-18/REPA_comparison_othermodels.png'  | relative_url }}" alt="REPA_comparison_othermodels" style="width: 50%; height: 50%;" />
     <figcaption><i>(Compared with other diffusion models, REPA outperforms every one.)</i></figcaption>
 </figure>
 
@@ -349,7 +351,7 @@ REPA-E is a recently published paper that builds upon REPA to enable end-to-end 
 Traditionally, latent diffusion models are trained with a pre-trained VAE, which only updates the generator network. Although end-to-end training is preferred in most deep learning scenarios, previous results showed that naiively training both the diffusion model and VAE together yields poor results. The authors suggest this is due to the model making the VAE latent space simpler to minimize the objective function, hurting the generation quality of the model. Lastly, as mentioned in the REPA section, they found that REPA was bottlenecked by the pre-trained VAE latent space features. When the authors backpropagated the REPA-loss, they noticed that the vision representation of the VAE improved by around 25%. Motivated by these findings, the authors proposed to perform end-to-end training using REPA loss instead of purely using diffusion loss.
 
 <figure>
-    <img src="{{ '/assets/images/group-09/REPAE_EndToEndTraining.png'  | relative_url }}" alt="REPAE_EndToEndTraining" />
+    <img src="{{ '/assets/images/student-16-18/REPAE_EndToEndTraining.png'  | relative_url }}" alt="REPAE_EndToEndTraining"  />
     <figcaption><i>(Comparing end-to-end training methods for latent diffusion models.)</i></figcaption>
 </figure>
 
@@ -357,7 +359,7 @@ Traditionally, latent diffusion models are trained with a pre-trained VAE, which
 The authors' approach is to train both the diffusion model and VAE at the same time using the original diffusion loss plus REPA loss and VAE regularization loss. While REPA was originally only applied to the diffusion models, the authors apply it to the VAE to update its parameters as well. In addition, they add regularization loss to the VAE to ensure that the end-to-end training process does not degrade its performance. By adding more regularization, the authors allow the VAE model to train along the diffusion model. This means that not only will the diffusion model have higher visual representation (which equates to better performance), but the VAE will also have expressive latent space features that are optimized for generation tasks.
 
 <figure>
-    <img src="{{ '/assets/images/group-09/REPAE_equation.png'  | relative_url }}" alt="REPAE_equation" />
+    <img src="{{ '/assets/images/student-16-18/REPAE_equation.png'  | relative_url }}" alt="REPAE_equation" />
     <figcaption><i>(Equation to calculate total objective loss. We can see that besides the denoising objective, REPA loss and VAE regularization were added as well. REPA contains the parameters for both the diffusion model and VAE while VAE regularization contains 3 different types of losses.)</i></figcaption>
 </figure>
 
@@ -365,12 +367,12 @@ The authors' approach is to train both the diffusion model and VAE at the same t
 To evaluate REPA-E, the authors mainly use SiT and its varying model sizes as their main diffusion model. As for the external representation encoders for REPA, they chose to utilize DINOv2 for most of their experiments. Finally, they used SD-VAE as their VAE. From their results, the authors showed that REPA-E outperformed REPA substantially, with FID (generation quality, lower = better) being reduced by at least 40% and convergence being 17 times faster. In addition, using different represention encoders yielded consistent performance improvements. 
 
 <figure>
-    <img src="{{ '/assets/images/group-09/REPAE_performance.png'  | relative_url }}" alt="REPAE_performance" />
+    <img src="{{ '/assets/images/student-16-18/REPAE_performance.png'  | relative_url }}" alt="REPAE_performance" style="width: 50%; height: 50%;" />
     <figcaption><i>(REPA-E outperforms REPA, previously state-of-the-art, in both convergence and generation quality)</i></figcaption>
 </figure>
 
 <figure>
-    <img src="{{ '/assets/images/group-09/REPAE_comparisonToREPA.png'  | relative_url }}" alt="REPAE_comparisonToREPA" />
+    <img src="{{ '/assets/images/student-16-18/REPAE_comparisonToREPA.png'  | relative_url }}" alt="REPAE_comparisonToREPA" />
     <figcaption><i>(Comparing generations of REPA to REPA-E based on number of training iterations. We can see REPA-E has higher quality and lower convergence than REPA)</i></figcaption>
 </figure>
 
@@ -379,7 +381,7 @@ To evaluate REPA-E, the authors mainly use SiT and its varying model sizes as th
 Besides the diffusion model, the authors also found that the tuned VAE also performed very well. While tuning a pretrained VAE does improve performance slightly, REPA-E can train a VAE and diffusion model by scratch and still outperform REPA. They then focused on evaluating the performance of their tuned VAE, which they named E2E-VAE. One thing they noticed was that once tuned, E2E-VAE could be used as a drop-in replacement for traditional diffusion model training. By freezing the VAE and training only the diffusion model, the authors found that the diffusion models trained with E2E-VAE outperformed diffsion models trained with state-of-the-art VAEs. 
 
 <figure>
-    <img src="{{ '/assets/images/group-09/REPAE_resultsVAE.png'  | relative_url }}" alt="REPAE_resultsVAE" />
+    <img src="{{ '/assets/images/student-16-18/REPAE_resultsVAE.png'  | relative_url }}" alt="REPAE_resultsVAE" />
     <figcaption><i>(E2E-VAE outperforms other existing state-of-the-art VAEs in latent diffusion models)</i></figcaption>
 </figure>
 <p></p>
@@ -390,12 +392,14 @@ Then, when comparing the downstream generation performance of E2E-VAE to other s
 By expanding REPA to train both the diffusion model and the VAE, the authors achieved superior performance and convergence at a very low cost. In addition, they published their code and uploaded their checkpoints onto HuggingFace for researchers to replicate their results. However, similar to REPA, we do not have enough GCP resources to experiment with REPA-E. Although the authors don't mention any future works, it's clear that REPA-E will have a big impact in the future of latent diffusion models.
 
 ### 5.5 Analysis
-Overall, REPA-E improves upon REPA and yields impressive results. The authors evaluated their work really well, testing different VAEs and representation encoders, comparing REPA-E with current state-of-the-art models, and having very clear results. A problem with the paper is that it doesn't discuss limitations and future works. The authors should have stated some future works that could inspire further research. For example, expanding REPA-E for different modalities such as image-text and audio input would be interesting to see (similar to what was done for REPA). In addition, it might be worth exploring why REPA-E further improves the performance of latent diffusion models. While better latent features spaces and vision representation emperically gives better results, it's still not really understood why this is happening exactly. Does REPA-E improve both VAE and diffusion model performance, or does it only significantly improve the VAE's performance, which improves the performance of the model in general? If this research of representation alignment continues to grow, it's imperative to analyze and understand what exactly is happening to further improve it. Our opinion is that before, pretrained VAEs might not align well with the denoising task of diffusion models. By adding it into the training process, we can tune it to allow the transformer network to achieve superior vision representation. So while REPA-E unlocks the true potential of latent diffusion models, the REPA regularization is doing a lot of the heavy lifting. However, at this point, there might not be any more extensions to exploit diffusion model vision representation. Perhaps targetting the pretrained vision transformer to focus on generation-based vision representation might be a future work. Lastly, since this paper was only recently published, it would be interesting to see if the authors will add future addendums to add onto their work.
+Overall, REPA-E improves upon REPA and yields impressive results. The authors evaluated their work really well, testing different VAEs and representation encoders, comparing REPA-E with current state-of-the-art models, and having very clear results. A problem with the paper is that it doesn't discuss limitations and future works. The authors should have stated some future works that could inspire further research. For example, expanding REPA-E for different modalities such as image-text and audio input would be interesting to see (similar to what was done for REPA).
+
+In addition, it might be worth exploring why REPA-E further improves the performance of latent diffusion models. While better latent features spaces and vision representation emperically gives better results, it's still not really understood why this is happening exactly. Does REPA-E improve both VAE and diffusion model performance, or does it only significantly improve the VAE's performance, which improves the performance of the model in general? If this research of representation alignment continues to grow, it's imperative to analyze and understand what exactly is happening to further improve it. Our opinion is that before, pretrained VAEs might not align well with the denoising task of diffusion models. By adding it into the training process, we can tune it to allow the transformer network to achieve superior vision representation. So while REPA-E unlocks the true potential of latent diffusion models, the REPA regularization is doing a lot of the heavy lifting. However, at this point, there might not be any more extensions to exploit diffusion model vision representation. Perhaps targetting the pretrained vision transformer to focus on generation-based vision representation might be a future work. Lastly, since this paper was only recently published, it would be interesting to see if the authors will add future addendums to add onto their work.
 
 ## 6. Comparing Methods
-As we can see, Stable Diffusion was the first to utilize VAEs to convert input into a smaller latent space. It allowed diffusion models to have faster inference and lower computation cost. However, during this time, diffusion models were still utilizing the U-net architecture, which lacked scalability and flexibility. While the U-net architecture has seen less use, the idea of using VAEs to shrink the feature space continued to be a common staple in diffusion models today, indicating its enormous impact. As mentioned in the background, the current state-of-the-art models, DiT and SiT, utilize VAE as a crucial part of their architecture.
+As we can see, Stable Diffusion popularized the usage of VAEs to convert input into a smaller latent space. It allowed diffusion models to have faster inference and lower computation cost. Even though, during this time, diffusion models were still utilizing the U-net architecture, the idea of using VAEs to shrink the feature space continued to be a common staple in various diffusion models today, indicating its enormous impact. As mentioned in the background, many the current state-of-the-art models, DiT and SiT, utilize VAE as a crucial part of their architecture.
 
-In addition, both Stable Diffusion 3 and SiT substantially change the architecture of diffusion models, focusing on noise interpolation and different sampling. However, Stable Diffusion 3 focused more on merging text + image input while SiT focused on improving the general performance of DiT. Both works pursued different goals, but shared similar methodologies.
+In addition, both Stable Diffusion 3 and SiT substantially change the architecture of diffusion models, focusing on noise interpolation and different sampling. However, Stable Diffusion 3 focused more on multi-modal input and training while SiT focused on improving the general performance of DiT. Both works pursued different goals, but shared similar methodologies.
 
 Last but not least, we have recently seen enormous improvements in latent diffusion models with REPA and REPA-E being released. Unlike the previous works, REPA and REPA-E utilize existing diffusion model architectures and tinker with them to optimize their performance. Thus, these methods can be utilized for any latent diffusion model as long as it's compatible, making them very flexible. While works such as SD3 and SiT focus on concrete design choices such as loss objectives and sampling, REPA focuses on the fundamental nature of diffusion models and leverages it. As such, it significantly increases the performance of latent diffusion models with a simple add-on. In addition, there are very few downsides as the method is only used during pre-training and doesn't touch the architecture whatsoever. This is analogous to the chisel and hammer, where most works choose to improve diffusion models with several new techniques while REPA surgically finds and improves a critical aspect of diffusion models. This comparison really underscores the importance of understanding the fundamentals of diffusion models. By discovering certain aspects that can be improved, we can significantly boost the performance of diffusion models with a simple change.
 
