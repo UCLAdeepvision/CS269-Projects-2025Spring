@@ -64,7 +64,34 @@ The authors developed an LLM-as-a-Judge system called WebJudge to automatically 
 
 ### WebVoyager
 
+WebVoyager [8] has a set of tasks that are open-ended user instructions that require multi-step interactions. For example, tasks might include “Book a hotel room in New York for next weekend on Booking.com” or “Find and compare the prices of two specific smartphones on an e-commerce site”. The tasks are meant to reflect practical web goals (searching, form-filling, navigating multi-page flows, etc.) and often require combining information gathering with action execution. Because evaluating success on such open tasks can be tricky, WebVoyager’s authors used an automatic evaluation protocol leveraging GPT-4V (similar in spirit to WebJudge). They had GPT-4V examine the agent’s outcome (e.g., final page or sequence of pages visited) and compare it to the intended goal, achieving about 85% agreement with human judgment of success.
+
+Its benchmark and results validated that multimodal agents can substantially outperform text-only agents on real-world websites. Another strength is the introduction of an automatic evaluation metric with GPT-4V to reduce reliance on slow human evaluation
+
 ### RealWebAssist
+
+RealWebAssist [9] is a benchmark aimed at long-horizon, sequential web assistance with real users. Unlike one-shot tasks (e.g. “buy X from Amazon”), this benchmark considers scenarios where a user interacts with an AI assistant over an extended session comprising multiple interdependent instructions. The key idea is to simulate a personal web assistant that can handle an evolving to-do list or goal that unfolds through conversation. RealWebAssist addresses several real-world complexities not covered in prior benchmarks. It extends the challenge to interactive, personalized assistance, highlighting the significant gap between current AI capabilities and the full vision of a personal web assistant that can handle ambiguous, evolving user needs over long sessions.
+
+For example, a user might start with “I need a gift for my mother’s birthday”, then later add “She likes gardening” – the agent must adjust its plan. The benchmark includes such evolving goals. The agent might need to learn or keep track of a particular user’s preferences/routines. E.g., “Order my usual Friday takeout” implies knowing what “usual” means for that user. Instructions come from real users (not annotators inventing them), so they reflect personal language quirks and context assumptions.
+
+As with other GUI agents, the assistant must interface with actual web pages (click buttons, fill forms). RealWebAssist emphasizes aligning instructions with the correct GUI actions – e.g., if the user says “open the second result,” the agent must translate that to clicking the second item on the page.
+
+The benchmark consists of sequential instruction episodes collected from real users. For evaluation, the authors consider the following evaluation metrics:
+- Task success rate: Measures whether the web agent successfully executes all instructions in a given task sequence.
+- Average progress: Calculates what percentage of instructions the agent completes correctly before making its first mistake in a task.
+- Step success rate: Evaluates the agent's performance in a controlled setting where it only needs to handle one instruction at a time, with all previous steps assumed to be completed successfully.
+
+## Backbone Vision-Language Models and UI Grounding
+
+
+## Architectures and Methods: Enhancing Reasoning in GUI Agents
+
+
+## Replication Study: Evaluating Qwen-2.5-VL as a GUI Agent
+
+
+## Conclusion
+
 
 ## References
 
@@ -81,3 +108,7 @@ The authors developed an LLM-as-a-Judge system called WebJudge to automatically 
 [6] Deng, Xiang, Yu Gu, Boyuan Zheng, Shijie Chen, Sam Stevens, Boshi Wang, Huan Sun, and Yu Su. "Mind2web: Towards a generalist agent for the web." Advances in Neural Information Processing Systems 36 (2023): 28091-28114.
 
 [7] Xue, Tianci, Weijian Qi, Tianneng Shi, Chan Hee Song, Boyu Gou, Dawn Song, Huan Sun, and Yu Su. "An illusion of progress? assessing the current state of web agents." arXiv preprint arXiv:2504.01382 (2025).
+
+[8] He, Hongliang, Wenlin Yao, Kaixin Ma, Wenhao Yu, Yong Dai, Hongming Zhang, Zhenzhong Lan, and Dong Yu. "WebVoyager: Building an end-to-end web agent with large multimodal models." arXiv preprint arXiv:2401.13919 (2024).
+
+[9] Ye, Suyu, Haojun Shi, Darren Shih, Hyokun Yun, Tanya Roosta, and Tianmin Shu. "Realwebassist: A benchmark for long-horizon web assistance with real-world users." arXiv preprint arXiv:2504.10445 (2025).
