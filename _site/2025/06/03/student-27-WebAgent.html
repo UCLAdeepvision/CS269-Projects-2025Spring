@@ -301,6 +301,8 @@
 
 <p>Another angle of learning from experience is self-improvement via trajectory relabeling or self-play. Researchers have explored letting an LLM agent run on many tasks, then analyzing its failures and successes to generate additional training data [16]. The agent would attempt tasks, then (using the LLM’s own evaluation or a heuristic) identify where it went wrong, and synthesize corrected trajectories or critiques. These synthetic trajectories, added to a finetuning dataset, boosted the task completion rate by ~31% over the base model on WebArena. Such self-refinement approaches are appealing because they mitigate the need for large human-labeled datasets – the agent essentially learns from its mistakes. However, they also require careful validation to ensure the agent doesn’t reinforce bad behaviors.</p>
 
+<p>In more recent literature, Agent Q [27] couples Monte-Carlo Tree Search with an LLM policy, augments each node with AI-feedback self-critique to densify sparse web rewards, and finally distills both winning and failing branches through Direct Preference Optimization; this “search-and-learn” loop boosts WebShop success to roughly 50 % and raises real-world OpenTable booking from 18 % to 81–95 %, surpassing GPT-4o and human baselines. InfiGUI-R1 [28] moves GUI agents from reactive clicking to deliberative reasoning via a two-stage Actor2Reasoner pipeline: Spatial Reasoning Distillation first implants explicit cross-modal reasoning traces, then RL-based Deliberation Enhancement rewards sub-goal planning and error recovery, producing a 3 B-parameter agent that matches or outperforms far larger models on ScreenSpot [29] grounding and long-horizon AndroidControl [31] tasks. Complementing these, UI-R1 [30] shows that a lean rule-based reinforcement fine-tuning regime—with a novel action-type/argument/format reward and GRPO on just 136 hard examples—can lift a 3 B Qwen-2.5-VL model by +22 pp on ScreenSpot and +12 pp on AndroidControl [31], rivaling much larger SFT models and even demonstrating that explicit reasoning can be skipped for simple grounding without loss of accuracy.</p>
+
 <h2 id="replication-study-evaluating-qwen-25-vl-as-a-gui-agent">Replication Study: Evaluating Qwen-2.5-VL as a GUI Agent</h2>
 
 <h2 id="conclusion">Conclusion</h2>
@@ -358,6 +360,16 @@
 <p>[25] Zhang, Chaoyun, Liqun Li, Shilin He, Xu Zhang, Bo Qiao, Si Qin, Minghua Ma et al. “Ufo: A ui-focused agent for windows os interaction.” arXiv preprint arXiv:2402.07939 (2024).</p>
 
 <p>[26] Agashe, Saaket, Jiuzhou Han, Shuyu Gan, Jiachen Yang, Ang Li, and Xin Eric Wang. “Agent s: An open agentic framework that uses computers like a human.” arXiv preprint arXiv:2410.08164 (2024).</p>
+
+<p>[27] Putta, Pranav, Edmund Mills, Naman Garg, Sumeet Motwani, Chelsea Finn, Divyansh Garg, and Rafael Rafailov. “Agent q: Advanced reasoning and learning for autonomous ai agents.” arXiv preprint arXiv:2408.07199 (2024).</p>
+
+<p>[28] Liu, Yuhang, Pengxiang Li, Congkai Xie, Xavier Hu, Xiaotian Han, Shengyu Zhang, Hongxia Yang, and Fei Wu. “Infigui-r1: Advancing multimodal gui agents from reactive actors to deliberative reasoners.” arXiv preprint arXiv:2504.14239 (2025).</p>
+
+<p>[29] Li, Kaixin, Ziyang Meng, Hongzhan Lin, Ziyang Luo, Yuchen Tian, Jing Ma, Zhiyong Huang, and Tat-Seng Chua. “Screenspot-pro: Gui grounding for professional high-resolution computer use.” arXiv preprint arXiv:2504.07981 (2025).</p>
+
+<p>[30] Lu, Zhengxi, Yuxiang Chai, Yaxuan Guo, Xi Yin, Liang Liu, Hao Wang, Han Xiao, Shuai Ren, Guanjing Xiong, and Hongsheng Li. “Ui-r1: Enhancing action prediction of gui agents by reinforcement learning.” arXiv preprint arXiv:2503.21620 (2025).</p>
+
+<p>[31] Li, Wei, William Bishop, Alice Li, Chris Rawles, Folawiyo Campbell-Ajala, Divya Tyamagundlu, and Oriana Riva. “On the effects of data scale on computer control agents.” arXiv e-prints (2024): arXiv-2406.</p>
 
   </div>
 
