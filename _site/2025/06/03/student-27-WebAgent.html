@@ -186,8 +186,15 @@
       <li><a href="#realwebassist" id="markdown-toc-realwebassist">RealWebAssist</a></li>
     </ul>
   </li>
-  <li><a href="#backbone-vision-language-models-and-ui-grounding" id="markdown-toc-backbone-vision-language-models-and-ui-grounding">Backbone Vision-Language Models and UI Grounding</a></li>
-  <li><a href="#architectures-and-methods-enhancing-reasoning-in-gui-agents" id="markdown-toc-architectures-and-methods-enhancing-reasoning-in-gui-agents">Architectures and Methods: Enhancing Reasoning in GUI Agents</a></li>
+  <li><a href="#backbone-vision-language-models-and-ui-grounding" id="markdown-toc-backbone-vision-language-models-and-ui-grounding">Backbone Vision-Language Models and UI Grounding</a>    <ul>
+      <li><a href="#ui-grounding---aligning-perception-and-action" id="markdown-toc-ui-grounding---aligning-perception-and-action">UI Grounding - Aligning Perception and Action</a></li>
+    </ul>
+  </li>
+  <li><a href="#architectures-and-methods-enhancing-reasoning-in-gui-agents" id="markdown-toc-architectures-and-methods-enhancing-reasoning-in-gui-agents">Architectures and Methods: Enhancing Reasoning in GUI Agents</a>    <ul>
+      <li><a href="#prompt-based-planning-and-chain-of-thought" id="markdown-toc-prompt-based-planning-and-chain-of-thought">Prompt-Based Planning and Chain-of-Thought</a></li>
+      <li><a href="#reinforcement-learning" id="markdown-toc-reinforcement-learning">Reinforcement Learning</a></li>
+    </ul>
+  </li>
   <li><a href="#replication-study-evaluating-qwen-25-vl-as-a-gui-agent" id="markdown-toc-replication-study-evaluating-qwen-25-vl-as-a-gui-agent">Replication Study: Evaluating Qwen-2.5-VL as a GUI Agent</a></li>
   <li><a href="#conclusion" id="markdown-toc-conclusion">Conclusion</a></li>
   <li><a href="#references" id="markdown-toc-references">References</a></li>
@@ -260,7 +267,33 @@
 
 <h2 id="backbone-vision-language-models-and-ui-grounding">Backbone Vision-Language Models and UI Grounding</h2>
 
+<p>Multimodal LLMs have become the core enablers of GUI agents. Since 2024, a new generation of such models has been adapted to interact with digital interfaces using vision and language. Notably, closed-source giants like OpenAI’s GPT‑4 and Google’s Gemini [17] are pushing capability boundaries. OpenAI’s developed a Computer-Using Agent (CUA) to drive an autonomous GUI agent named <strong>Operator</strong> [18]. This system can visually perceive screens and perform mouse/keyboard actions without specialized APIs. Anthropic’s Claude 3.5 [19] has also gained a “Computer Use” capability, enabling it to “view” a virtual screen and emulate mouse/keyboard interactions. Meanwhile, the community has introduced strong open-source multimodal models to democratize GUI agents. Notably, Alibaba’s Qwen-2.5-VL [20] has delivered impressive visual understanding – e.g. it can handle very large image inputs and precise object localization. Similarly, the ChatGLM family has spawned AutoGLM [21], a specialized multimodal agent model. AutoGLM augments a ChatGLM-based LLM with vision and is trained via reinforcement learning for GUI tasks.</p>
+
+<h3 id="ui-grounding---aligning-perception-and-action">UI Grounding - Aligning Perception and Action</h3>
+
+<p>Achieving fluent GUI automation requires “grounding” the model in the actual UI – i.e. linking the model’s linguistic plans to on-screen elements and executable actions. Recent research has made substantial progress in perception, UI understanding, and action grounding for GUI agents.</p>
+
 <h2 id="architectures-and-methods-enhancing-reasoning-in-gui-agents">Architectures and Methods: Enhancing Reasoning in GUI Agents</h2>
+
+<p>Developing a general-purpose GUI web agent requires innovation on multiple fronts: how the agent’s policy is represented (LLM-based, reinforcement learned, etc.), how it integrates vision and text, and how it plans and reasons about its next actions. Recent works have explored a spectrum of approaches:</p>
+
+<h3 id="prompt-based-planning-and-chain-of-thought">Prompt-Based Planning and Chain-of-Thought</h3>
+
+<p>Large Language Models, especially since GPT-4 [10] and their open-source equivalents, have become the “brains” of many web agents. Given an instruction and the current page (as text or description of GUI), the LLM can be prompted to output an action (e.g. click(“Add to Cart”)). Early attempts simply used zero-shot or few-shot prompting with GPT-4, but these often lacked deep reasoning for multi-step tasks. To address this, researchers introduced chain-of-thought (CoT) strategies for web agents: the model is encouraged to generate a step-by-step rationale before choosing each action. This was inspired by the ReAct paradigm [11], which interleaves reasoning text (“I need to find a search bar on the page…”) with explicit actions. By reasoning explicitly, the LLM can plan several steps ahead or consider contingencies.</p>
+
+<p>A recent development in 2025 is <strong>WebCoT [3]</strong>, which identifies key reasoning skills for web agents and trains models to use them. WebCoT emphasizes reflection &amp; lookahead, branching, and rollback as three crucial abilities. Instead of relying on an LLM to implicitly learn these, they reconstruct training trajectories with rich rationales that demonstrate, for example, branching (considering multiple possible paths) and rollback (recovering from a bad click) in the chain-of-thought. By fine-tuning an LLM on these augmented trajectories, WebCoT achieved notable gains on WebVoyager, and on tasks like Mind2Web-live and web search QA.</p>
+
+<p>Similarly, other works have looked at incorporating planning abilities directly into the model’s action space. <strong>AgentOccam [2]</strong> by Amazon researchers is one such approach: it introduces special actions like branch and prune which allow the agent to explicitly create and manage a tree of sub-plans. For example, an e-commerce task might require information from two different pages; the agent can branch its plan into two parallel subgoals, gather results, then prune away completed branches. By simplifying the action space (removing distracting or seldom-used actions) and adding these planning operations, AgentOccam achieved a strong performance baseline on the WebArena benchmark.</p>
+
+<p>Another notable result of incorporating better reasoning came from LASER (2024), which tackled WebShop tasks. LASER reframed the web task for the LLM as an explicit state-space exploration problem [12]. Instead of having the LLM treat every step as unrelated to the next, LASER defines distinct states (e.g. “search results page” or “product page”) and allowed actions from each state, enabling the model to backtrack and explore alternatives. This approach acknowledged that an LLM agent may make a mistake, but it can recover by returning to a previous state and trying a different path (much like a human clicking the back button and trying the next link). The impact of this reasoning-aware formulation was striking on e-commerce tasks – LASER nearly closed the gap with human performance on WebShop [13].</p>
+
+<h3 id="reinforcement-learning">Reinforcement Learning</h3>
+
+<p>While prompting and supervised fine-tuning have seen success, another thread of research focuses on learning from experience to improve GUI agents. The idea is that by actually trial-and-error interacting with the environment, an agent can learn a policy that is more robust than one purely imitated from limited data. However, applying RL to large language model-based agents is non-trivial (due to huge action spaces, long horizons, and the expense of running many trials). Recent work has made progress on this front:</p>
+
+<p><strong>WebAgent-R1 (2025)</strong> [14] is an end-to-end RL framework that achieved state-of-the-art performance on WebArena by carefully adapting RL algorithms to LLM agents. The authors designed a reward function that encourages the agent to complete the task at hand while also exploring the web. They also introduced a method to handle the sparse and delayed reward signal present in web navigation tasks. One innovation in WebAgent-R1 is a dynamic context compression mechanism: as an episode proceeds through dozens of pages, the text observation can become thousands of tokens long (exceeding model limits). WebAgent-R1 dynamically truncates or compresses less relevant context from earlier steps to keep the input size manageable. Another contribution is extending GRPO [15] to multi-turn settings (called M-GRPO) and using asynchronous parallel browsing to collect experiences faster.</p>
+
+<p>Another angle of learning from experience is self-improvement via trajectory relabeling or self-play. Researchers have explored letting an LLM agent run on many tasks, then analyzing its failures and successes to generate additional training data [16]. The agent would attempt tasks, then (using the LLM’s own evaluation or a heuristic) identify where it went wrong, and synthesize corrected trajectories or critiques. These synthetic trajectories, added to a finetuning dataset, boosted the task completion rate by ~31% over the base model on WebArena. Such self-refinement approaches are appealing because they mitigate the need for large human-labeled datasets – the agent essentially learns from its mistakes. However, they also require careful validation to ensure the agent doesn’t reinforce bad behaviors.</p>
 
 <h2 id="replication-study-evaluating-qwen-25-vl-as-a-gui-agent">Replication Study: Evaluating Qwen-2.5-VL as a GUI Agent</h2>
 
@@ -285,6 +318,31 @@
 <p>[8] He, Hongliang, Wenlin Yao, Kaixin Ma, Wenhao Yu, Yong Dai, Hongming Zhang, Zhenzhong Lan, and Dong Yu. “WebVoyager: Building an end-to-end web agent with large multimodal models.” arXiv preprint arXiv:2401.13919 (2024).</p>
 
 <p>[9] Ye, Suyu, Haojun Shi, Darren Shih, Hyokun Yun, Tanya Roosta, and Tianmin Shu. “Realwebassist: A benchmark for long-horizon web assistance with real-world users.” arXiv preprint arXiv:2504.10445 (2025).</p>
+
+<p>[10] Achiam, Josh, Steven Adler, Sandhini Agarwal, Lama Ahmad, Ilge Akkaya, Florencia Leoni Aleman, Diogo Almeida et al. “Gpt-4 technical report.” arXiv preprint arXiv:2303.08774 (2023).</p>
+
+<p>[11] Yao, Shunyu, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, and Yuan Cao. “React: Synergizing reasoning and acting in language models.” In International Conference on Learning Representations (ICLR). 2023.</p>
+
+<p>[12] Ma, Kaixin, Hongming Zhang, Hongwei Wang, Xiaoman Pan, Wenhao Yu, and Dong Yu. “Laser: Llm agent with state-space exploration for web navigation.” arXiv preprint arXiv:2309.08172 (2023).</p>
+
+<p>[13] Yao, Shunyu, Howard Chen, John Yang, and Karthik Narasimhan. “Webshop: Towards scalable real-world web interaction with grounded language agents.” Advances in Neural Information Processing Systems 35 (2022): 20744-20757.</p>
+
+<p>[14] Wei, Zhepei, Wenlin Yao, Yao Liu, Weizhi Zhang, Qin Lu, Liang Qiu, Changlong Yu et al. “WebAgent-R1: Training Web Agents via End-to-End Multi-Turn Reinforcement Learning.” arXiv preprint arXiv:2505.16421 (2025).</p>
+
+<p>[15] Zhihong Shao, Peiyi Wang, Qihao Zhu, Runxin Xu, Junxiao Song, Xiao Bi, Haowei Zhang, Mingchuan Zhang, YK Li, Y Wu, and 1 others. 2024. Deepseekmath: Pushing the limits of mathematical reasoning in open language models. arXiv preprint arXiv:2402.03300.</p>
+
+<p>[16] Patel, Ajay, Markus Hofmarcher, Claudiu Leoveanu-Condrei, Marius-Constantin Dinu, Chris Callison-Burch, and Sepp Hochreiter. “Large language models can self-improve at web agent tasks.” arXiv preprint arXiv:2405.20309 (2024).</p>
+
+<p>[17] Team, Gemini, Rohan Anil, Sebastian Borgeaud, Jean-Baptiste Alayrac, Jiahui Yu, Radu Soricut, Johan Schalkwyk et al. “Gemini: a family of highly capable multimodal models.” arXiv preprint arXiv:2312.11805 (2023).</p>
+
+<p>[18] OpenAI. 2024. Introducing Operator. https://openai.com/index/introducing-operator/</p>
+
+<p>[19] Anthropic. 2024. Anthropic’s new Claude 3.5 Sonnet model is now available. https://www.anthropic.com/news/claude-3-5-sonnet</p>
+
+<p>[20] Bai, Shuai, Keqin Chen, Xuejing Liu, Jialin Wang, Wenbin Ge, Sibo Song, Kai Dang et al. “Qwen2. 5-vl technical report.” arXiv preprint arXiv:2502.13923 (2025).</p>
+
+<p>[21] Liu, Xiao, Bo Qin, Dongzhu Liang, Guang Dong, Hanyu Lai, Hanchen Zhang, Hanlin Zhao et al. “Autoglm: Autonomous foundation agents for guis.” arXiv preprint arXiv:2411.00820 (2024).</p>
+
 
   </div>
 
