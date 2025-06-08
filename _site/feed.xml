@@ -1,0 +1,1033 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/CS269-Projects-2025Spring/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/CS269-Projects-2025Spring/" rel="alternate" type="text/html" /><updated>2025-06-07T16:56:53-07:00</updated><id>http://localhost:4000/CS269-Projects-2025Spring/feed.xml</id><title type="html">2025S, UCLA CS269 Course Projects</title><subtitle>Course projects for UCLA CS269, Seminar on AI Agents and Foundation Models</subtitle><author><name>UCLAdeepvision</name></author><entry><title type="html">The Evolving Landscape of AI in Virtual Agent Design: Architectures, Reasoning, Learning, and the Influence of Foundation Models</title><link href="http://localhost:4000/CS269-Projects-2025Spring/2025/06/07/student-28-hi.html" rel="alternate" type="text/html" title="The Evolving Landscape of AI in Virtual Agent Design: Architectures, Reasoning, Learning, and the Influence of Foundation Models" /><published>2025-06-07T00:00:00-07:00</published><updated>2025-06-07T00:00:00-07:00</updated><id>http://localhost:4000/CS269-Projects-2025Spring/2025/06/07/student-28-hi</id><content type="html" xml:base="http://localhost:4000/CS269-Projects-2025Spring/2025/06/07/student-28-hi.html"><![CDATA[<blockquote>
+  <p>The design of virtual agents is undergoing a significant transformation, 
+driven by the advanced capabilities of foundation models (FMs), particularly Large Language Models (LLMs) and Multimodal Large Language Models (MLLMs). These FMs now serve as the cognitive core for agents, enabling sophisticated understanding, reasoning, planning, and interaction. This literature review delves into the AI design principles and architectures underpinning modern virtual agents, focusing on their cognitive architectures, reasoning and planning mechanisms, learning and adaptation capabilities, and the pivotal influence of FMs. We explore key innovations such as advanced memory systems (e.g., MemGPT, A-MEM) that address context limitations, sophisticated reasoning frameworks (e.g., ReAct, Reflexion, Tree-of-Thoughts, Case-Based Reasoning integration) that enhance decision-making, and paradigms for agent self-improvement and autonomous evolution (e.g., SICA, ADAS). The review also examines the AI design of multi-agent systems (MAS), including collaborative architectures (e.g., AutoGen, MetaGPT) and the emergence of collective intelligence. A central theme is the trend towards agents that are not only more autonomous but are also capable of evolving their own cognitive processes and architectural blueprints, largely enabled by the meta-cognitive capabilities of recent FMs. However, this rapid progress is accompanied by significant challenges in ensuring robustness, reliability, safety, and ethical alignment, particularly as agents become more integrated into real-world applications. The increasing complexity and resource demands of FM-powered agents also highlight the growing importance of system-level support, such as that proposed by AIOS, to efficiently manage cognitive resources. The field is maturing towards a more holistic approach, integrating AI-aware system design with advanced cognitive capabilities, while emphasizing the critical need for rigorous evaluation and responsible development to harness the full potential of AI-driven virtual agents.</p>
+</blockquote>
+
+<!--more-->
+<ul id="markdown-toc">
+  <li><a href="#1-introduction-to-ai-driven-virtual-agents" id="markdown-toc-1-introduction-to-ai-driven-virtual-agents">1. Introduction to AI-Driven Virtual Agents</a></li>
+  <li><a href="#2-cognitive-architectures-for-intelligent-agents" id="markdown-toc-2-cognitive-architectures-for-intelligent-agents">2. Cognitive Architectures for Intelligent Agents</a>    <ul>
+      <li><a href="#21-core-components-from-an-ai-perspective" id="markdown-toc-21-core-components-from-an-ai-perspective">2.1 Core Components from an AI Perspective</a></li>
+      <li><a href="#22-the-influence-of-foundation-models-on-architectural-blueprints" id="markdown-toc-22-the-influence-of-foundation-models-on-architectural-blueprints">2.2 The Influence of Foundation Models on Architectural Blueprints</a></li>
+      <li><a href="#23-innovations-in-memory-systems-for-long-term-context-and-learning" id="markdown-toc-23-innovations-in-memory-systems-for-long-term-context-and-learning">2.3 Innovations in Memory Systems for Long-Term Context and Learning</a></li>
+      <li><a href="#24-emerging-paradigms-in-cognitive-architectures" id="markdown-toc-24-emerging-paradigms-in-cognitive-architectures">2.4 Emerging Paradigms in Cognitive Architectures</a></li>
+    </ul>
+  </li>
+  <li><a href="#3-reasoning-and-planning-in-virtual-agents" id="markdown-toc-3-reasoning-and-planning-in-virtual-agents">3. Reasoning and Planning in Virtual Agents</a>    <ul>
+      <li><a href="#31-foundation-model-based-reasoning" id="markdown-toc-31-foundation-model-based-reasoning">3.1 Foundation Model-Based Reasoning</a></li>
+      <li><a href="#32-advanced-reasoning-frameworks" id="markdown-toc-32-advanced-reasoning-frameworks">3.2 Advanced Reasoning Frameworks</a></li>
+      <li><a href="#33-planning-with-llms" id="markdown-toc-33-planning-with-llms">3.3 Planning with LLMs</a></li>
+      <li><a href="#34-case-based-reasoning-cbr-integration" id="markdown-toc-34-case-based-reasoning-cbr-integration">3.4 Case-Based Reasoning (CBR) Integration</a></li>
+    </ul>
+  </li>
+  <li><a href="#4-learning-and-adaptation-in-virtual-agents" id="markdown-toc-4-learning-and-adaptation-in-virtual-agents">4. Learning and Adaptation in Virtual Agents</a>    <ul>
+      <li><a href="#41-learning-from-diverse-feedback-mechanisms" id="markdown-toc-41-learning-from-diverse-feedback-mechanisms">4.1 Learning from Diverse Feedback Mechanisms</a></li>
+      <li><a href="#42-self-improving-agents-towards-autonomous-evolution" id="markdown-toc-42-self-improving-agents-towards-autonomous-evolution">4.2 Self-Improving Agents: Towards Autonomous Evolution</a></li>
+      <li><a href="#43-tool-learning-and-adaptation" id="markdown-toc-43-tool-learning-and-adaptation">4.3 Tool Learning and Adaptation</a></li>
+      <li><a href="#44-continual-and-lifelong-learning-for-sustained-adaptation" id="markdown-toc-44-continual-and-lifelong-learning-for-sustained-adaptation">4.4 Continual and Lifelong Learning for Sustained Adaptation</a></li>
+    </ul>
+  </li>
+  <li><a href="#5-foundation-models-as-enablers-of-advanced-agent-ai" id="markdown-toc-5-foundation-models-as-enablers-of-advanced-agent-ai">5. Foundation Models as Enablers of Advanced Agent AI</a>    <ul>
+      <li><a href="#51-deep-dive-into-capabilities-of-recent-foundation-models" id="markdown-toc-51-deep-dive-into-capabilities-of-recent-foundation-models">5.1 Deep Dive into Capabilities of Recent Foundation Models</a></li>
+      <li><a href="#52-foundation-models-in-agent-modules" id="markdown-toc-52-foundation-models-in-agent-modules">5.2 Foundation Models in Agent Modules</a></li>
+      <li><a href="#53-impact-of-scaling-laws-and-emergent-abilities" id="markdown-toc-53-impact-of-scaling-laws-and-emergent-abilities">5.3 Impact of Scaling Laws and Emergent Abilities</a></li>
+    </ul>
+  </li>
+  <li><a href="#6-ai-design-in-multi-agent-systems-mas" id="markdown-toc-6-ai-design-in-multi-agent-systems-mas">6. AI Design in Multi-Agent Systems (MAS)</a>    <ul>
+      <li><a href="#61-architectures-for-collaboration-and-coordination" id="markdown-toc-61-architectures-for-collaboration-and-coordination">6.1 Architectures for Collaboration and Coordination</a></li>
+      <li><a href="#62-frameworks-for-mas-development" id="markdown-toc-62-frameworks-for-mas-development">6.2 Frameworks for MAS Development</a></li>
+      <li><a href="#63-task-decomposition-role-assignment-and-coordination-strategies" id="markdown-toc-63-task-decomposition-role-assignment-and-coordination-strategies">6.3 Task Decomposition, Role Assignment, and Coordination Strategies</a></li>
+      <li><a href="#64-emergent-behavior-and-collective-intelligence" id="markdown-toc-64-emergent-behavior-and-collective-intelligence">6.4 Emergent Behavior and Collective Intelligence</a></li>
+      <li><a href="#65-alignment-in-multi-agent-systems" id="markdown-toc-65-alignment-in-multi-agent-systems">6.5 Alignment in Multi-Agent Systems</a></li>
+    </ul>
+  </li>
+  <li><a href="#7-challenges-and-future-directions-in-virtual-agent-ai-design" id="markdown-toc-7-challenges-and-future-directions-in-virtual-agent-ai-design">7. Challenges and Future Directions in Virtual Agent AI Design</a>    <ul>
+      <li><a href="#71-enhancing-robustness-reliability-and-safety" id="markdown-toc-71-enhancing-robustness-reliability-and-safety">7.1 Enhancing Robustness, Reliability, and Safety</a></li>
+      <li><a href="#72-achieving-true-long-term-reasoning-and-scalable-context-management" id="markdown-toc-72-achieving-true-long-term-reasoning-and-scalable-context-management">7.2 Achieving True Long-Term Reasoning and Scalable Context Management</a></li>
+      <li><a href="#73-improving-learning-efficiency-and-generalization" id="markdown-toc-73-improving-learning-efficiency-and-generalization">7.3 Improving Learning Efficiency and Generalization</a></li>
+      <li><a href="#74-the-path-towards-more-autonomous-and-generally-capable-agents" id="markdown-toc-74-the-path-towards-more-autonomous-and-generally-capable-agents">7.4 The Path Towards More Autonomous and Generally Capable Agents</a></li>
+      <li><a href="#75-ethical-considerations-in-advanced-ai-agent-design" id="markdown-toc-75-ethical-considerations-in-advanced-ai-agent-design">7.5 Ethical Considerations in Advanced AI Agent Design</a></li>
+    </ul>
+  </li>
+  <li><a href="#8-conclusion" id="markdown-toc-8-conclusion">8. Conclusion</a></li>
+  <li><a href="#bibliography" id="markdown-toc-bibliography">Bibliography</a></li>
+</ul>
+
+<h2 id="1-introduction-to-ai-driven-virtual-agents">1. Introduction to AI-Driven Virtual Agents</h2>
+
+<p>The domain of virtual agents is undergoing a profound transformation, shifting from predominantly rule-based automatons to sophisticated, AI-driven entities. These modern agents are characterized by their capacity for complex reasoning, autonomous planning, and nuanced interaction with their environments and human users.[1, 2] This evolution is not merely an incremental improvement but signifies a paradigm shift towards what is increasingly termed “agentic AI”—systems that perceive, reason, learn, and act with a significant degree of autonomy to achieve specified goals.[2, 3, 4] Such a qualitative leap is fundamentally altering the landscape of artificial intelligence and reshaping the potential of human-machine collaboration.[5, 6]</p>
+
+<p>At the heart of this advancement lies the pivotal role of foundation models (FMs), particularly Large Language Models (LLMs) and Multimodal Large Language Models (MLLMs). These models are increasingly serving as the “cognitive engine” or the central processing unit for contemporary virtual agents.[3, 4, 7] FMs bestow upon agents unprecedented capabilities in natural language understanding, intricate reasoning, dynamic planning, and even the generation of code necessary for interacting with external tools and environments.[6, 8] The AIOS paper, for instance, underscores the power of LLMs in comprehending instructions, solving problems, and engaging with both human users and external systems.[8] This integration allows agents to undertake complex tasks that traditionally demanded human expertise, spanning domains from scientific research to software development.[2, 7] The development of AI agents, therefore, represents a convergence of previously distinct AI research areas, including natural language processing, automated reasoning, machine learning, and even aspects of robotics for embodied agents. This amalgamation is fostering the emergence of more holistic and versatile agentic systems. Foundation models are the critical enablers of this convergence, providing the core intelligence that allows these disparate capabilities to be woven into a cohesive agent. This trend points towards the development of more “generalist” agents, moving away from the narrow specializations of earlier AI systems.</p>
+
+<p>A significant conceptual development is the emergence of an “agent layer” as a distinct abstraction built upon foundation models.[2, 4] This layer endows the underlying FMs with the necessary scaffolding for perception, memory, planning, tool use, and action execution, thereby transforming them from passive information processors into proactive, goal-oriented entities.[9] The foundation model provides the core intelligence, while the agent architecture furnishes the structure and mechanisms for this intelligence to be purposefully and autonomously applied within an environment. This architectural pattern, characterized by an FM core augmented with agentic scaffolding, is rapidly becoming a standard design principle. It offers modularity, allowing for the underlying FM to be updated or replaced while the overarching agentic framework remains intact. Consequently, advancements in FMs directly translate into enhanced capabilities for the agents built upon them.</p>
+
+<p>This literature review aims to provide an in-depth analysis of the AI design principles and architectures underpinning modern virtual agents. The primary focus will be on their cognitive architectures, reasoning and planning mechanisms, learning capabilities, and the indispensable role of foundation models in shaping these facets. While system-level support, such as that proposed by the AIOS (Agent Operating System) framework [8], is acknowledged for its crucial role in enhancing AI functionalities and managing resources for efficient agent operation, the core of this review will remain centered on the AI aspects of agent creation and functionality. Particular emphasis will be placed on recent publications, especially those from late 2024 and 2025, to ensure the review reflects the current, rapidly advancing state of the art in this dynamic field.</p>
+
+<h2 id="2-cognitive-architectures-for-intelligent-agents">2. Cognitive Architectures for Intelligent Agents</h2>
+
+<p>The design of cognitive architectures for intelligent agents is a critical area of research, defining how agents perceive their environment, process information, make decisions, and learn. Modern AI agent architectures are increasingly modular, often centered around powerful foundation models that act as the cognitive core.</p>
+
+<h3 id="21-core-components-from-an-ai-perspective">2.1 Core Components from an AI Perspective</h3>
+
+<p>From an AI design standpoint, contemporary agent architectures typically comprise several key modules. These include perception, for interpreting sensory data and environmental cues; reasoning and planning, for decision-making and strategy formulation; memory, for storing and retrieving relevant information; and action execution, for interacting with the environment.[6, 2, 3, 4] Foundation models often serve as the central processing unit orchestrating these components.[5, 10, 11, 4]</p>
+
+<p>The <strong>perception</strong> module enables agents to ingest and interpret data from diverse modalities, including text, images, audio, and video, as well as inputs from external environments.[10, 3, 4, 12] The advent of MLLMs has been particularly transformative for this component, allowing agents to build a richer understanding of their surroundings.[13, 14, 15]</p>
+
+<p>The <strong>reasoning and planning</strong> module forms the cognitive heart of the agent. Here, perceived information is processed, goals are evaluated, decisions are made, and strategies are formulated. This often involves complex processes like task decomposition, hierarchical planning, and the selection of appropriate actions or tools to achieve objectives.[5, 6, 11, 2, 16, 17]</p>
+
+<p><strong>Memory</strong> is fundamental for agents to maintain context, learn from past experiences, and inform future decisions. This includes both short-term working memory for ongoing tasks and long-term memory for storing knowledge, skills, and episodic experiences.[5, 18, 19, 20, 8, 21, 22] The AIOS paper, for example, details memory and storage managers that handle agent interaction histories and persistent data, respectively.[8]</p>
+
+<p>The <strong>action</strong> module is responsible for executing the decisions made by the reasoning module. Actions can range from generating textual responses and making API calls to external tools, to controlling actuators in physical or virtual environments.[5, 6, 11, 2, 3, 4]</p>
+
+<h3 id="22-the-influence-of-foundation-models-on-architectural-blueprints">2.2 The Influence of Foundation Models on Architectural Blueprints</h3>
+
+<p>Foundation models, including LLMs and MLLMs, are increasingly the central linchpin around which agent architectures are designed and implemented.[5, 2, 4, 7, 9] They provide the core intelligence for sophisticated language understanding, complex reasoning, and even the generation of code required for tool invocation and environmental interaction. The AIOS framework, for instance, conceptualizes LLMs as “cores,” analogous to CPU cores in traditional computing systems, highlighting their central processing role and allowing for the modular integration of diverse LLM instances.[8] The inherent capabilities of the chosen foundation model—such as its context window size (e.g., GPT-3’s 2-4K tokens versus Gemini 1.5’s 1M tokens [1]), reasoning proficiency, and multimodal understanding (as seen in models like GPT-4 [23, 24] and Gemini 2.5 [25])—directly determine the potential complexity and operational effectiveness of the agent’s cognitive functions.</p>
+
+<h3 id="23-innovations-in-memory-systems-for-long-term-context-and-learning">2.3 Innovations in Memory Systems for Long-Term Context and Learning</h3>
+
+<p>A significant challenge in designing agents based on foundation models is the inherent limitation of their context windows. This “context wall” restricts the amount of information an LLM can process at any given time, hindering capabilities essential for agents, such as engaging in long-term conversations, continuous learning from extensive histories, or analyzing large documents. Consequently, a substantial body of recent research has focused on developing innovative memory architectures that aim to transcend these limitations, moving towards dynamic, structured, and even self-evolving memory systems.</p>
+
+<p>One notable approach is <strong>MemGPT</strong>.[19] Drawing inspiration from hierarchical memory systems in traditional operating systems, MemGPT introduces virtual context management. This technique allows the agent to intelligently page information between the LLM’s constrained main context (analogous to RAM) and various external storage tiers (recall storage for message history and archival storage for arbitrary text objects, analogous to disk storage). Crucially, MemGPT empowers the LLM agent to self-direct memory edits and retrieval operations through function calls, effectively extending its working memory and enabling it to manage information flows far exceeding its native context capacity.</p>
+
+<p>Another innovative system is <strong>A-MEM (Agentic Memory)</strong>, proposed by Zhang et al. (2025).[21, 26, 27, 28, 29, 30] Inspired by the Zettelkasten method of knowledge management, A-MEM facilitates the dynamic organization of memories. When new information is encountered, the agent autonomously constructs a structured “note” containing contextual descriptions, keywords, and tags. The system then analyzes historical memories to identify and establish meaningful links with existing notes. Furthermore, A-MEM supports memory evolution: as new experiences are integrated, they can trigger updates to the contextual representations and attributes of historical memories. This allows the agent’s knowledge network to continuously refine its understanding and organization over time, creating a self-evolving memory system.</p>
+
+<p>System-level support, as exemplified by the <strong>AIOS memory and storage management</strong> components [8], also plays a crucial role. AIOS provides kernel-level services for managing agent interaction histories during runtime (transient memory) and handling persistent data such as knowledge bases (long-term storage). The memory manager employs strategies like LRU-K (Least Recently Used - K times) eviction for swapping data between RAM and disk, enabling agents to effectively manage and access larger volumes of historical interaction data than would otherwise be possible. The storage manager ensures persistent access to critical knowledge resources. These OS-level functionalities directly underpin the AI’s need for robust, scalable, and efficiently managed memory, which is fundamental for learning and long-term reasoning.</p>
+
+<p>The trend towards <strong>dual-memory architectures</strong> is also prominent in recent LLM agent designs.[22, 31] These architectures typically distinguish between long-term memory, which houses static, pre-trained, or fine-tuned knowledge, and short-term memory, which dynamically stores information from ongoing environmental interactions and dialogue history. Retrieval-Augmented Generation (RAG) is a common technique used in conjunction with these architectures, particularly to augment long-term memory with up-to-date or specialized external knowledge, thereby grounding the agent’s responses and reasoning in factual information. Furthermore, <strong>memory augmentation strategies</strong> are being explored to enhance reasoning capabilities by extending the effective context available to LLMs beyond their fixed token limits.[32] This includes research into internal architectural modifications within the FMs themselves (such as augmented attention mechanisms or refined key-value caches, though these are less applicable to black-box API-based models) and, more commonly, the development of sophisticated external memory mechanisms.</p>
+
+<p>The AI design of agent memory is thus evolving to incorporate principles from information retrieval, database management, and even cognitive science (as seen with the Zettelkasten inspiration in A-MEM). This suggests a future where an agent’s memory is not merely a passive repository but an active, integral component of its reasoning and learning processes, dynamically shaping and being shaped by its experiences.</p>
+
+<h3 id="24-emerging-paradigms-in-cognitive-architectures">2.4 Emerging Paradigms in Cognitive Architectures</h3>
+
+<p>Beyond memory, broader innovations are shaping the cognitive architectures of agents. The field is witnessing a move towards more modular and composable designs, departing from monolithic LLM prompting towards engineered systems of specialized AI components.</p>
+
+<p><strong>Factored Agent Architectures</strong>, as proposed by Acharya et al. (2025) [33], advocate for decomposing agent functionalities into specialized components. For example, a large LLM might serve as a high-level planner and in-context learner, while a smaller, more specialized language model could act as a dedicated “memorizer” for tool formats and outputs. This approach aims to mitigate observed trade-offs where a single agent’s proficiency in in-context learning might diminish as its role in memorization increases, allowing each component to be optimized for its specific cognitive function.</p>
+
+<p>Drawing <strong>insights from computer systems</strong>, Mi et al. (2025) [34, 35, 36] propose building LLM agents based on established principles from computer architecture, particularly inspired by the von Neumann architecture. This paradigm emphasizes a structured framework with clearly defined, modular components for perception, cognition (processing), memory, tool interaction, action execution, and environmental interface. Such an approach aims to enhance the generality, scalability, and systematic design of LLM agents. Future directions under this paradigm include the exploration of multi-core agent systems (potentially analogous to multi-core CPUs, perhaps with different LLMs or specialized AI modules as “cores”) and the application of parallelization and pipelining techniques to agent workflows for improved efficiency.</p>
+
+<p>The field of <strong>Automated Design of Agentic Systems (ADAS)</strong>, highlighted by Laskin et al. (2024) [7], represents another significant frontier. ADAS research focuses on developing methods to automatically create and optimize agentic system designs. This includes inventing novel building blocks—such as new prompting strategies, tool-use mechanisms, or entire workflows—and discovering effective ways to combine them. The “Meta Agent Search” algorithm, for example, employs a foundation model as a “meta agent” that iteratively designs and programs new agent architectures in code. This leverages the advanced coding and reasoning proficiency of modern FMs to explore the vast design space of agentic systems.</p>
+
+<p>The development of these modular and often automatically generated architectures suggests that the AI design of agents is evolving into a form of “cognitive systems engineering.” The focus is increasingly on designing the interactions, information flows, and collaborative workflows between different AI modules, which are orchestrated by a central (or sometimes distributed) planning and reasoning mechanism. This trend also underscores a growing need for standardized interfaces and communication protocols between these diverse agent components to ensure interoperability and facilitate the construction of more complex and capable systems.</p>
+
+<p>The symbiotic relationship between system-level support, like that offered by AIOS [8], and these advanced AI cognitive enhancements is becoming increasingly apparent. While the primary focus of this review is on AI design, it is crucial to recognize that robust system-level services—such as efficient context management (e.g., AIOS’s snapshot/restore capability for uninterrupted reasoning), scalable memory management (e.g., AIOS’s handling of extensive interaction histories for learning), and fair resource scheduling (critical for multi-agent coordination or enabling parallel thought processes within a single agent)—are not merely about optimizing system efficiency. Instead, they directly enable and sustain the complex cognitive functions that define modern AI agents. For instance, the ability of AIOS to snapshot and perfectly restore an agent’s intermediate generation state [8] is a direct enhancement to its reasoning reliability, preventing the AI from losing its “train of thought” and potentially diverging if interrupted. Similarly, AIOS’s memory management with LRU-K eviction allows an agent to learn from a far larger corpus of past experiences than could fit into a standard LLM context window, directly supporting its long-term learning and adaptation.[8] There is a necessary co-evolution: as the cognitive demands of AI agents grow (e.g., requiring longer reasoning chains, more extensive learning from history, or complex multi-agent interactions), the underlying system support must also become more sophisticated to provide the stable, scalable, and resource-managed environment these advanced AI processes require. This points to a future where AI agent research will increasingly need to integrate considerations of “AI-aware” system-level design to unlock further capabilities.</p>
+
+<h2 id="3-reasoning-and-planning-in-virtual-agents">3. Reasoning and Planning in Virtual Agents</h2>
+
+<p>Effective reasoning and planning are cornerstone capabilities for intelligent virtual agents, enabling them to understand complex situations, formulate coherent strategies, and achieve goals. The advent of powerful foundation models has revolutionized these aspects of AI design, providing new mechanisms for agents to think and act.</p>
+
+<h3 id="31-foundation-model-based-reasoning">3.1 Foundation Model-Based Reasoning</h3>
+
+<p>Large Language Models (LLMs) serve as the primary reasoning engine in a vast majority of modern agent architectures. They leverage their extensive pre-trained knowledge and sophisticated in-context learning abilities to interpret instructions, infer intentions, and generate logical steps towards a solution.[5, 6, 2, 4, 17] A key aspect of utilizing FMs for reasoning involves sophisticated <strong>prompting strategies</strong> designed to elicit and structure their cognitive processes.</p>
+
+<p><strong>Chain-of-Thought (CoT) prompting</strong> [5, 11, 17, 37] is a foundational technique where the LLM is guided to generate a series of intermediate reasoning steps before producing a final answer. This explicit articulation of the “thought process” has been shown to significantly improve performance on complex reasoning tasks that require multiple logical deductions or calculations. Building upon CoT, <strong>Self-Consistency</strong> [17, 37] further enhances robustness by sampling multiple diverse reasoning paths for the same problem and then selecting the most frequently occurring answer through a majority vote. Other advanced prompting techniques, such as self-refine (where the LLM critiques and improves its own previous outputs), selection-inference, <strong>Tree-of-Thoughts (ToT)</strong> [38, 37], and <strong>Graph-of-Thoughts (GoT)</strong> [6, 37], provide even more structured ways to guide and explore the LLM’s reasoning space, allowing for more deliberate and often more accurate problem-solving.</p>
+
+<p>A significant trend in FM-based reasoning is the evolution from relying purely on inference-time prompting strategies (often termed <strong>inference scaling</strong>) towards dedicated training regimes designed to imbue models with better intrinsic reasoning abilities (<strong>learning-to-reason</strong>).[37, 39, 40, 41] This involves techniques like supervised fine-tuning (SFT) on datasets of reasoning trajectories and applying reinforcement learning (RL) to optimize reasoning processes based on feedback. Models like DeepSeek-R1 [17, 37] exemplify this shift, showcasing advanced reasoning capabilities derived from such specialized training.</p>
+
+<h3 id="32-advanced-reasoning-frameworks">3.2 Advanced Reasoning Frameworks</h3>
+
+<p>Beyond prompting individual FMs, several encompassing frameworks have been developed to structure and enhance agent reasoning:</p>
+
+<p>The <strong>ReAct framework (Reasoning and Acting)</strong>, proposed by Yao et al. (2023) [5, 38, 42, 8], offers a powerful paradigm by synergizing reasoning and acting. In ReAct, the LLM generates interleaved sequences of thought traces and actions. Thoughts involve reasoning about the current task state, analyzing information, and planning the next steps. Actions involve interacting with an external environment, such as querying a Wikipedia API or using a calculator. The observations resulting from these actions are then fed back into the agent’s context, informing subsequent reasoning steps. This iterative loop of reasoning, acting, and observing allows the agent to ground its reasoning in factual, up-to-date information from external sources, dynamically adjust its plans, and effectively handle exceptions or unexpected outcomes. System-level support, such as the tool manager and context manager in AIOS [8], could provide crucial infrastructure for ReAct-style agents by facilitating reliable API interactions and maintaining the agent’s state across these interleaved reasoning and action steps. The active interaction with external environments or knowledge sources in ReAct helps to mitigate issues like hallucination, which can occur when reasoning relies solely on an LLM’s internal, static knowledge.</p>
+
+<p>The <strong>Reflexion framework</strong> by Shinn et al. (2023) [5, 43, 44, 8, 9] introduces a novel approach called verbal reinforcement learning. Instead of updating model weights, Reflexion agents learn by linguistically reflecting on task feedback. This feedback can be scalar (e.g., a success/failure signal), free-form language (e.g., an error message from a compiler), and can originate from external sources or be internally simulated by a critic model. The agent generates a textual self-reflection on this feedback, which is then stored in an episodic memory buffer. In subsequent trials for similar tasks, the agent uses these stored reflections to inform its decision-making and improve its strategy. This mechanism allows agents to learn from trial-and-error through in-context learning from their textualized experiences, without requiring expensive fine-tuning. The memory manager within a system like AIOS [8] could be instrumental in storing and managing the reflective texts for Reflexion agents, while its context manager could help preserve the agent’s state, including its reflections, if the process is interrupted. The ability of agents to evaluate their own reasoning processes and outputs, learn from mistakes, and adapt—as seen in Reflexion and self-refinement techniques—is crucial for robustness. In multi-step tasks, initial errors can propagate and lead to complete failure. Frameworks that allow agents to reflect on feedback, critique their own outputs, or revise solutions based on past experiences are essential for building reliable autonomous systems. This is pushing AI agent design towards more human-like learning, where trial-and-error, reflection, and iterative improvement are central.</p>
+
+<p>Other structured reasoning approaches like <strong>Tree-of-Thoughts (ToT)</strong> [38, 37] enable LLMs to explore multiple parallel reasoning paths, akin to branches of a tree. The agent can then use self-evaluation heuristics or search algorithms (like breadth-first or depth-first search) to decide which paths to pursue further, which to prune, or when to backtrack. This allows for a more deliberate and systematic exploration of the problem space compared to the linear generation of CoT. <strong>Graph-of-Thoughts (GoT)</strong> [6, 37] further generalizes this by modeling reasoning processes as arbitrary graphs, allowing for more complex operations like merging information from different reasoning branches and aggregating thoughts, leading to potentially more powerful and flexible reasoning.</p>
+
+<h3 id="33-planning-with-llms">3.3 Planning with LLMs</h3>
+
+<p>Planning, the process of devising a sequence of actions to achieve a goal, is a critical function for autonomous agents. LLMs are increasingly being used for this purpose, tasked with breaking down high-level objectives into manageable, actionable steps.[5, 11, 16] This often involves sophisticated task decomposition strategies, where a complex goal is divided into sub-goals. These strategies can range from single-path chaining, where sub-tasks are addressed sequentially (with dynamic adjustments based on feedback, as in ReAct), to multi-path tree expansion approaches (as in ToT), where multiple potential plans are explored. Effective planning also requires robust state tracking to maintain an understanding of the current situation and the ability to adapt plans based on new information or feedback.</p>
+
+<p>However, planning with LLMs is not without its challenges.[11, 16] Long-horizon planning, where a large number of steps are required to reach a goal, remains difficult due to issues like error propagation and the difficulty of maintaining logical consistency over extended sequences. Reasoning under uncertainty or with incomplete information is another significant hurdle, as many real-world scenarios do not offer the full observability often assumed in simpler planning problems. Multimodal planning, which requires integrating information from different sensory inputs (e.g., vision and language) to inform the planning process, is also an area of active development.</p>
+
+<p>To address these challenges and drive progress, the field is seeing an evolution in <strong>benchmarks for LLM-based planning</strong>.[16] Early benchmarks often focused on text-based reasoning or simple PDDL (Planning Domain Definition Language) style problems. However, newer benchmarks are becoming increasingly complex and realistic. Examples include:</p>
+<ul>
+  <li><strong>PlanBench</strong> [16]: Evaluates diverse aspects of planning, including generation, cost optimization, and replanning.</li>
+  <li><strong>WebArena</strong> [16]: Tests agents on navigating and performing tasks on self-hosted websites, requiring long-horizon planning and interaction.</li>
+  <li><strong>TravelPlanner</strong> [16]: Focuses on itinerary planning with constraints and the need for external tool use.</li>
+  <li><strong>AgentBench</strong> [16]: A suite of environments evaluating LLM agents in multi-turn, open-ended contexts across diverse domains like operating systems and web shopping.
+These evolving benchmarks are crucial for identifying the limitations of current LLM planners and guiding the development of more capable planning architectures.</li>
+</ul>
+
+<h3 id="34-case-based-reasoning-cbr-integration">3.4 Case-Based Reasoning (CBR) Integration</h3>
+
+<p>A promising direction for enhancing LLM agent reasoning, particularly in domain-specific contexts, is the integration of <strong>Case-Based Reasoning (CBR)</strong>.[45, 46, 47, 48, 49] CBR is an AI paradigm that solves new problems by retrieving and adapting solutions from similar past problems (cases) stored in a case library. Integrating CBR with LLM agents aims to combine the strong language comprehension and generative capabilities of LLMs with the explicit, experience-based knowledge of CBR.</p>
+
+<p>This hybrid approach can address several limitations of standalone LLMs, such as difficulties in handling specific, structured knowledge, retaining contextual memory across numerous interactions, and reducing the likelihood of hallucinations by grounding reasoning in concrete past examples. The architectural components of a CBR-LLM agent typically include:</p>
+<ul>
+  <li><strong>Case Representation:</strong> Defining how past problems and solutions are structured.</li>
+  <li><strong>Case Library:</strong> A database or memory storing these past cases.</li>
+  <li><strong>Retrieval Mechanisms:</strong> LLMs can be used to understand the new problem and query the case library for the most relevant past cases.</li>
+  <li><strong>Reuse/Adaptation Mechanisms:</strong> The retrieved solution(s) from past cases are then adapted to fit the specifics of the current problem, a process where LLMs can assist in interpreting and modifying the solution components.</li>
+  <li><strong>Revision:</strong> The newly proposed solution is evaluated for its effectiveness.</li>
+  <li><strong>Retention:</strong> If successful (or even if it’s a notable failure providing learning), the new problem-solution pair is stored in the case library for future use.</li>
+</ul>
+
+<p>The cognitive dimensions of CBR, such as self-reflection (evaluating the applicability of a past case or the quality of an adapted solution), introspection, and curiosity (proactively seeking new information or cases when existing ones are insufficient), can be further enhanced through integration with goal-driven autonomy (GDA) mechanisms. This allows agents to dynamically select their goals and monitor their performance against expectations, further refining their CBR processes. The synergy between the sub-symbolic pattern recognition of LLMs and the more symbolic, structured knowledge of CBR represents a significant step towards neuro-symbolic AI. This combination holds the potential to create agents that are not only more robust and adaptable but also more transparent in their decision-making, as their reasoning can be traced back to specific past experiences.</p>
+
+<h2 id="4-learning-and-adaptation-in-virtual-agents">4. Learning and Adaptation in Virtual Agents</h2>
+
+<p>The ability of virtual agents to learn and adapt is paramount for their long-term utility and autonomy. Modern AI design focuses on enabling agents to improve their performance, refine their behaviors, and acquire new skills through various forms of feedback and experience. Foundation models play a crucial role in these learning processes, often acting as the core engine for interpreting feedback, generating reflective insights, or even modifying the agent’s own operational parameters.</p>
+
+<h3 id="41-learning-from-diverse-feedback-mechanisms">4.1 Learning from Diverse Feedback Mechanisms</h3>
+
+<p>Agents learn and adapt by processing feedback from multiple sources, which helps them to refine their internal models and improve future decision-making.
+<strong>Human feedback</strong> remains a cornerstone for aligning agent behavior with user expectations and societal norms.[10, 50, 51, 52, 53, 1] This can range from explicit corrections and ratings provided by users to more implicit signals derived from observing user choices and interactions. LLM-based Human-Agent Systems (LLM-HAS) are an emerging area specifically focused on designing effective human-AI collaboration, where human input is integral to the agent’s learning and operational loop.[10, 54, 50, 45, 55]</p>
+
+<p><strong>Environmental feedback</strong> is another critical learning channel, especially for agents operating in dynamic settings.[5, 11, 51] Agents observe the outcomes of their actions—whether in simulated environments or the real world—and use this information to adjust their policies. This is the fundamental principle behind Reinforcement Learning (RL), where agents learn to maximize a reward signal obtained from environmental interactions.</p>
+
+<p><strong>AI-generated feedback and self-reflection</strong> represent a significant advancement, enabling agents to learn more autonomously. The <strong>Reflexion</strong> framework [5, 43, 44, 8, 9] allows agents to verbally reflect on task feedback signals (which can be from external sources or internally simulated by a critic model). These linguistic reflections are stored in an episodic memory buffer and used to guide decision-making in subsequent trials, effectively enabling a form of reinforcement learning without direct weight updates. Similarly, <strong>Reinforcement Learning from AI Feedback (RLAIF)</strong>, a core component of Constitutional AI [58], uses an AI model to provide preference judgments on an agent’s responses, thereby guiding the RL process towards desired behaviors (e.g., harmlessness) with reduced reliance on human labeling. The concept of a <strong>co-evolving world model</strong>, as proposed by He et al. (2024) [59], involves an auxiliary LLM that simulates the agent’s environment. This world model generates diverse training trajectories and enables look-ahead planning, allowing the primary agent to learn from these simulated experiences.</p>
+
+<p>A specific application of feedback-driven learning is <strong>Reinforcement Learning from Task Feedback (RLTF)</strong>, central to the OpenAGI platform.[60, 61, 62] RLTF utilizes the overall success or failure of a task, or intermediate outcomes, as a reward signal to iteratively improve the LLM’s task-solving capabilities. This creates a self-improving AI feedback loop, particularly suited for open-ended and dynamically extending tasks where predefined reward functions may be difficult to specify.</p>
+
+<p>The increasing sophistication of these feedback mechanisms, particularly those that are internalized or AI-generated, points to a trend where agents become more self-sufficient learners. While this enhances autonomy and potentially accelerates learning, it also underscores the critical importance of ensuring that the internal feedback mechanisms and any guiding “values” (as in Constitutional AI) are robustly aligned with overarching human objectives. System-level components, such as the context manager in AIOS [8], could play a vital role in reliably managing the complex internal states associated with these advanced learning and reflection processes.</p>
+
+<h3 id="42-self-improving-agents-towards-autonomous-evolution">4.2 Self-Improving Agents: Towards Autonomous Evolution</h3>
+
+<p>A frontier in agent AI design is the development of systems that can autonomously improve their own performance, operational strategies, or even their underlying architecture over time. This represents a deeper form of learning that goes beyond mere parameter updates or prompt refinement.
+The <strong>Self-Improving Coding Agent (SICA)</strong>, described by Kassianik et al. (2025) [63], exemplifies this trend. SICA is an agent system equipped with basic coding tools that can autonomously edit its own codebase. This includes modifying its prompts, the implementation of its tools, or its control logic. The self-modification process is driven by an LLM reflecting on the agent’s performance on benchmark tasks. This approach has demonstrated significant performance gains on coding benchmarks and showcases a data-efficient, non-gradient-based learning mechanism where the agent learns by directly changing its own structure and behavior.</p>
+
+<p>The <strong>Automated Design of Agentic Systems (ADAS)</strong> framework, proposed by Laskin et al. (2024) [7], takes this a step further. In ADAS, a “meta-agent” (itself an FM) is tasked with designing and programming new agent architectures. This meta-agent explores a search space of possible agent designs (represented as code) and iteratively discovers novel and potentially more performant agentic systems. This leverages the advanced reasoning and code generation capabilities of modern FMs to automate aspects of AI research and development itself.</p>
+
+<p>The use of <strong>co-evolving world models</strong> [59] also contributes to autonomous evolution. As the agent learns and improves its policy for interacting with the (real or simulated) environment, the world model concurrently improves its ability to simulate that environment accurately. This synergistic improvement allows the agent to train on increasingly diverse and realistic synthetic data generated by the world model, and to perform more effective look-ahead planning, thus enabling sustained adaptability and helping to overcome performance plateaus often seen in simpler self-improvement cycles.</p>
+
+<p>These approaches—where agents modify their own internal structure or generate new architectures—blur the line between the agent and the agent-designer. The advanced reasoning and code-generation capabilities of foundation models are the primary enablers for this level of self-modification. This implies a future where AI development might involve creating “seed” agents that then autonomously evolve and specialize their own cognitive architectures for specific tasks or domains, a trajectory with profound implications for both the pace of AI advancement and the challenges of ensuring safety and control.</p>
+
+<h3 id="43-tool-learning-and-adaptation">4.3 Tool Learning and Adaptation</h3>
+
+<p>Modern virtual agents are not merely passive users of pre-defined tools; they are increasingly capable of learning <em>how</em> and <em>when</em> to use tools effectively, and in some cases, even adapting or creating tools.
+<strong>Toolformer</strong>, by Schick et al. (2023) [5, 11, 64, 65, 66, 67], demonstrates how LLMs can teach themselves to use external tools via APIs in a self-supervised fashion. The process involves the LLM sampling potential API calls within a given text, executing these calls, and then filtering them based on whether the inclusion of the API call and its result helps the model to better predict subsequent tokens in the text. The LLM is then fine-tuned on this augmented dataset, learning to invoke tools where they are most beneficial.</p>
+
+<p>System-level support like the <strong>AIOS Tool Manager</strong> [8] can facilitate more robust tool use by AI agents. It provides functionalities such as standardized tool loading procedures, pre-execution parameter validation (to prevent tool crashes or erroneous calls), and mechanisms for resolving conflicts when multiple agents attempt to access tools with concurrency limitations. Such infrastructure simplifies the development of tool-using agents and enhances their reliability.</p>
+
+<p>The <strong>“Control Plane as a Tool”</strong> design pattern [68, 69] offers a modular approach to tool orchestration. It decouples the complex logic of tool management and routing from the agent’s core reasoning module. The agent interacts with a single, unified “control plane” tool, which then intelligently selects and invokes the appropriate specific tool from a larger library based on the agent’s intent, task requirements, or other contextual factors. This allows for dynamic tool selection, better governance over tool usage, and easier adaptation or expansion of the agent’s toolset. Furthermore, agents can learn and adapt their tool selection policies within such a control plane based on feedback or observed task success.[3, 70]</p>
+
+<h3 id="44-continual-and-lifelong-learning-for-sustained-adaptation">4.4 Continual and Lifelong Learning for Sustained Adaptation</h3>
+
+<p>For virtual agents to be truly intelligent and autonomous, they must be capable of continual or lifelong learning—adapting to new tasks, environments, and information over extended periods without catastrophically forgetting previously acquired knowledge.[71] This presents the classic stability-plasticity dilemma: the agent must be stable enough to retain existing knowledge and skills, yet plastic enough to acquire new ones.</p>
+
+<p>The <strong>memory module</strong> is of paramount importance for lifelong learning agents.[71] It is responsible for storing and retrieving evolving knowledge, distinguishing between rapidly changing short-term context and more stable long-term knowledge. Sophisticated memory architectures, as discussed earlier (e.g., MemGPT, A-MEM), are crucial for managing the vast amounts of information an agent might accumulate over its lifetime and for retrieving relevant past experiences to inform current decisions.</p>
+
+<p><strong>Self-evolution</strong> mechanisms, where agents autonomously explore, learn from their environment, and adjust their behaviors based on feedback, are also key to lifelong learning.[18] This allows agents to provide increasingly personalized and effective responses as they gain more experience.</p>
+
+<p>The <strong>optimization of LLM-based agents</strong>, as surveyed by Du et al. (2025) [72, 73, 74, 75], encompasses various techniques that contribute to sustained adaptation. Parameter-driven methods, such as fine-tuning on new data or using reinforcement learning to adapt to new reward structures, directly modify the agent’s underlying model. Parameter-free methods, like evolving prompt engineering strategies or dynamically updating knowledge through Retrieval-Augmented Generation (RAG), allow agents to adapt their behavior without altering their core parameters. Both types of optimization are vital for enabling agents to handle long-term planning, interact effectively with dynamic environments, and make complex decisions over time—all hallmarks of lifelong learning.</p>
+
+<p>The development of agents that are not just learning specific tasks but are learning <em>how to learn</em> or <em>how to improve themselves</em> (meta-learning agents) is a significant indicator of progress in this area. ADAS [7], which features a meta-agent designing better agents, and Reflexion [43, 44], where agents learn a reflection process, are examples of this trend. This hierarchical learning approach could lead to more sample-efficient adaptation in the long run, as agents become better at generalizing their learning strategies to new and unseen tasks. This points towards a future where AI systems might autonomously drive their own research and development, a prospect that brings both immense potential and significant new challenges for oversight and alignment.</p>
+
+<h2 id="5-foundation-models-as-enablers-of-advanced-agent-ai">5. Foundation Models as Enablers of Advanced Agent AI</h2>
+
+<p>Foundation models (FMs) are the bedrock upon which modern advanced AI agents are constructed. Their inherent capabilities in language comprehension, reasoning, generation, and increasingly, multimodal processing, provide the raw cognitive power that agent architectures then channel towards purposeful, autonomous behavior. The continuous evolution of FMs directly translates into new possibilities for agent design and functionality. The capabilities of the chosen FM—be it context window length, reasoning acuity, or multimodal support—effectively define the performance ceiling for agents built upon them. This tight coupling means that breakthroughs in FM research often herald subsequent leaps in agent capabilities, establishing a synergistic relationship where progress in one domain fuels advancement in the other. However, this dependence also implies that inherent limitations or biases within FMs will inevitably propagate to the agents, making the responsible development and alignment of FMs an even more critical concern for the agentics field.</p>
+
+<h3 id="51-deep-dive-into-capabilities-of-recent-foundation-models">5.1 Deep Dive into Capabilities of Recent Foundation Models</h3>
+
+<p>Several recent foundation models have introduced capabilities particularly relevant to the design of sophisticated AI agents:</p>
+
+<ul>
+  <li>
+    <p><strong>GPT-4 and its successors (e.g., GPT-4o)</strong> by OpenAI (2023) [23, 24] set a high bar with human-level performance on numerous professional and academic benchmarks. Key strengths include robust multilingual proficiency, significantly improved instruction-following capabilities, and native multimodality (accepting both image and text inputs to produce text outputs). For agent design, GPT-4’s advanced reasoning is fundamental for planning and decision-making modules, while its multimodality allows agents to perceive and interact with richer, more complex environments, such as those encountered by GUI agents.[13, 14] Efforts to reduce hallucinations and enhance safety properties are also crucial for deploying reliable agents. Despite these strengths, limitations such as a fixed context window (though significantly larger than previous models), the lack of continuous learning from experience post-training, and the potential for embedded biases remain areas of ongoing research and concern.</p>
+  </li>
+  <li>
+    <p><strong>Llama 3</strong> from Meta (2024) [76, 77, 78] and its subsequent iterations like Llama 3.1 [8] and specialized versions such as Llama-Nemotron [79] and FoundationAI-SecurityLLM-Base-8B [80] represent significant strides in open foundation models. Llama 3 boasts improved reasoning, enhanced coding capabilities (attributed to a training dataset with four times more code than Llama 2), and better instruction following. Its 8K token context window (with stated plans for expansion) and initial multilingual support (over 5% of its pretraining data being high-quality non-English text covering over 30 languages) are vital for versatile agent development. The focus on coding is particularly relevant for agents that need to generate or interact with software tools, such as the Self-Improving Coding Agent (SICA).[63] The Llama-Nemotron series, specifically designed for efficient reasoning and featuring a dynamic reasoning toggle, further underscores the trend towards FMs optimized for agentic tasks. Meta’s introduction of safety tools like Code Shield also addresses the responsible deployment of code-generating agents.</p>
+  </li>
+  <li>
+    <p><strong>Gemini 2.5</strong> by Google (2025) [81, 25] is marketed as a “thinking model,” emphasizing its capability to reason through complex problems before responding. It demonstrates state-of-the-art performance on challenging reasoning benchmarks (e.g., GPQA, AIME 2025) and advanced coding skills. Gemini 2.5’s native multimodality, allowing it to process text, audio, images, video, and even entire code repositories, combined with an exceptionally long context window (1 million tokens, with 2 million planned), makes it a powerful candidate for building sophisticated agents. Features like Deep Research within Gemini [81], which autonomously browses websites and synthesizes information into reports, exemplify direct FM application in agent-like workflows requiring multi-step planning and information integration.</p>
+  </li>
+</ul>
+
+<p>General trends observable across these and other recent foundation models (as noted in [5, 1, 2, 4, 7, 82]) include rapidly <strong>expanding context windows</strong> (e.g., Claude’s 200K tokens, Gemini 1.5’s 1M tokens [1]), continuous improvements in <strong>reasoning and planning</strong> capabilities (with models like Gemini explicitly designed as “thinking models” and DeepSeek-R1 focusing on reasoning [17, 37]), increasingly proficient <strong>tool use and function calling</strong> [64, 82], the standardization of <strong>multimodality</strong>, and the growing practice of <strong>specialization via fine-tuning</strong> for specific domains or agentic functions.[1, 80]</p>
+
+<h3 id="52-foundation-models-in-agent-modules">5.2 Foundation Models in Agent Modules</h3>
+
+<p>Foundation models are not just generic power sources; they are being integrated into specific functional modules within agent architectures:</p>
+<ul>
+  <li><strong>Perception:</strong> MLLMs are crucial for processing and interpreting multimodal inputs, enabling agents to understand complex scenes or documents containing text, images, and other data types.[13, 14, 83]</li>
+  <li><strong>Planning &amp; Reasoning:</strong> LLMs typically form the core of the planning and reasoning modules, responsible for task decomposition, strategy generation, logical inference, and decision-making under uncertainty.[5, 6, 11, 2, 16]</li>
+  <li><strong>Memory Control:</strong> In advanced memory systems like MemGPT [19] and A-MEM [21, 26, 27, 28], LLMs can be actively involved in managing memory. This includes deciding what information to store, how to index or link it, when to retrieve it, and what to forget. For example, an LLM might generate contextual descriptions for new memories or determine relevant connections between existing memory nodes.</li>
+  <li><strong>Action Generation:</strong> LLMs are used to generate a wide range of actions, from natural language responses in dialogues to executable code for invoking tools or APIs, and even sequences of commands for controlling robotic systems.[5, 6, 11, 2, 3, 4]</li>
+  <li><strong>Self-Improvement &amp; Reflection:</strong> A particularly advanced use of FMs within agents involves leveraging them for meta-cognitive tasks. LLMs can be prompted to reflect on the agent’s past performance, critique its own outputs or plans, identify areas for improvement, and even generate code to modify the agent’s own structure or behavior, as seen in frameworks like SICA [63] and Reflexion.[43, 44]</li>
+</ul>
+
+<p>The paradoxical nature of foundation models is that their broad, general-purpose capabilities in language understanding, basic reasoning, and code generation are precisely what enable the creation of highly specialized and diverse agent architectures.[7, 33, 84] FMs act as a kind of “universal constructor” for agent cognition. The innovation in agent design is increasingly shifting towards how to best orchestrate these generalist FMs and augment them with specialized modules (memory systems, tool libraries, feedback loops) and structured workflows to achieve specific, advanced agent capabilities.</p>
+
+<h3 id="53-impact-of-scaling-laws-and-emergent-abilities">5.3 Impact of Scaling Laws and Emergent Abilities</h3>
+
+<p>The development of foundation models is heavily influenced by <strong>scaling laws</strong>, which describe how model performance on certain tasks improves predictably with increases in model size, dataset size, and computational resources used for training.[23, 24] These scaling laws have been instrumental in guiding the development of increasingly large and capable FMs.</p>
+
+<p>As FMs scale, they often exhibit <strong>emergent abilities</strong>—capabilities that are not present or predictable in smaller models but appear once a certain scale threshold is crossed.[85, 86] Examples include advanced multi-step reasoning, in-context learning, and proficient code generation. These emergent capabilities are directly harnessed by agent architectures, forming the basis for many of their advanced cognitive functions. For instance, an agent’s ability to perform complex planning or learn from few-shot demonstrations is often a direct consequence of the emergent reasoning and in-context learning abilities of its underlying FM.</p>
+
+<p>The development of <strong>Large Reasoning Models (LRMs)</strong> [85, 86] further exemplifies this, where techniques like reinforcement learning and inference-time search are applied to already large FMs to specifically amplify their reasoning and self-reflection capabilities, which are critical for sophisticated agents.</p>
+
+<p>However, it is crucial to note that emergent abilities are not always beneficial. Undesirable or harmful emergent behaviors, such as increased tendencies for deception, manipulation, or developing misaligned goals, are also a concern as models become more powerful and autonomous.[85, 86] This underscores the critical need for robust safety protocols, alignment techniques, and continuous monitoring in the design and deployment of agents built upon these highly capable FMs.</p>
+
+<p>The increasing complexity and resource demands of FM-powered agents, especially in multi-agent scenarios or long-running tasks, also highlight the growing importance of system-level support. An “agent-aware” operating system, like the one envisioned by AIOS [8], becomes critical. By managing access to LLM “cores,” handling context efficiently, and providing scalable memory and storage solutions, such a system can ensure that the cognitive processes of advanced AI agents are not bottlenecked by underlying resource constraints. This suggests an intertwined future where the design of agent AI and the design of the systems hosting them co-evolve to support increasingly sophisticated intelligent behaviors.</p>
+
+<p><strong>Table 1: Comparison of Leading Foundation Models for Agentic AI (Late 2024-2025 Focus)</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Feature</th>
+      <th style="text-align: left">GPT-4 &amp; Successors (e.g., GPT-4o)</th>
+      <th style="text-align: left">Llama 3 (e.g., 405B) &amp; Llama-Nemotron Ultra</th>
+      <th style="text-align: left">Gemini 2.5 Pro Experimental &amp; Successors</th>
+      <th style="text-align: left">Claude Series (e.g., Claude 3.5 Sonnet/Opus)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>Release/Anticipation</strong></td>
+      <td style="text-align: left">Ongoing (GPT-4 2023, GPT-4o 2024)</td>
+      <td style="text-align: left">Llama 3 2024, Llama-Nemotron 2025</td>
+      <td style="text-align: left">Gemini 2.5 Pro Exp. Mar 2025</td>
+      <td style="text-align: left">Claude 3.5 Sonnet June 2024, Opus Mar 2024</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Key Architectural Innovations for Agents</strong></td>
+      <td style="text-align: left">Strong reasoning, instruction following, advanced multimodality (image, text, audio in GPT-4o)</td>
+      <td style="text-align: left">Improved reasoning &amp; coding, dynamic reasoning toggle (Nemotron), open availability</td>
+      <td style="text-align: left">“Thinking model” architecture, native multimodality (text, audio, image, video, code)</td>
+      <td style="text-align: left">Strong reasoning, long context, vision capabilities, tool use proficiency</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Reported Reasoning/Planning Benchmarks</strong></td>
+      <td style="text-align: left">Top-tier on MMLU, GPQA, HumanEval, professional exams [23]</td>
+      <td style="text-align: left">Improved on coding/reasoning benchmarks; Nemotron focuses on reasoning efficiency [77, 79]</td>
+      <td style="text-align: left">Leading on GPQA, AIME 2025, SWE-Bench Verified (agentic coding) [25]</td>
+      <td style="text-align: left">Strong on coding, graduate-level reasoning, math (Opus) [1]</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Tool Use/Function Calling Proficiency</strong></td>
+      <td style="text-align: left">Advanced function calling capabilities [23]</td>
+      <td style="text-align: left">Enhanced, with tools like Code Shield for safety [78]</td>
+      <td style="text-align: left">Strong agentic code application capabilities [25]</td>
+      <td style="text-align: left">Robust tool use and function calling, beta features for agentic behavior [Anthropic Website]</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Max Context Window (Tokens)</strong></td>
+      <td style="text-align: left">32K-128K (GPT-4 Turbo) [1]</td>
+      <td style="text-align: left">8K (Llama 3 base, plans for longer), 128K (Llama 3 405B) [77, 78]</td>
+      <td style="text-align: left">1M (2M planned) [25, 1]</td>
+      <td style="text-align: left">200K [1]</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Key Contributions for AI Agent Design</strong></td>
+      <td style="text-align: left">Enables complex multi-step planning, rich environmental perception via multimodality, reliable instruction execution.</td>
+      <td style="text-align: left">Facilitates development of open-source agents with strong coding/reasoning; specialized reasoning models.</td>
+      <td style="text-align: left">Supports deeply complex reasoning, long-horizon planning with vast context, rich multimodal interaction for agents.</td>
+      <td style="text-align: left">Enables agents to process very large documents/codebases, perform complex reasoning over extended interactions, and utilize tools effectively.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Relevant Citations</strong></td>
+      <td style="text-align: left">[23, 24, 1]</td>
+      <td style="text-align: left">[76, 77, 78, 8, 79, 80]</td>
+      <td style="text-align: left">[81, 25, 1]</td>
+      <td style="text-align: left">[1]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>Note: Capabilities and release dates for late 2024/2025 models are based on available information and announcements as of mid-2025. Specific details for unreleased or very recent models may be subject to change. “Anthropic Website/Documentation” refers to publicly available information from the model provider.</em></p>
+
+<h2 id="6-ai-design-in-multi-agent-systems-mas">6. AI Design in Multi-Agent Systems (MAS)</h2>
+
+<p>Multi-Agent Systems (MAS) represent a significant frontier in AI, where multiple intelligent agents, often powered by LLMs, interact to solve problems or simulate complex dynamics that may be intractable for a single agent.[5, 6, 87, 88] The AI design of MAS focuses on enabling effective collaboration, coordination, and collective intelligence.</p>
+
+<h3 id="61-architectures-for-collaboration-and-coordination">6.1 Architectures for Collaboration and Coordination</h3>
+
+<p>The architecture of an LLM-based MAS dictates how agents interact, share information, and coordinate their actions. Tran et al. (2025) provide a framework for characterizing collaboration mechanisms along several key dimensions [89, 87, 90]:</p>
+<ul>
+  <li><strong>Actors:</strong> The individual agents involved, each potentially with unique capabilities, roles, and underlying foundation models.</li>
+  <li><strong>Types of Interaction:</strong>
+    <ul>
+      <li><strong>Cooperation:</strong> Agents share common goals and work synergistically, often sharing rewards.[91]</li>
+      <li><strong>Competition:</strong> Agents have conflicting goals, operating in a zero-sum or near-zero-sum environment.</li>
+      <li><strong>Coopetition:</strong> A mix where agents may cooperate on some aspects while competing on others, reflecting many real-world scenarios.</li>
+    </ul>
+  </li>
+  <li><strong>Structures:</strong>
+    <ul>
+      <li><strong>Centralized:</strong> A single orchestrator or controller agent manages task allocation, information flow, and decision integration for other agents.[5, 6, 92] This “meta-agent” or “planner LLM” often requires advanced reasoning to understand the overall goal, decompose it effectively, and assign sub-tasks to the most suitable worker agents, managing dependencies and integrating results.</li>
+      <li><strong>Decentralized/Distributed:</strong> Agents interact directly in a peer-to-peer fashion, often self-organizing without a central authority.</li>
+      <li><strong>Hierarchical:</strong> Agents are organized in layers, with higher-level agents managing or coordinating teams of lower-level agents.</li>
+    </ul>
+  </li>
+  <li><strong>Strategies:</strong>
+    <ul>
+      <li><strong>Role-Based:</strong> Agents are assigned specific roles (e.g., planner, executor, critic, domain expert) based on their specialized capabilities or prompted personas.[5, 6, 67, 93] This division of labor is a common trend, moving from homogeneous MAS to heterogeneous teams of specialized agents.</li>
+      <li><strong>Model-Based:</strong> Strategies might be learned or dynamically adapted based on the state of the environment and the behavior of other agents.</li>
+    </ul>
+  </li>
+  <li><strong>Coordination Protocols/Communication:</strong> The mechanisms agents use to exchange information, negotiate, reach consensus, and synchronize their actions. This can involve structured messages, natural language dialogue, or shared memory/knowledge bases.[89, 87, 93]</li>
+</ul>
+
+<p>System-level support, such as that provided by AIOS [8], can be particularly beneficial for MAS. The AIOS scheduler can help orchestrate resource access (e.g., to LLM cores) for multiple contending agents, while its access manager can regulate inter-agent data sharing based on predefined privileges. Such functionalities contribute to more efficient, secure, and predictable coordination within a MAS.</p>
+
+<h3 id="62-frameworks-for-mas-development">6.2 Frameworks for MAS Development</h3>
+
+<p>Several frameworks have emerged to facilitate the development and deployment of LLM-based MAS:</p>
+<ul>
+  <li><strong>AutoGen</strong> (Wu et al., 2023) [94, 95, 8] provides a versatile platform for creating multi-agent conversation systems. Agents in AutoGen can be LLM-backed, human-backed (allowing for human-in-the-loop interaction), or tool-backed. They collaborate by exchanging messages to achieve tasks such as code generation, data analysis, or complex question answering. AutoGen supports flexible control flows, programmable via both natural language instructions and code, and features an auto-reply mechanism that drives the conversation forward.</li>
+  <li><strong>MetaGPT</strong> (Hong et al., 2023) [67, 96, 97, 8] introduces a meta-programming approach that encodes human-like Standardized Operating Procedures (SOPs) into prompt sequences for multi-agent collaboration. It employs an “assembly line” paradigm, assigning distinct roles (e.g., Product Manager, Architect, Engineer, QA Tester) to different agents. This structured workflow, with clearly defined responsibilities and handovers, is particularly effective for complex, multi-stage tasks like software development, aiming to improve coherence and reduce errors through systematic verification of intermediate outputs. The specialization of roles in MetaGPT reflects a broader trend: complex tasks often benefit from a division of labor, where different FMs or agent configurations optimized for specific sub-tasks contribute to the overall solution.</li>
+  <li>Other notable frameworks include <strong>CAMEL</strong> (Communicative Agents for “Mind” Exploration of Large Language Model Society) by Li et al. (2023) [5, 67, 92], which focuses on simulating complex social interactions and exploring emergent behaviors in LLM societies, and <strong>AgentVerse</strong> by Chen et al. (2023) [8], designed to facilitate broader multi-agent collaboration.</li>
+</ul>
+
+<h3 id="63-task-decomposition-role-assignment-and-coordination-strategies">6.3 Task Decomposition, Role Assignment, and Coordination Strategies</h3>
+
+<p>Effective functioning of MAS hinges on intelligent task decomposition, appropriate role assignment, and robust coordination strategies. LLMs themselves are increasingly used as the orchestrators or planners responsible for these critical functions.[92]
+In <strong>centralized orchestration</strong>, a dedicated LLM agent acts as a controller, breaking down the main task into sub-tasks and assigning them to specialized worker agents based on their capabilities.[5, 6, 92] The orchestrator then monitors progress and integrates the results.
+A <strong>semi-decentralized planner method</strong> involves an LLM generating a high-level plan, which is then disseminated to individual executor LLMs that independently generate actions to fulfill their part of the plan.[92]
+<strong>Role-playing</strong>, where LLMs are prompted to adopt specific personas or expert roles (e.g., “you are a senior software architect” or “you are a skeptical reviewer”), is a widely used technique to elicit specialized contributions and diverse perspectives within the MAS.[5, 6, 67, 93] The ability of LLMs to convincingly adopt these roles through prompting is a key enabler of this strategy.
+<strong>Communication protocols</strong> are vital for coordination. These can range from highly structured message formats and API calls to more flexible natural language dialogues between agents or interactions mediated through shared knowledge bases or memory systems.[89, 87, 93] The design of these protocols significantly impacts the efficiency and effectiveness of collaboration.</p>
+
+<h3 id="64-emergent-behavior-and-collective-intelligence">6.4 Emergent Behavior and Collective Intelligence</h3>
+
+<p>One of the most fascinating and challenging aspects of LLM-based MAS is the potential for <strong>emergent behavior</strong> and <strong>collective intelligence</strong>.[45, 98, 99, 100, 101] When multiple autonomous agents interact within a shared environment, complex group dynamics, social norms, and large-scale patterns can arise that were not explicitly programmed into the individual agents. Researchers are using LLM-based MAS to simulate and study phenomena such as cultural evolution, the formation of social norms, opinion dynamics in populations, and organizational decision-making.[45]
+The concept of an <strong>“Economy of Minds” (EOM)</strong>, as theorized by Zhuge et al. (2023) [92], suggests that future MAS could feature LLM agents that self-manage and allocate resources (such as computational power or access to specialized tools) based on an internal monetary or utility system, aiming to optimize collective task performance and maximize overall rewards.</p>
+
+<p>However, emergent behavior is a double-edged sword. While it holds the promise of novel problem-solving capabilities and insights into complex systems, it also introduces significant challenges in terms of predictability, control, and alignment.[85, 86, 88] Unintended collective behaviors, such as harmful collusion, amplification of biases present in the underlying LLMs, or actions that deviate from overall human goals, are serious concerns. This necessitates robust governance mechanisms, ethical guidelines encoded into agent objectives (extending concepts like Constitutional AI [58] to multi-agent contexts), and sophisticated methods for monitoring, understanding, and steering collective agent behavior. System-level controls, like the AIOS access manager [8], which manages resource access between agents, represent a very basic but important step in this direction, ensuring that inter-agent interactions occur within defined boundaries. The design of truly effective and safe MAS will require a deep understanding of not just individual agent capabilities but also the “social laws” and interaction protocols that govern the collective, drawing insights from fields like game theory, sociology, and complex systems theory.</p>
+
+<h3 id="65-alignment-in-multi-agent-systems">6.5 Alignment in Multi-Agent Systems</h3>
+
+<p>Achieving alignment in MAS is a multifaceted challenge that extends beyond aligning individual agents with human values. Duque et al. (2024) and Li et al. (2024b) emphasize that alignment in MAS is a dynamic, interaction-dependent process, profoundly shaped by the social context—be it collaborative, cooperative, or competitive—in which the agents operate.[88] Key challenges include reconciling individual agent objectives with collective goals, ensuring that the MAS as a whole adheres to human values, and aligning system behavior with the nuanced preferences and intentions of users. Social dynamics within the MAS can lead to emergent misalignments, such as power-seeking behaviors, divergence of values among agents, manipulation, or harmful collusion, even if individual agents appear aligned in isolation. Addressing these issues requires holistic approaches that consider the interplay of all incentives and constraints within the MAS, alongside the development of dedicated simulation environments and metrics to study and foster robust multi-agent alignment.</p>
+
+<p><strong>Table 2: Prominent AI Agent Frameworks and Their Core AI Design Principles</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Framework Name</th>
+      <th style="text-align: left">Primary AI Focus</th>
+      <th style="text-align: left">Key AI Mechanisms/Modules</th>
+      <th style="text-align: left">How Foundation Models are Leveraged</th>
+      <th style="text-align: left">Key AI Contribution/Novelty</th>
+      <th style="text-align: left">Relevant Citations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>ReAct</strong></td>
+      <td style="text-align: left">Grounded Reasoning &amp; Action</td>
+      <td style="text-align: left">Interleaved thought-action sequences; interaction with external tools/APIs.</td>
+      <td style="text-align: left">As core reasoner/actor to generate thoughts and actions (tool calls).</td>
+      <td style="text-align: left">Synergizing reasoning with environmental interaction for more factual and robust problem-solving.</td>
+      <td style="text-align: left">[38, 42, 8]</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Reflexion</strong></td>
+      <td style="text-align: left">Verbal Reinforcement Learning &amp; Self-Reflection</td>
+      <td style="text-align: left">Linguistic feedback processing; episodic memory buffer for reflections; in-context learning from past reflections.</td>
+      <td style="text-align: left">For generating linguistic self-reflections and for learning from these reflections to guide future actions.</td>
+      <td style="text-align: left">Weight-free reinforcement learning via linguistic feedback, enabling agents to learn from trial-and-error.</td>
+      <td style="text-align: left">[43, 44, 8]</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>AutoGen</strong></td>
+      <td style="text-align: left">Multi-Agent Conversation &amp; Collaboration</td>
+      <td style="text-align: left">Customizable conversable agents (LLM, human, tool-backed); auto-reply mechanisms; programmable control flow.</td>
+      <td style="text-align: left">As specialized agent roles (e.g., assistant, coder, planner); for interpreting natural language control instructions.</td>
+      <td style="text-align: left">Flexible and programmable framework for multi-agent chat-based collaboration on diverse tasks.</td>
+      <td style="text-align: left">[94, 95, 8]</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>MetaGPT</strong></td>
+      <td style="text-align: left">SOP-Driven Multi-Agent Collaboration</td>
+      <td style="text-align: left">Standardized Operating Procedures (SOPs) encoded in prompts; assembly-line paradigm with specialized agent roles (e.g., PM, Architect, Engineer).</td>
+      <td style="text-align: left">To interpret SOPs, embody specific professional roles, generate role-specific outputs (documents, code), and verify intermediate results.</td>
+      <td style="text-align: left">Highly structured and robust multi-agent collaboration for complex tasks (e.g., software development) by mimicking human workflows.</td>
+      <td style="text-align: left">[67, 96, 97, 8]</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>MemGPT</strong></td>
+      <td style="text-align: left">Hierarchical Memory for Extended Context</td>
+      <td style="text-align: left">Virtual context management; multi-tier memory (main context: system instructions, working context, FIFO queue; external context: recall &amp; archival storage); LLM-directed memory paging via function calls.</td>
+      <td style="text-align: left">As the core processor that also self-directs memory operations (read, write, page) based on system instructions and memory pressure.</td>
+      <td style="text-align: left">Provides the illusion of unbounded context for LLMs, enabling long conversations and large document analysis.</td>
+      <td style="text-align: left">[19]</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>A-MEM</strong></td>
+      <td style="text-align: left">Agentic Memory Evolution &amp; Organization</td>
+      <td style="text-align: left">Zettelkasten-inspired; agentic note construction (contextual descriptions, keywords, tags); automatic link generation between memories; memory evolution based on new experiences.</td>
+      <td style="text-align: left">For autonomously generating rich attributes for new memories, identifying connections between memories, and triggering updates to existing memories.</td>
+      <td style="text-align: left">A self-evolving knowledge network where memory structure and content dynamically adapt, enabling sophisticated long-term learning.</td>
+      <td style="text-align: left">[21, 26, 27, 28, 29, 30]</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>SICA (Self-Improving Coding Agent)</strong></td>
+      <td style="text-align: left">Autonomous Agent Self-Improvement (Code-based)</td>
+      <td style="text-align: left">LLM reflection on benchmark performance; basic coding tools for self-modification; meta-agent loop for iterative refinement.</td>
+      <td style="text-align: left">As the meta-agent that analyzes performance, identifies improvements, and autonomously edits its own codebase (prompts, tools).</td>
+      <td style="text-align: left">Data-efficient, non-gradient-based learning mechanism where an agent autonomously improves its own code and performance.</td>
+      <td style="text-align: left">[63]</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>ADAS (Automated Design of Agentic Systems)</strong></td>
+      <td style="text-align: left">Automated Discovery of Agent Architectures</td>
+      <td style="text-align: left">Meta-agent (FM) that designs new agents in code; search space of code-defined agents; iterative design, evaluation, and refinement loop.</td>
+      <td style="text-align: left">As the “meta-designer” or “expert ML researcher” that programs and refines novel agentic systems based on insights and performance.</td>
+      <td style="text-align: left">Automated discovery of potentially novel and more powerful agent architectures, leveraging FM coding and reasoning capabilities.</td>
+      <td style="text-align: left">[7]</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>AIOS-native Agents</strong></td>
+      <td style="text-align: left">OS-Supported AI Execution &amp; Resource Management</td>
+      <td style="text-align: left">Leveraging AIOS kernel services: scheduler, context manager, memory manager, storage manager, tool manager, access manager.</td>
+      <td style="text-align: left">As “LLM Cores” that are scheduled and managed by the AIOS kernel; agents utilize SDK to access kernel-managed resources.</td>
+      <td style="text-align: left">Efficient, scalable, and secure execution of LLM-based agents by isolating resources and providing OS-level services optimized for AI workloads.</td>
+      <td style="text-align: left">[8]</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>OpenAGI</strong></td>
+      <td style="text-align: left">RLTF for Task Solving with Domain Experts</td>
+      <td style="text-align: left">Task decomposition; planner, executer, retriever, summarizer modules; integration of domain-specific expert models/tools; Reinforcement Learning from Task Feedback (RLTF).</td>
+      <td style="text-align: left">As the core LLM that plans, executes tasks, and learns from task outcomes (RLTF) to improve its problem-solving ability, especially for open-ended tasks.</td>
+      <td style="text-align: left">A self-improving AI feedback loop where agents learn to solve multi-step, real-world tasks by leveraging LLM capabilities and task feedback, integrating domain expertise.</td>
+      <td style="text-align: left">[60, 61, 62]</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="7-challenges-and-future-directions-in-virtual-agent-ai-design">7. Challenges and Future Directions in Virtual Agent AI Design</h2>
+
+<p>Despite rapid advancements, the AI design of virtual agents faces significant challenges that outline the trajectory for future research. These challenges span enhancing core cognitive capabilities, ensuring safety and alignment, and scaling agent intelligence effectively.</p>
+
+<h3 id="71-enhancing-robustness-reliability-and-safety">7.1 Enhancing Robustness, Reliability, and Safety</h3>
+
+<p>A primary concern is the <strong>robustness and reliability</strong> of LLM-based agents. <strong>Hallucination mitigation</strong> remains a persistent issue, where agents generate factually incorrect or nonsensical information. Current approaches to combat this include Retrieval-Augmented Generation (RAG) to ground responses in external knowledge [22, 27, 31], integrating fact-verification modules, and employing structured reasoning frameworks like Case-Based Reasoning (CBR) which can provide solutions based on verified past experiences.[46]</p>
+
+<p>In <strong>multi-step tasks</strong>, errors made in early stages of a plan can propagate and derail the entire process. Mechanisms for <strong>self-correction</strong> [9] and more resilient planning algorithms are crucial. The AIOS framework’s context management, with its snapshot and restoration capabilities [8], can contribute to robustness by allowing an agent to revert to a previous correct state if an error is detected in its reasoning or action sequence.</p>
+
+<p><strong>Safety in action execution</strong> is paramount, especially as agents interact more directly with digital systems (e.g., GUI agents [13, 14]) or physical environments. Ensuring that an agent’s actions are safe, predictable, and aligned with human intentions is a critical research area.[23, 24, 85, 86] <strong>Constitutional AI</strong> [58] offers a promising approach by training AI assistants to be harmless through self-improvement guided by an explicit set of ethical principles or rules (a “constitution”). This involves the AI critiquing its own responses against these principles and using Reinforcement Learning from AI Feedback (RLAIF) where an AI model provides preference feedback for harmlessness, directly shaping the agent’s decision-making to adhere to these encoded guidelines. Furthermore, <strong>alignment in Multi-Agent Systems (MAS)</strong> presents unique challenges, requiring strategies to ensure that both individual agent objectives and emergent collective behaviors align with human values and overall system goals.[88]</p>
+
+<p>The increasing autonomy and capability of agents necessitate a greater focus on what can be termed the “alignment tax”—the significant and growing effort required to ensure these sophisticated systems operate safely and in accordance with human values. This is evident in the dedicated research streams focusing on Constitutional AI, safety protocols for MAS, and the development of ethical guidelines. As agents become capable of more complex, long-horizon actions with real-world impact, the design process must incorporate rigorous safety engineering and alignment verification. This may lead to specialized roles within development teams, such as “AI ethicists” or “AI safety engineers,” and could mean that the deployment of raw capabilities is paced by the development of corresponding safety and alignment measures.</p>
+
+<h3 id="72-achieving-true-long-term-reasoning-and-scalable-context-management">7.2 Achieving True Long-Term Reasoning and Scalable Context Management</h3>
+
+<p>While foundation models boast increasingly large context windows, achieving true <strong>long-term reasoning</strong> and managing context scalably over extended interactions or across vast knowledge bases remains a frontier.[102] Current FMs can still struggle with very long-range dependencies. Advanced memory architectures like <strong>MemGPT</strong> [19], which employs hierarchical storage and LLM-directed paging, and <strong>A-MEM</strong> [21, 26, 27, 28], which allows for agentic construction and evolution of a linked knowledge network, represent significant steps forward. However, scaling these systems to support truly lifelong learning and the seamless integration of vast, ever-changing knowledge remains an active area of research. Techniques like <strong>Fine-Grained Optimization (FGO)</strong> [102] for LLM-based optimizers are also being developed to address context window overflow issues when training or optimizing agents using large datasets of execution trajectories, by dividing tasks into manageable subsets and progressively merging optimized components.</p>
+
+<p>The AIOS paper [8], by proposing OS-level management of “cognitive resources” such as LLM core access, context, and memory, implicitly addresses this scalability. As agents become more complex, perhaps evolving into multi-agent systems or requiring persistent, very long-term memory, the efficient allocation and management of these underlying cognitive resources will be critical for both performance and the ability to execute advanced AI functions. This suggests a future where agent architectures might explicitly include “cognitive resource managers” to optimize the use of available FM compute, context space, and memory bandwidth, moving beyond just designing the cognitive functions themselves into designing how these functions are efficiently orchestrated under constraints.</p>
+
+<h3 id="73-improving-learning-efficiency-and-generalization">7.3 Improving Learning Efficiency and Generalization</h3>
+
+<p>Enhancing the <strong>efficiency and generalization of learning</strong> in virtual agents is crucial for their practical deployment. This includes improving <strong>sample efficiency</strong>, reducing the amount of data or interactive experience an agent needs to learn a new task or adapt its behavior. The Self-Improving Coding Agent (SICA) [63], which learns by modifying its own code based on performance feedback, is an example of a data-efficient, non-gradient-based learning approach. Similarly, verbal reinforcement learning frameworks like Reflexion [43, 44] aim for efficient learning from linguistic feedback.</p>
+
+<p><strong>Transfer learning and generalization</strong>—enabling agents to effectively apply knowledge and skills learned in one context to novel tasks and environments—is another key objective. Overcoming <strong>stagnation in self-improvement cycles</strong>, where agents reach a performance plateau despite continued autonomous learning, is also important. Co-evolving world models [59], which provide diverse simulated experiences and enable look-ahead planning, have been proposed to address this.</p>
+
+<h3 id="74-the-path-towards-more-autonomous-and-generally-capable-agents">7.4 The Path Towards More Autonomous and Generally Capable Agents</h3>
+
+<p>The long-term vision for virtual agents involves increasing their autonomy and general capabilities. The concept of <strong>NGENT (Next-Generation AI Agents)</strong> [12, 103] envisions future agents that integrate abilities across multiple domains—text, vision, robotics, reinforcement learning, and even emotional intelligence—within unified frameworks, moving closer to Artificial General Intelligence (AGI).</p>
+
+<p><strong>Automated Agent Design (ADAS)</strong> [7], where AI systems are used to design and program new, potentially more powerful agent architectures, could significantly accelerate progress in this direction. Furthermore, enhancing <strong>tool creation and use</strong> capabilities, where agents not only use existing tools but can also dynamically create or compose new tools to solve novel problems (e.g., the WorldAPIs approach by Ou et al. (2024) mentioned in [16]), will be vital for increasing agent versatility.</p>
+
+<h3 id="75-ethical-considerations-in-advanced-ai-agent-design">7.5 Ethical Considerations in Advanced AI Agent Design</h3>
+
+<p>As AI agents become more autonomous, capable, and integrated into various aspects of life, <strong>ethical considerations</strong> become increasingly critical.[23, 24, 1, 84, 85, 86] Issues such as the potential for bias amplification (where agents perpetuate or even magnify biases present in their training data or underlying FMs), misuse for malicious purposes, ensuring accountability for agent actions (especially complex in MAS [88]), the societal impact of job displacement, and the necessity of maintaining meaningful human oversight are paramount. The development of robust <strong>evaluation frameworks</strong> that assess not only performance but also safety, fairness, transparency, and reproducibility is essential.[64, 1, 2, 9, 82, 84, 104, 105]</p>
+
+<p>The increasing sophistication of AI agents naturally leads to a co-evolution of evaluation methodologies. As agents develop new capabilities, existing benchmarks may become saturated or fail to capture the nuances of these advanced skills. This, in turn, drives the creation of new, more challenging benchmarks designed to test specific aspects like long-horizon planning (e.g., PlanBench [16]), complex web navigation (e.g., WebArena [16]), or nuanced self-reflection (e.g., Reflection-Bench [64, 1, 9, 82, 104, 105]). Success on these new benchmarks then often spurs further research focused on enhancing the targeted capabilities. This iterative feedback loop between agent capability development and evaluation methodology refinement is a crucial driver of progress in the field, ensuring that research remains focused on pushing the boundaries of what AI agents can achieve.</p>
+
+<p><strong>Table 3: Key AI Design Challenges in Virtual Agents and Emerging Solutions (Late 2024-2025)</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Challenge Area</th>
+      <th style="text-align: left">Specific Problem</th>
+      <th style="text-align: left">Emerging AI-Driven Solutions/Approaches</th>
+      <th style="text-align: left">Key Recent Citations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>Long-Horizon Planning &amp; Reasoning</strong></td>
+      <td style="text-align: left">Error propagation in long plans; maintaining logical consistency; reasoning under uncertainty.</td>
+      <td style="text-align: left">Hierarchical planning frameworks; Tree-of-Thoughts (ToT)/Graph-of-Thoughts (GoT); ReAct-style grounded reasoning; CBR integration for structured knowledge.</td>
+      <td style="text-align: left">[38, 42, 16, 46]</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Scalable Context &amp; Memory</strong></td>
+      <td style="text-align: left">Context window limitations for lifelong learning and large document processing; efficient information retrieval from vast memory stores.</td>
+      <td style="text-align: left">Advanced memory architectures (e.g., A-MEM, MemGPT); virtual context management; context compression techniques; agentic memory evolution.</td>
+      <td style="text-align: left">[19, 102, 21, 26]</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Robust &amp; Efficient Learning</strong></td>
+      <td style="text-align: left">Sample inefficiency in learning new tasks/tools; catastrophic forgetting in continual learning; stagnation in self-improvement.</td>
+      <td style="text-align: left">Self-improving agents (e.g., SICA, co-evolving world models); verbal RL (e.g., Reflexion); Toolformer for self-supervised tool learning; lifelong learning architectures.</td>
+      <td style="text-align: left">[66, 43, 71, 59, 63]</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Safety &amp; Alignment</strong></td>
+      <td style="text-align: left">Hallucination; generation of harmful/biased content; ensuring actions align with human values; preventing undesirable emergent behaviors in MAS.</td>
+      <td style="text-align: left">Constitutional AI; RLAIF; formal verification methods (nascent); robust evaluation for safety; ethical principles embedded in agent design; governance for MAS.</td>
+      <td style="text-align: left">[58, 85, 86, 88]</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Multi-Agent Coordination</strong></td>
+      <td style="text-align: left">Ensuring coherent and efficient collaboration in MAS; task decomposition and allocation; managing communication overhead; resolving conflicts.</td>
+      <td style="text-align: left">SOP-driven frameworks (e.g., MetaGPT); dynamic orchestration strategies; advanced communication protocols; role-based specialization.</td>
+      <td style="text-align: left">[67, 92, 87]</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Generalization &amp; Adaptability</strong></td>
+      <td style="text-align: left">Adapting to novel, unseen tasks and dynamic environments; transferring learned skills effectively.</td>
+      <td style="text-align: left">Automated Design of Agentic Systems (ADAS); NGENT concepts for cross-domain integration; meta-learning approaches for learning to learn.</td>
+      <td style="text-align: left">[7, 12]</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="8-conclusion">8. Conclusion</h2>
+
+<p>The AI design of virtual agents is in a period of dynamic evolution, largely propelled by the rapid advancements in foundation models. This review has traced the trajectory from earlier agent concepts to the sophisticated, AI-centric systems of today, highlighting key architectural trends, reasoning and planning mechanisms, learning paradigms, and the integral role of FMs. Modern agents are increasingly characterized by their modular cognitive architectures, with FMs serving as powerful cognitive engines augmented by specialized modules for perception, memory, and action. Innovations in memory systems, such as MemGPT and A-MEM, are tackling the critical challenge of limited context windows, enabling agents to maintain long-term coherence and learn from extended histories. Reasoning frameworks like ReAct and Reflexion, along with structured approaches such as Tree-of-Thoughts and Case-Based Reasoning integration, are endowing agents with more robust, grounded, and adaptable thinking processes.</p>
+
+<p>A significant shift is observable towards agents that can learn and adapt more autonomously. Self-improving agents that can modify their own code or architectures, like SICA and those emerging from ADAS research, alongside agents that learn from diverse forms of feedback (human, environmental, self-generated, AI-generated), are pushing the boundaries of machine learning. The ability to learn to use tools effectively, as seen in Toolformer, and the development of systems for lifelong learning, are further testaments to this trend. In the realm of Multi-Agent Systems, AI design is focusing on sophisticated collaboration and coordination strategies, with frameworks like AutoGen and MetaGPT enabling complex group behaviors and task execution through specialized roles and structured communication.</p>
+
+<p>The collective evidence from recent research, particularly from late 2024 and 2025, points towards a paradigm shift. The field is moving beyond designing agents with fixed cognitive architectures towards creating systems capable of autonomously evolving their own cognitive processes, knowledge representations, and even their fundamental architectural blueprints. This transformative potential is primarily unlocked by the advanced generative, reasoning, and meta-cognitive capabilities of the latest foundation models. As agents themselves begin to contribute to their own advancement, the pace of AI development could accelerate further.</p>
+
+<p>However, this progress is intrinsically linked with significant challenges. Ensuring the robustness, reliability, safety, and ethical alignment of these increasingly autonomous and capable agents is paramount. The “alignment tax”—the substantial effort required to ensure that advanced agents operate in accordance with human values—will likely become a more prominent factor in the development lifecycle. The co-evolution of agent capabilities and the methodologies to evaluate them will continue to be a critical driver of progress, pushing researchers to develop more nuanced and comprehensive benchmarks that assess not only performance but also safety, fairness, and real-world applicability. Furthermore, as agents become more complex and are deployed at scale, particularly in multi-agent configurations, the efficient management of their “cognitive resources”—such as access to foundation models, context space, and memory bandwidth—will necessitate more sophisticated, “agent-aware” system-level support, as hinted at by frameworks like AIOS.</p>
+
+<p>The journey towards truly intelligent virtual agents is ongoing. The path forward will require continued interdisciplinary research, fostering a deeper understanding of both the immense potential and the inherent complexities of designing AI that can reason, learn, and act autonomously and responsibly in an increasingly intricate world.</p>
+
+<h2 id="bibliography">Bibliography</h2>
+
+<ol>
+  <li>Acharya, A., et al. (2025). <em>Factored Agents: A Novel Architecture for Decoupling Memorization and In-Context Learning in Agentic AI Systems</em>. (COLM 2025). [33]</li>
+  <li>Aghzal, M., et al. (2025). <em>PPNL: Path Planning from Natural Language</em>. [16]</li>
+  <li>Bai, J., et al. (2022). <em>Constitutional AI: Harmlessness from AI Feedback</em>. arXiv:2212.08073. [58]</li>
+  <li>Chen, M., et al. (2021a). <em>Evaluating Large Language Models Trained on Code</em>. arXiv:2107.03374. [8]</li>
+  <li>Chen, W., et al. (2023). <em>AgentVerse: Facilitating Multi-Agent Collaboration and Exploring Emergent Behaviors in Agents</em>. arXiv:2308.10848. [8]</li>
+  <li>Dubey, A., et al. (2024). <em>The Llama 3 Herd of Models</em>. arXiv:2407.21783. [77, 8]</li>
+  <li>Ge, Y., Hua, W., Mei, K., Tan, J., Xu, S., Li, Z., &amp; Zhang, Y. (2023a). <em>OpenAGI: When LLM Meets Domain Experts</em>. Advances in Neural Information Processing Systems, 36. arXiv:2304.04370. [60, 61, 62, 8]</li>
+  <li>Google. (2025, March 25). <em>Gemini 2.5: Our most intelligent AI model</em>. Google AI Blog. [81, 25]</li>
+  <li>Guo, C., et al. (2025). <em>DeepSeek-R1: Pushing the Frontier of Reasoning in Large Language Models</em>. [72, 17]</li>
+  <li>Hatalis, K., Christou, D., &amp; Kondapalli, V. (2025). <em>Review of Case-Based Reasoning for LLM Agents: Theoretical Foundations, Architectural Components, and Cognitive Integration</em>. arXiv:2504.06943. [45, 46, 47, 48, 49]</li>
+  <li>He, L., et al. (2024). <em>WebEvolver: A Co-evolving World Model for Self-Improving Web Agents</em>. arXiv:2504.21024. [59]</li>
+  <li>Hong, S., Zhuge, M., Chen, J., Zheng, X., Cheng, Y., Wang, J.,… &amp; Schmidhuber, J. (2023). <em>MetaGPT: Meta Programming for Multi-Agent Collaborative Framework</em>. ICLR 2024. arXiv:2308.00352. [67, 96, 97, 8]</li>
+  <li>Kassianik, P., et al. (2025a). <em>Llama-3.1-FoundationAI-SecurityLLM-Base-8B Technical Report</em>. arXiv:2504.21039. [80]</li>
+  <li>Kassianik, P., et al. (2025b). <em>Self-Improving Coding Agents Through Autonomous Code Edits</em>. arXiv:2504.15228. [63]</li>
+  <li>Laskin, M., et al. (2024). <em>Automated Design of Agentic Systems</em>. arXiv:2408.08435. [7]</li>
+  <li>Li, G., et al. (2023). <em>Camel: Communicative Agents for “Mind” Exploration of Large Language Model Society</em>. Advances in Neural Information Processing Systems, 36. [5, 92, 8]</li>
+  <li>Liu, J., et al. (2023). <em>AgentBench: Evaluating LLMs as Agents</em>. [16]</li>
+  <li>Luo, J., et al. (2025). <em>Large Language Model Agent: A Survey on Methodology, Applications and Challenges</em>. arXiv:2503.21460. [106, 5, 6, 107]</li>
+  <li>Mei, K., Zhu, X., Xu, W., Jin, M., Hua, W., Li, Z.,… &amp; Zhang, Y. (2025). <em>AIOS: LLM Agent Operating System</em>. arXiv:2403.16971v4. [8]</li>
+  <li>Meta AI. (2024, April 18). <em>Introducing Meta Llama 3: The most capable openly available LLM to date</em>. Meta AI Blog. [78]</li>
+  <li>Mi, Y., Gao, Z., Ma, X., &amp; Li, Q. (2025). <em>Building LLM Agents by Incorporating Insights from Computer Systems</em>. arXiv:2504.04485. [34, 35, 36]</li>
+  <li>OpenAI. (2023). <em>GPT-4 Technical Report</em>. arXiv:2303.08774. [23, 24, 108]</li>
+  <li>Packer, C., Fang, V., Patil, S. G., Lin, K., Wooders, S., &amp; Gonzalez, J. E. (2023). <em>MemGPT: Towards LLMs as Operating Systems</em>. arXiv:2310.08560. [19, 8]</li>
+  <li>Schick, T., Dwivedi-Yu, J., Dessì, R., Raileanu, R., Lomeli, M., Zettlemoyer, L.,… &amp; Scialom, T. (2023). <em>Toolformer: Language Models Can Teach Themselves to Use Tools</em>. arXiv:2302.04761. [5, 11, 64, 65, 66, 67]</li>
+  <li>Seßler, K., Bewersdorff, A., Nerdel, C., &amp; Kasneci, E. (2025). <em>Towards Adaptive Feedback with AI: Comparing the Feedback Quality of LLMs and Teachers on Experimentation Protocols</em>. arXiv:2502.12842. [52, 56, 57]</li>
+  <li>Shinn, N., Cassano, F., Gopinath, A., Narasimhan, K., &amp; Yao, S. (2023). <em>Reflexion: Language Agents with Verbal Reinforcement Learning</em>. Advances in Neural Information Processing Systems, 36. [5, 43, 44, 8, 9]</li>
+  <li>Tran, K.-T., Dao, D., Nguyen, M.-D., Pham, Q.-V., O’Sullivan, B., &amp; Nguyen, H. D. (2025). <em>Multi-Agent Collaboration Mechanisms: A Survey of LLMs</em>. arXiv:2501.06322. [89, 87, 90]</li>
+  <li>Wang, S., Liu, W., Chen, J., Zhou, Y., Gan, W., Zeng, X.,… &amp; Hao, J. (2025). <em>GUI Agents with Foundation Models: A Comprehensive Survey</em>. arXiv:2411.04890v2. [13, 14, 52, 57, 109, 15, 110, 111, 108, 83]</li>
+  <li>Wu, Q., Bansal, G., Zhang, J., Wu, Y., Zhang, S., Zhu, E.,… &amp; Wang, C. (2023). <em>AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation Framework</em>. arXiv:2308.08155. [94, 95, 92, 8]</li>
+  <li>Xi, Z., Chen, W., Guo, X., He, W., Ding, Y., Hong, B.,… &amp; Zhang, Y. (2023). <em>The Rise and Potential of Large Language Model Based Agents: A Survey</em>. arXiv:2309.07864. [11]</li>
+  <li>Xu, W., et al. (2025). <em>LLM-based Agents for Self-Resource Allocation in Multi-Agent Systems</em>. arXiv:2504.02051. [92]</li>
+  <li>Yao, S., Zhao, J., Yu, D., Du, N., Shafran, I., Narasimhan, K., &amp; Cao, Y. (2023). <em>ReAct: Synergizing Reasoning and Acting in Language Models</em>. ICLR 2023. [38, 42, 8]</li>
+  <li>Yehudai, A., Eden, L., Li, A., Uziel, G., Zhao, Y., Bar-Haim, R.,… &amp; Shmueli-Scheuer, M. (2025). <em>Survey on Evaluation of LLM-based Agents</em>. arXiv:2503.16416. [64, 1, 9, 82, 84, 104, 105]</li>
+  <li>Zhang, Z., Bo, X., Ma, C., Li, R., Chen, X., Dai, Q.,… &amp; Wen, J.-R. (2024). <em>A Survey on the Memory Mechanism of Large Language Model based Agents</em>. arXiv:2404.13501. [18, 20, 112, 113, 71, 114, 115, 8]</li>
+  <li>Zhang, Y., et al. (2025). <em>A-MEM: Agentic Memory for LLM Agents</em>. arXiv:2502.12110. [21, 26, 27, 28, 29, 30]</li>
+  <li>Zou, H. P., et al. (2025). <em>A Survey on Large Language Model based Human-Agent Systems</em>. arXiv:2505.00753. [10, 54, 50, 45, 55]
+<em>(Additional recent papers from late 2024/2025 discovered during search and integrated into the review are also included above and in the main text, e.g..[5, 72, 73, 74, 116, 51, 117, 45, 98, 99, 100, 75, 1, 2, 3, 4, 7, 9, 12, 16, 17, 22, 27, 31, 32, 33, 37, 39, 40, 41, 46, 59, 63, 68, 69, 70, 82, 84, 85, 86, 88, 101, 103, 105, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128])</em></li>
+</ol>]]></content><author><name>Jade Xu</name></author><summary type="html"><![CDATA[The design of virtual agents is undergoing a significant transformation, driven by the advanced capabilities of foundation models (FMs), particularly Large Language Models (LLMs) and Multimodal Large Language Models (MLLMs). These FMs now serve as the cognitive core for agents, enabling sophisticated understanding, reasoning, planning, and interaction. This literature review delves into the AI design principles and architectures underpinning modern virtual agents, focusing on their cognitive architectures, reasoning and planning mechanisms, learning and adaptation capabilities, and the pivotal influence of FMs. We explore key innovations such as advanced memory systems (e.g., MemGPT, A-MEM) that address context limitations, sophisticated reasoning frameworks (e.g., ReAct, Reflexion, Tree-of-Thoughts, Case-Based Reasoning integration) that enhance decision-making, and paradigms for agent self-improvement and autonomous evolution (e.g., SICA, ADAS). The review also examines the AI design of multi-agent systems (MAS), including collaborative architectures (e.g., AutoGen, MetaGPT) and the emergence of collective intelligence. A central theme is the trend towards agents that are not only more autonomous but are also capable of evolving their own cognitive processes and architectural blueprints, largely enabled by the meta-cognitive capabilities of recent FMs. However, this rapid progress is accompanied by significant challenges in ensuring robustness, reliability, safety, and ethical alignment, particularly as agents become more integrated into real-world applications. The increasing complexity and resource demands of FM-powered agents also highlight the growing importance of system-level support, such as that proposed by AIOS, to efficiently manage cognitive resources. The field is maturing towards a more holistic approach, integrating AI-aware system design with advanced cognitive capabilities, while emphasizing the critical need for rigorous evaluation and responsible development to harness the full potential of AI-driven virtual agents.]]></summary></entry><entry><title type="html">Peek-A-Boo, Occlusion-Aware Visual Perception through Active Exploration</title><link href="http://localhost:4000/CS269-Projects-2025Spring/2024/12/13/student-01-peekaboo.html" rel="alternate" type="text/html" title="Peek-A-Boo, Occlusion-Aware Visual Perception through Active Exploration" /><published>2024-12-13T00:00:00-08:00</published><updated>2024-12-13T00:00:00-08:00</updated><id>http://localhost:4000/CS269-Projects-2025Spring/2024/12/13/student-01-peekaboo</id><content type="html" xml:base="http://localhost:4000/CS269-Projects-2025Spring/2024/12/13/student-01-peekaboo.html"><![CDATA[<blockquote>
+  <p>In this study, we present a framework for enabling
+robots to locate and focus on objects that are partially or fully
+occluded within their environment. We split up any robotic tasks
+into two steps: Localization, where the robot searches for objects
+of interest, and Task Completion, where the robot completes the
+task after finding the object. We propose Peekaboo, a solution
+to the Localization stage to find partially or even fully occluded
+objects. We train a reinforcement learning algorithm to teach
+the robot to actively reposition its camera to optimize visibility
+of occluded objects. The key features include engineering a
+reward function that incentivizes effective object localization and
+setting up a comprehensive training environment. We develop
+a simulation environment with randomness to learn to localize
+from numerous initial viewpoints. Our approach also includes
+the implementation of a vision encoder for processing visual
+input, which allows the robot to interpret and respond to
+objects and occlusions. We design metrics to quantify the model’s
+performance, demonstrating its capability to handle occlusions
+without any human intervention at all. The results of this work
+showcase the potential for robotic systems to actively improve
+their perception in cluttered or obstructed environments.</p>
+</blockquote>
+
+<!--more-->
+<ul id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#prior-works" id="markdown-toc-prior-works">Prior Works</a></li>
+  <li><a href="#problem-formulation" id="markdown-toc-problem-formulation">Problem Formulation</a></li>
+  <li><a href="#proposed-methods-and-evaluation" id="markdown-toc-proposed-methods-and-evaluation">Proposed Methods and Evaluation</a></li>
+  <li><a href="#experiments" id="markdown-toc-experiments">Experiments</a></li>
+  <li><a href="#results" id="markdown-toc-results">Results</a></li>
+  <li><a href="#discussion" id="markdown-toc-discussion">Discussion</a></li>
+  <li><a href="#conclusion" id="markdown-toc-conclusion">Conclusion</a>    <ul>
+      <li><a href="#future-work" id="markdown-toc-future-work">Future Work</a></li>
+    </ul>
+  </li>
+  <li><a href="#links" id="markdown-toc-links">Links</a></li>
+  <li><a href="#references" id="markdown-toc-references">References</a></li>
+</ul>
+
+<h2 id="introduction">Introduction</h2>
+<p>In dynamic and cluttered environments, robotic systems
+with visual perception capabilities must be able to adapt their
+viewpoints to maintain visibility of target objects, even when
+occlusions or obstacles obstruct their line of sight. Traditional
+robotic vision systems often address this requirement by either
+using a large array of static sensors, usually cameras, pointing in different orientations, or by moving a single
+sensor in a predetermined path. Both approaches have their
+downsides. Arrays of static sensors are far more expensive than
+using a single sensor, and rely on the motion of their agent
+to acquire new viewpoints. Sensors that follow predetermined
+paths lack the flexibility to capture environment-dependent
+information about complex scenes common in real-world
+settings. These limitations serve as critical bottlenecks slowing
+the advancement of vision-based robotics. Active Vision is a
+promising field that aims to address these challenges. The goal
+of Active Vision is to mimic the way that humans perceive
+their environment: by learning to move and orient a single
+sensor in ways that capture information important for completing some task.</p>
+
+<p>Active Vision avoids the shortcomings of
+the other two approaches; the agent uses a single controllable
+sensor, as opposed to an array of fixed sensors to perceive
+its environment, and the agent can learn to manipulate its
+sensor in response to its environment in nuanced ways that
+a predetermined approach could not.</p>
+
+<p>Recent advances in reinforcement learning (RL) have looked
+into enabling robots to learn behaviors directly from their
+interactions with the environment, making it possible to train
+autonomous systems to explore the environment, allowing
+for active perception. In robotic vision tasks, RL algorithms
+can enable a camera mounted on a robotic arm to not only
+locate objects but also to continuously adjust its position
+to avoid occlusions and improve object visibility. However,
+developing such an RL framework requires overcoming several
+challenges, including creating a robust training environment
+that mimics the need to shift camera perspectives, and engineering reward functions that incentivize behavior promoting
+consistent visibility.</p>
+
+<p>We propose Peekaboo, an approach that addresses many
+of the shortcomings of previous methods. Peekaboo’s key
+insight is that the Localization and Task Completion steps in
+manipulation tasks can be decoupled with minimal loss of
+generality. In practice, when humans perform manipulation
+tasks, we search our environment for an object before extending a hand in its direction to grasp it. The same logic applies here. Any manipulation task first requires the agent
+to localize the object, along with anything else critical for
+completing the task. Peekaboo focuses on this Localization
+step, but unlike previous works is designed to be robust to
+very heavy occlusions, and allows the camera to be controlled
+with many degrees of freedom.</p>
+
+<h2 id="prior-works">Prior Works</h2>
+
+<p>Prior works in Active Vision address similar problems to
+ours, but all differ in some key areas. While there are many
+works in Active Vision, we mention those most relevant to
+our method. A recent approach by researchers at Google
+Deepmind proposes using navigation data to enhance the
+performance of cross-embodiment manipulation tasks [8]. The
+researchers demonstrate that learning a general approach to
+navigation from sources using different embodiments is key
+to performing manipulation tasks. Their findings reinforce the
+notion that navigation is a robotics control primitive that can
+aid any task, even those that do not explicitly perform navigation.</p>
+
+<p>Other works like those by researchers from the University of Texas at Austin have proposed performing complex
+tasks using an “information-seeking” and an “information-receiving” policy to guide the search task and manipulation task separately [3]. While impressive, their approach Learning
+to Look is designed to perform complex manipulation tasks in
+simple unobstructed environments with limited camera motion.
+In contrast, our goal is to operate in environments designed to
+hinder search tasks and force the agent to substantially move
+its camera to succeed. There has also been plenty of work
+in using Active Vision as a tool to improve performance in
+well-studied tasks like grasping [6] and object classification
+[7]. More recently, there has been an increased focus on
+learning Active Vision policies from human demonstrations
+using Imitation Learning. Ian Chuang et al. propose a method
+that allows a human teleoperator to control both a camera and
+a robotic arm in a VR environment in order to collect near-optimal human demonstration data of Active Vision tasks like inserting a key into a lock.</p>
+
+<div style="text-align: center;">
+  <img src="/CS269-Projects-2025Spring/assets/images/group-01/pworksfig1.png" style="width: 500px; max-width: 100%;" alt="RobosuiteEnv" />
+  <p><em>Using learned Active Vision policies as a method to acquire novel views of objects to aid in object classification.</em></p>
+</div>
+
+<p>Two prior works stand out as particularly similar to our task
+and deserve additional attention. The first approach by Stanford researchers, DREAM, proposes decoupling their agent’s
+task into an explorative navigation step and exploitative task
+completion stage, each of which is learned separately [5]. This
+approach relies on an intrinsic task ID, and leverages memory
+from previous explorative iterations through a memorization
+process to aid it in the current iteration. While the researchers
+demonstrate impressive results, we find that their environment
+is somewhat limited. Since the researchers are performing
+navigation, their agent is limited to moving in two degrees
+of freedom, and rotating in a single degree of freedom. In
+contrast, our approach freely manipulates the agent in six
+degrees of freedom. In addition, their task is designed such
+that the agent can physically access the entire environment:
+an assumption that is often not true in physical systems in the
+real world.</p>
+
+<p>Another highly relevant paper from researchers
+at Carnegie Mellon uses Active Vision to aid a manipulation
+task in the presence of visual occlusions [1]. The authors
+propose a task of pushing a target cube onto a target coordinate
+using a robotic arm, where the agent learns to independently
+manipulate its robotic arm and the camera from which it sees
+to avoid physical occlusions preventing task completion. Like
+DREAM, the proposed method limits the agent to few degrees
+of freedom in its motion. In addition, the agent operates on
+fairly “weak” occlusions that rarely impede task completion.
+Lastly, the authors learn a single policy that jointly manipulates
+the robotic arm and controls the camera – a process we
+believe can be decoupled.</p>
+
+<div style="text-align: center;">
+  <img src="/CS269-Projects-2025Spring/assets/images/group-01/pworks2.png" style="width: 500px; max-width: 100%;" alt="RobosuiteEnv" />
+  <p><em>Learning to perform manipulation in the presence of visual occlusions by learning to control the camera. The agent jointly learns to control the robotic arm to move the cube onto the target, and control the camera to avoid visual obstructions.</em></p>
+</div>
+
+<h2 id="problem-formulation">Problem Formulation</h2>
+
+<p>We contribute a novel task formulation unique to Peekaboo,
+and central to performing occlusion-aware search. We train
+Peekaboo using a Reinforcement Learning framework, which
+requires us to define three components: the environment, the
+agent, and the reward function.</p>
+
+<div style="text-align: center;">
+  <img src="/CS269-Projects-2025Spring/assets/images/group-01/mdp.png" style="width: 500px; max-width: 100%;" alt="RobosuiteEnv" />
+  <p><em>Markov Decision Process (MDP) Framework</em></p>
+</div>
+
+<p>The environment is a simple indoor room, containing a
+central table. On the table lies a randomly positioned target
+cube and a large randomly positioned wall meant to block the
+view of the cube.</p>
+
+<p>The agent is a 6-DoF Panda robotic arm, initialized to look
+in a random direction. It can move its end effector in any
+direction, and rotate its end effector to any orientation. The
+agent observes its environment through a sensor in its hand
+that captures images from the hand’s point of view.
+The reward function is a binary reward function. The value
+of the reward is one if the target cube is within the frame of
+the robotic arm’s camera observation. Otherwise, if the cube
+is off-frame, or occluded by the wall, the value of the reward
+is zero. This reward function encourages the agent to search
+its environment until it can see the target cube.
+Using this particular task, we aim to train Peekaboo such
+that it can learn to search around occlusions to locate the target
+cube, regardless of variations in the scene.
+In summary, we focus on building a flexible, RL-based
+framework that enables a robotic arm-mounted camera to
+autonomously determine the optimal perspectives for tracking
+objects, particularly in environments where occlusions are
+frequent. To achieve this, we will:</p>
+
+<ol>
+  <li><strong>Introduce randomness</strong>
+    <ul>
+      <li>Randomize both the environment and camera settings during the training phase.</li>
+      <li>Ensure the model is robust to variable conditions.</li>
+    </ul>
+  </li>
+  <li><strong>Include a vision encoder</strong>
+    <ul>
+      <li>Process incoming visual data effectively.</li>
+    </ul>
+  </li>
+  <li><strong>Incorporate a reinforcement learning (RL) algorithm</strong>
+    <ul>
+      <li>Train the camera’s decision-making process.</li>
+    </ul>
+  </li>
+  <li><strong>Engineer a reward function</strong>
+    <ul>
+      <li>Emphasize maintaining clear sightlines.</li>
+      <li>Penalize occlusions to improve performance.</li>
+    </ul>
+  </li>
+</ol>
+
+<p>This work contributes to the growing field of adaptive
+robotic vision, offering a method for giving robots autonomous, context-aware vision capabilities that can support
+applications requiring real-time adaptability in unpredictable
+environments.</p>
+
+<h2 id="proposed-methods-and-evaluation">Proposed Methods and Evaluation</h2>
+<p>We propose a two stage RL training framework that allows
+our robot to first search for and focus on the object of interest,
+and then complete the desired task by interacting with the
+object. The focus of our methods will be on training and
+testing the first stage of this framework, as there are many
+prior works that focus on task completion. We will refer to
+this first stage as Localization and the second stage as Task
+Completion. The Localization phase will consist of training
+an RL agent that learns to move an egocentric, or first person
+view, camera to search around occlusions by exploring the
+environment, with the end goal of localizing the object of
+interest in its frame of view.</p>
+
+<p>We will approach this problem using a custom environment
+in Robosuite. Our environment will be built off of the base
+Lift task environment, with modifications made to create
+occlusions. Specifically, we will put a wall in between the
+robotic arm and the cube that the arm is trying to lift. This
+will be the main occlusion that is dealt with in our Wall task.
+In its initial frame observation of the environment, the robot
+will not be able to see the cube it is trying to lift, as it will be
+covered by the wall. We also introduced cube randomization,
+camera randomization, and arm randomization. The cube and
+arm randomization was done through the Robosuite framework. The camera and wall randomization relied on custom
+quaternions that changed the orientation of our objects. The
+goal of the overall task is for the robot to search for the cube,
+find it behind the wall, and then lift it.</p>
+
+<p>Through our two stage framework, we propose a MDP
+formulation for the Localization stage. The state space
+consists of the image observations from our robot. We will
+have a camera attached the end effector of the robotic arm
+to observe these images. The robot will not have access to
+ground truth proprioceptive data. The action space consists
+of modifying the perspective of the camera, which is done
+through the Cartesian coordinates of moving the robotic arm.
+The reward function will be as follows:</p>
+
+\[\text{reward} = \begin{cases} 
+      0 &amp; \text{if not in view} \\
+      1 &amp; \text{if in view} 
+   \end{cases}\]
+
+<div style="text-align: center;">
+  <img src="/CS269-Projects-2025Spring/assets/images/group-01/fig1.png" style="width: 500px; max-width: 100%;" alt="RobosuiteEnv" />
+  <p><em>Fig 1. Visualization of our Reward Function</em>.</p>
+</div>
+
+<p>If the cube is in view, we get a reward of 1, and if it is not, the reward is 0. We will implement this in the environment using the ground truth proprioceptive data of the robotic arm, the wall, and the cube. Using this position data, we can calculate the angle in between the robotic arm and wall, and the robotic arm and the cube. These angles can then indicate if the wall is blocking the robotic arm’s frame of view from the cube or not, which allows us to return a reward of 0 or 1. Given that the robot does not have access to this ground truth data, we are essentially teaching the robot to recognize and search around occlusions when they show up prominently in its camera frame.</p>
+
+<p>Here is a snippet from our code:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def reward(obs):
+    target_vertices, wall_vertices, camera_position, camera_vec, camera_bloom = preprocess(obs)
+
+    # if any corner of the target cube is outside of frame, return 0
+    for target_vertex in target_vertices:
+        if not target_visible_in_conical_bloom(target_vertex, camera_position, camera_vec, camera_bloom):
+            return 0
+
+    # if any corner of the target cube is blocked by the wall, return 0
+    for target_vertex in target_vertices:
+        for wall_plane in wall_vertices:
+            if line_segment_intersects_truncated_plane(target_vertex, camera_position, wall_plane):
+                return 0
+        
+    # cube is entirely within bloom and is not obstructed
+    return 1
+</code></pre></div></div>
+
+<p>Once we have set up the Robosuite environment with the camera and reward function, we will train a PPO agent on the MDP formulation of the \(\textit{Localization}\) stage. The image observations will be processed by a pretrained Vision Encoder, which will be frozen during training. The output features of the Vision Encoder will be the inputs to our RL neural networks. Our evaluation will consist of visualizing rollouts and establishing a success rate for the \(\textit{Localization}\) phase. A rollout will be considered a success if the object of interest is seen completely unobstructed in the scene from the perspective of the robot. In order to test for generalization, we will randomize initial states of the robotic arm, the wall, and the cube. Sometimes, the cube will be completely in view, and sometimes it will be completely occluded. It will be up to the robot to learn and decide when it needs to search around the wall and when it has the object of interest in sight.</p>
+
+<p>Our main contributions are the training and evaluation of this first stage. Now that we have run randomized tests, we have set up a foundation to implement the second stage of our proposed method. We can simply use the final, localized state of our first stage as the initial state for our \(\textit{Task Completion}\) stage, which will also be trained using the PPO algorithm. The goal then would be to first use the \(\textit{Localization}\) stage to find the desired object behind any occlusions, and then use the \(\textit{Task Completion}\) stage to execute the task. We can then visualize rollouts of this end to end pipeline and determine the success rate.</p>
+
+<p>This two stage training can then be compared against a baseline of training one PPO agent for the entire task from scratch. In effect we want to show that while one agent is not able to both find the object and finish the task in one go, our two step approach is able to successfully break this down into multiple steps.</p>
+
+<h2 id="experiments">Experiments</h2>
+<p>Our experimental environment is in Robosuite. We use a custom Robosuite environment, built off their Lift Environment implementation. This environment provides a target cube object, a robotic arm, a mounted camera on the robotic arm, and a table. We customize this class by adding randomness to the initial positions and orientations of all of the above objects except the table. We also add our own wall, randomized in size, positioning, and orientation. Fig. 2 shows the top down view of our experiment setup. This figure is for visual understanding purposes only and the images from this camera are not used in our training. Fig. 3 shows the first person images from our mounted camera, randomized at each initialization. We use images from this camera to train the arm to move the camera to place the target object in frame. For our training runs, we can train models with varying degrees of randomization. Specifically, in this project, we experimented with turning camera randomization on and off. For all of our training runs, we kept wall and cube randomization always on.</p>
+
+<div style="text-align: center;">
+  <img src="/CS269-Projects-2025Spring/assets/images/group-01/fig2.png" style="width: 500px; max-width: 100%;" alt="RobosuiteEnv" />
+  <p><em>Fig 2. Examples of Top down view of randomized initialization</em>.</p>
+</div>
+
+<div style="text-align: center;">
+  <img src="/CS269-Projects-2025Spring/assets/images/group-01/fig3.png" style="width: 500px; max-width: 100%;" alt="RobosuiteEnv" />
+  <p><em>Fig 3. Examples of First person view of randomized initialization</em>.</p>
+</div>
+
+<p>For our training process, we interpret the camera image using DINOv2, a vision transformer based vision encoder, and we feed the results into our reward function. This vision encoder takes in images of size 224 by 224 from the environment and outputs 384 features to our RL policy.</p>
+
+<p>We use a proximal policy optimization (PPO) reinforcement learning algorithm that trains our model to look at the target object. We initialize our RL policy to be a 2 layer MLP with 256 activations per layer, taking the feature inputs from our vision encoder and outputing the action for our robotic arm. We configure this model through the Stable-Baselines3 library. Ideally, we would like to train our policy for 1 million timesteps, which amounts to 2000 episodes, but due to training time constraints, we begin with 200k timesteps, which amounts to 400 episodes. Further discussion of training is presented in our results.</p>
+
+<p>Our metrics for the model that we trained are the rewards that we defined earlier. We set the episode horizon to 500, meaning that there is a total possible reward per episode of 500. A lower reward indicates that the policy struggled to find the cube. The closer the reward is to 500 the better, indicating that our policy was able to localize the cube early in the episode, and learned to keep it within view the entire time.</p>
+
+<h2 id="results">Results</h2>
+
+<p>For our results, we evaluate two main training runs to demonstrate the performance of our method. As we are working with a completely custom environment and task, we are evaluating the performance of an approach to a new problem formulation.</p>
+
+<p>Initially, we trained a model on our fully randomized environment, including randomization of the cube, wall, and camera angle. The reward graph for the training of this model is presented in Figure 4. The model is trained for 200k timesteps, which is about 400 episodes, and took approximately 10 hours to train. We can see that the general trend of the rewards is upwards, with an increase in rewards at around the 130k timesteps mark. However, the rewards are also oscillating after that point, showing variability and lack of convergence to our results.</p>
+
+<div style="text-align: center;">
+  <img src="/CS269-Projects-2025Spring/assets/images/group-01/fig4.png" style="width: 500px; max-width: 100%;" alt="RobosuiteEnv" />
+  <p><em>Fig 4. Rewards Graph for training with randomization of wall, cube and
+camera</em>.</p>
+</div>
+
+<p>We wanted to demonstrate more stability within our results, so the next model we trained was without camera randomization. The reward graph for this training run is presented in Figure 5. We see an increase in rewards earlier in this graph at 90k timesteps, but then it drops again before picking up towards the end of training. Again, we see that our rewards do not converge.</p>
+
+<div style="text-align: center;">
+  <img src="/CS269-Projects-2025Spring/assets/images/group-01/fig5.png" style="width: 500px; max-width: 100%;" alt="RobosuiteEnv" />
+  <p><em>Fig 5. Rewards Graph for training with randomization of only wall and cube</em>.</p>
+</div>
+
+<p>In order to test if the model converges, we decided to continue training the model with full environment randomization (camera, wall, and cube) for 1 million time steps, which took 40+ hours. Unfortunately, this training run did not converge either, and showed the same up and down performance that our shorter training runs displayed. Therefore, we see that naively training the model for longer does not improve performance.</p>
+
+<h2 id="discussion">Discussion</h2>
+<p>When we tested our model after training, we saw that our policy’s actions greatly depends on the initial conditions of the task. Since we are randomizing the environment before every episode, the initial conditions could vary from episode to episode. In the case that the wall or cube are in view in the beginning, the model performs reasonably by searching around them. However, we also see many cases when the robotic arm is pointed in an arbitrary direction away from the wall and cube. In this case, it sees just a blank white image of the table. This initial observation gives the robot no information with which to find the cube or even start searching, since that image is the only observation (we do not give the robot proprioceptive data). There is no indication within the image which way it should even search, as that would change from episode to episode due to environment randomization. We believe that this variance in the task causes instability in performance, which aligns with the results we are seeing. When there is a favorable initial condition, the model learns well, but when there is no useful information in the initial condition, performance declines and causes instability in  rewards. This performance would explain why our training graphs look the way they do, and why training does not converge simply with training for longer.</p>
+
+<p>It is also important to note that even though we trained for 10+ hours, that only amounted to 400 episodes, which is not very much compared to other environments that train RL models with training episodes in the thousands. This increase in compute goes back to our problem setup, where we settled on the computationally expensive DinoV2 vision encoder with high resolution images, and set the complexity of our task through drastic randomization of our task environment. In future works, especially with a visually simple task environment (the only objects are a wall and cube, with no visual intricacies) it may have been better to use a smaller Vision Encoder like a ResNet or train our own CNNPolicy with lower resolution images. Additionally, we had hoped that the exploration of RL would allow it to learn to overcome drastic randomization, but through our results it seems that we were potentially wrong. It may have been better to start with no randomization and just a wall occluding a cube, and once that was working, we could incrementally add randomization to increase complexity. Once these changes are implemented, we believe that our solution could be a viable solution to the active exploration problem that we are working on.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>We present Peek-A-Boo, a two stage Reinforcement Learning framework that aims to break down any task into two stages: Localization/Search and Task Completion. We create a custom task environment with occlusions and randomization, an engineered reward function, and train an RL model with a Visual Encoder to complete the Localization stage. Through our model training, we are able to demonstrate promise in our approach through generally increasing rewards despite variability in training performance.</p>
+
+<h3 id="future-work">Future Work</h3>
+<p>Future work would focus on simplifying the task with less drastic randomization to show stable performance. Then, we can scale up to more complicated tasks. Future work could also look into other ways to stabilize the performance of the model. For instance, the Localization stage of our framework could be approached using IBRL (Imitation Bootstrapped Reinforcement Learning) [4] in order to improve stability through Imitation Learning while allowing the model to also explore the environment through RL. Additionally, another avenue of future work could be automating the reward function using object detection or semantic segmentation on the observation image. We have engineering a reward function using ground truth data, but that may not always be available when applying this framework.</p>
+
+<p>Overall, we see this as a promising first step for active perception and occlusion-aware robotics. We are excited to see the advancements in this field to hopefully one day see robot policies that are able to explore and generalize to any extenuating circumstance that they face in their environment.</p>
+
+<h2 id="links">Links</h2>
+<p><a href="https://github.com/ophirsim/Peekaboo">Link to our codebase</a></p>
+
+<p>Custom feature extractor using the pretrained DINOv2 base model from timm: <a href="https://github.com/ophirsim/Peekaboo/blob/main/vision_encoder.py">Link</a></p>
+
+<p>Stable Baselines Documentation: <a href="https://stable-baselines3.readthedocs.io/en/master/modules/ppo.html">Link</a></p>
+
+<h2 id="references">References</h2>
+<p>[1] Cheng, R., Agarwal, A., &amp; Fragkiadaki, K.
+(2018). Reinforcement Learning of Active Vision
+for Manipulating Objects under Occlusions.
+Conference on Robot Learning, 422-431.
+http://proceedings.mlr.press/v87/cheng18a/cheng18a.pdf</p>
+
+<p>[2] Chuang, I., Lee, A., Gao, D., &amp; Soltani, I. (2024). Active
+Vision Might Be All You Need: Exploring Active Vision in Bimanual Robotic Manipulation. arXiv preprint
+arXiv:2409.17435.</p>
+
+<p>[3] Dass, S., Hu, J., Abbatematteo, B., Stone, P., &amp; Martin, R. (2024). Learning to Look: Seeking Information for Decision Making via Policy Factorization. arXiv
+preprint arXiv:2410.18964.</p>
+
+<p>[4] Hu, H., Mirchandani, S., &amp; Sadigh, D. (2024). Imitation
+Bootstrapped Reinforcement Learning. arXiv [Cs.LG].
+Retrieved from http://arxiv.org/abs/2311.02198</p>
+
+<p>[5] Liu, E. Z., Finn, C., Liang, P., &amp; Raghunathan, A.
+(2021, November 12). Decoupling exploration and exploitation in meta-reinforcement learning without sacrifices. Exploration in Meta-Reinforcement Learning.
+https://ezliu.github.io/dream/</p>
+
+<p>[6] Natarajan, S., Brown, G., &amp; Calli, B. (2021).
+Aiding Grasp Synthesis for Novel Objects Using Heuristic-Based and Data-Driven Active Vision Methods. Frontiers in Robotics and AI, 8.
+https://doi.org/10.3389/frobt.2021.696587</p>
+
+<p>[7] Safronov, E., Piga, N., Colledanchise, M., &amp;
+Natale, L. (2021, August 2). Active perception
+for ambiguous objects classification. arXiv.
+https://arxiv.org/pdf/2108.00737.pdf</p>
+
+<p>[8] Yang, J., Glossop, C., Bhorkar, A., Shah, D., Vuong,
+Q., Finn, C., … &amp; Levine, S. (2024). Pushing the
+limits of cross-embodiment learning for manipulation
+and navigation. arXiv preprint arXiv:2402.19432.</p>
+
+<hr />]]></content><author><name>Medha Kini, Ophir Siman-Tov</name></author><summary type="html"><![CDATA[In this study, we present a framework for enabling robots to locate and focus on objects that are partially or fully occluded within their environment. We split up any robotic tasks into two steps: Localization, where the robot searches for objects of interest, and Task Completion, where the robot completes the task after finding the object. We propose Peekaboo, a solution to the Localization stage to find partially or even fully occluded objects. We train a reinforcement learning algorithm to teach the robot to actively reposition its camera to optimize visibility of occluded objects. The key features include engineering a reward function that incentivizes effective object localization and setting up a comprehensive training environment. We develop a simulation environment with randomness to learn to localize from numerous initial viewpoints. Our approach also includes the implementation of a vision encoder for processing visual input, which allows the robot to interpret and respond to objects and occlusions. We design metrics to quantify the model’s performance, demonstrating its capability to handle occlusions without any human intervention at all. The results of this work showcase the potential for robotic systems to actively improve their perception in cluttered or obstructed environments.]]></summary></entry></feed>
