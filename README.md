@@ -42,13 +42,13 @@ You should see an address pop on the terminal (http://127.0.0.1:4000/CS269-Proje
 
 ## Working on the project
 
-1. Create a folder with your team id under ```./assets/images/student-id```. For example: ```./assets/images/student-01```. You will use this folder to store all the images in your project. Please check the column E of this sheet https://docs.google.com/spreadsheets/d/1TmYbvt9rT6PmRR8t9ZsbCaW9MFj644dfHYDSLGFXtpI/edit?usp=sharing for your id number.
+1. Create a folder with your team ID under ```./assets/images/student-id```. For example: ```./assets/images/student-01```. You will use this folder to store all the images in your project. Please check column E of this sheet https://docs.google.com/spreadsheets/d/1TmYbvt9rT6PmRR8t9ZsbCaW9MFj644dfHYDSLGFXtpI/edit?usp=sharing for your ID number. Note: if you are an individual, use your student ID for the folder name, like student-01; if you are in a two-person group, use both of your IDs in the folder, like student-01-02.
 
-2. Copy the template at "2024-12-13-student-01-peekaboo.md" and rename it with format "yyyy-mm-dd-student-XX-projectshortname.md" under ```./_posts/```.
+3. Copy the template at "2024-12-13-student-01-peekaboo.md" and rename it with format "yyyy-mm-dd-student-XX-projectshortname.md" under ```./_posts/```.
 
-3. Check out the sample post we provide at https://ucladeepvision.github.io/CS269-Projects-2025Spring/ and the source code at https://raw.githubusercontent.com/UCLAdeepvision/CS269-Projects-2025Spring/main/_posts/2024-12-13-student-01-peekaboo.md as well as basic Markdown syntax at https://www.markdownguide.org/basic-syntax/
+4. Check out the sample post we provide at https://ucladeepvision.github.io/CS269-Projects-2025Spring/ and the source code at https://raw.githubusercontent.com/UCLAdeepvision/CS269-Projects-2025Spring/main/_posts/2024-12-13-student-01-peekaboo.md as well as basic Markdown syntax at https://www.markdownguide.org/basic-syntax/
 
-4. Start your work in your .md file. You may **only** edit the .md file you just copied and renamed, and add images to ```./assets/images/student-id```. ***Please do NOT change any other files in this repo.***
+5. Start your work in your .md file. You may **only** edit the .md file you just copied and renamed, and add images to ```./assets/images/student-id```. ***Please do NOT change any other files in this repo.***
 
 Once you save the .md file, jekyll will synchronize the site and you can check the changes on browser.
 
