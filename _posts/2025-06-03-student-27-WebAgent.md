@@ -83,12 +83,18 @@ The benchmark consists of sequential instruction episodes collected from real us
 
 ## Backbone Vision-Language Models and UI Grounding
 
-Multimodal LLMs have become the core enablers of GUI agents. Since 2024, a new generation of such models has been adapted to interact with digital interfaces using vision and language. Notably, closed-source giants like OpenAI’s GPT‑4 and Google’s Gemini [17] are pushing capability boundaries. OpenAI's developed a Computer-Using Agent (CUA) to drive an autonomous GUI agent named **Operator** [18]. This system can visually perceive screens and perform mouse/keyboard actions without specialized APIs. Anthropic’s Claude 3.5 [19] has also gained a “Computer Use” capability, enabling it to "view" a virtual screen and emulate mouse/keyboard interactions. Meanwhile, the community has introduced strong open-source multimodal models to democratize GUI agents. Notably, Alibaba’s Qwen-2.5-VL [20] has delivered impressive visual understanding – e.g. it can handle very large image inputs and precise object localization. Similarly, the ChatGLM family has spawned AutoGLM [21], a specialized multimodal agent model. AutoGLM augments a ChatGLM-based LLM with vision and is trained via reinforcement learning for GUI tasks.
+Multimodal LLMs have become the core enablers of GUI agents. Since 2024, a new generation of such models has been adapted to interact with digital interfaces using vision and language. Notably, closed-source giants like OpenAI’s GPT‑4 and Google’s Gemini [17] are pushing capability boundaries. OpenAI's developed a Computer-Using Agent (CUA) to drive an autonomous GUI agent named **Operator** [18]. This system can visually perceive screens and perform mouse/keyboard actions without specialized APIs. Anthropic’s Claude 3.5 [19] has also gained a “Computer Use” capability, enabling it to "view" a virtual screen and emulate mouse/keyboard interactions. Meanwhile, the community has introduced strong open-source multimodal models to democratize GUI agents. Notably, Alibaba’s Qwen-2.5-VL [20] has delivered impressive visual understanding – e.g. it can handle very large image inputs and precise object localization. Similarly, the ChatGLM family has spawned AutoGLM [21], a specialized multimodal agent model. AutoGLM augments a ChatGLM-based LLM with vision and is trained via reinforcement learning for GUI tasks. 
 
 
 ### UI Grounding - Aligning Perception and Action
 
 Achieving fluent GUI automation requires “grounding” the model in the actual UI – i.e. linking the model’s linguistic plans to on-screen elements and executable actions. Recent research has made substantial progress in perception, UI understanding, and action grounding for GUI agents.
+
+Agents must convert a raw GUI (pixels or DOM data) into a form the model can reason about. Two common approaches emerged: (a) leveraging the model’s own multimodal abilities, and (b) inserting an intermediate perception module. The first approach is exemplified by GPT-4V and similar LMMs that directly take screenshots as input. For instance, SeeAct [22] simply feeds the webpage screenshot to GPT-4V and lets it describe and decide actions. The second approach uses computer vision techniques to explicitly identify UI components before involving the LLM. An example is the framework by Song et al. [23], which includes a YOLO-based detector to find UI elements (buttons, text fields, etc.) and read their text via OCR, prior to invoking GPT-4V for high-level planning. Similarly, AppAgent V2 [24] improved over a pure-LLM baseline by integrating OCR and object detection to recognize on-screen widgets, rather than relying on a brittle DOM parser. Microsoft’s UFO agent [25] uses a dual-agent design: one “vision” agent inspects the GUI visually, while another “control” agent queries the app’s UI hierarchy. Agent S [26] likewise feeds both the rendered pixels and the accessibility tree of desktop apps into its LLM module.
+
+After perception, a key challenge is mapping the model’s textual plan (e.g. “Click the OK button, then type the name”) to actual interface actions. SeeAct tested a set-of-candidates prompting strategy where GPT-4V would be asked to mark on the image which element to click. A more robust solution is to instrument the UI with tags or coordinates that the model can reference. Several web agents now render numeric labels next to clickable elements in the screenshot and supply the list of those elements (with their HTML attributes) to the LLM. The LLM’s output can then include the label of the intended element, making execution unambiguous. On mobile UIs, others have used XML UI trees and asked the LLM to match text in the tree; AppAgent V2’s use of detected text tokens is another form of aligning visual info with semantic targets. 
+
+Despite this progress, UI grounding remains a core challenge. The consensus in recent literature is that while today’s agents can handle simple cases, complex interfaces still pose problems.
 
 
 ## Architectures and Methods: Enhancing Reasoning in GUI Agents
@@ -165,3 +171,12 @@ Another angle of learning from experience is self-improvement via trajectory rel
 
 [21] Liu, Xiao, Bo Qin, Dongzhu Liang, Guang Dong, Hanyu Lai, Hanchen Zhang, Hanlin Zhao et al. "Autoglm: Autonomous foundation agents for guis." arXiv preprint arXiv:2411.00820 (2024).
 
+[22] Zheng, Boyuan, Boyu Gou, Jihyung Kil, Huan Sun, and Yu Su. "Gpt-4v (ision) is a generalist web agent, if grounded." arXiv preprint arXiv:2401.01614 (2024).
+
+[23] Yunpeng Song, Yiheng Bian, Yongtao Tang, and Zhongmin Cai. 2023. Navigating Interfaces with AI for Enhanced User Interaction. ArXiv:2312.11190
+
+[24] Yanda Li, Chi Zhang, Wanqi Yang, Bin Fu, Pei Cheng, Xin Chen, Ling Chen, and Yunchao Wei. 2024b. Appagent v2: Advanced agent for flexible mobile interactions. arXiv preprint arXiv:2408.11824.
+
+[25] Zhang, Chaoyun, Liqun Li, Shilin He, Xu Zhang, Bo Qiao, Si Qin, Minghua Ma et al. "Ufo: A ui-focused agent for windows os interaction." arXiv preprint arXiv:2402.07939 (2024).
+
+[26] Agashe, Saaket, Jiuzhou Han, Shuyu Gan, Jiachen Yang, Ang Li, and Xin Eric Wang. "Agent s: An open agentic framework that uses computers like a human." arXiv preprint arXiv:2410.08164 (2024).
