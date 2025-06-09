@@ -195,7 +195,7 @@
       <li><a href="#reinforcement-learning" id="markdown-toc-reinforcement-learning">Reinforcement Learning</a></li>
     </ul>
   </li>
-  <li><a href="#replication-study-evaluating-qwen-25-vl-as-a-gui-agent" id="markdown-toc-replication-study-evaluating-qwen-25-vl-as-a-gui-agent">Replication Study: Evaluating Qwen-2.5-VL as a GUI Agent</a></li>
+  <li><a href="#replication-study-evaluating-qwen-25-32b-as-a-web-agent" id="markdown-toc-replication-study-evaluating-qwen-25-32b-as-a-web-agent">Replication Study: Evaluating Qwen-2.5-32b as a Web Agent</a></li>
   <li><a href="#conclusion" id="markdown-toc-conclusion">Conclusion</a></li>
   <li><a href="#references" id="markdown-toc-references">References</a></li>
 </ul>
@@ -331,7 +331,7 @@ environments that involve web navigation and visual understanding Source: [4]</e
 
 <p>In more recent literature, Agent Q [27] couples Monte-Carlo Tree Search with an LLM policy, augments each node with AI-feedback self-critique to densify sparse web rewards, and finally distills both winning and failing branches through Direct Preference Optimization; this “search-and-learn” loop boosts WebShop success to roughly 50 % and raises real-world OpenTable booking from 18 % to 81–95 %, surpassing GPT-4o and human baselines. InfiGUI-R1 [28] moves GUI agents from reactive clicking to deliberative reasoning via a two-stage Actor2Reasoner pipeline: Spatial Reasoning Distillation first implants explicit cross-modal reasoning traces, then RL-based Deliberation Enhancement rewards sub-goal planning and error recovery, producing a 3 B-parameter agent that matches or outperforms far larger models on ScreenSpot [29] grounding and long-horizon AndroidControl [31] tasks. Complementing these, UI-R1 [30] shows that a lean rule-based reinforcement fine-tuning regime—with a novel action-type/argument/format reward and GRPO on just 136 hard examples—can lift a 3 B Qwen-2.5-VL model by +22 pp on ScreenSpot and +12 pp on AndroidControl [31], rivaling much larger SFT models and even demonstrating that explicit reasoning can be skipped for simple grounding without loss of accuracy.</p>
 
-<h2 id="replication-study-evaluating-qwen-25-vl-as-a-gui-agent">Replication Study: Evaluating Qwen-2.5-VL as a GUI Agent</h2>
+<h2 id="replication-study-evaluating-qwen-25-32b-as-a-web-agent">Replication Study: Evaluating Qwen-2.5-32b as a Web Agent</h2>
 
 <h2 id="conclusion">Conclusion</h2>
 
