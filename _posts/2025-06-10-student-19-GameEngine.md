@@ -30,10 +30,7 @@ showcase the potential for robotic systems to actively improve
 their perception in cluttered or obstructed environments.
 
 
-<!--more-->
-{: class="table-of-content"}
-* TOC
-{:toc}
+
 
 ## Introduction
 In the earlier presentation, we have explored the GameNGen together, a neural game engine built using a diffusion-based video model. The goal of GameNGen is to generate realistic gameplay sequences from pixel inputs, simulating game environments without relying on traditional physics or rule-based engines. One of the key ideas was to use a powerful video diffusion model that could produce rich and coherent game visuals, allowing agents to interact with imagined worlds in a way that looks visually convincing.
