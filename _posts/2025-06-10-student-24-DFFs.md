@@ -59,14 +59,13 @@ While NeRF serves the purpose of learning a strong spatial prior, our running ex
 </div>
 
 
-<div style="text-align: center;">
-         |  
+  |  
 :-------------------------:|:-------------------------:
 ![Image of strainer in a beaker]({{ site.baseurl }}/assets/images/ophir_siman-tov_student-24/strainer.PNG)  |  ![DINO image features of previous image]({{ site.baseurl }}/assets/images/ophir_siman-tov_student-24/strainer1_5.PNG)
 
+<div style="text-align: center;">
   <p><em>The DINO image features understand where one object ends, and another begins, and how they belong to different classes of objects.</em></p>
 </div>
-
 
 
 While the Image Features from Foundational Models are incredibly powerful tools that can be used for all sorts of vision processing, they are quite expensive to produce and have their limitations. The first limitation is the cost to acquire these image features. Training foundational models requires an astronomical investment in computational resources, and a large set of curated data. This process is so involved, that in practice, very few organizations are willing to invest those resources beyond enormous companies in the ML field. For example, the foundational models referenced thus far belong to Meta, OpenAI, and Google. Secondly, vision encoders are limited to reasoning over 2D image data, or maybe 2D + Time video data. While this is useful for most applications, our Amazon robot needs to *understand* the physical world in 3D space. We must invest extra effort to use these powerful image features in 3D environments.
