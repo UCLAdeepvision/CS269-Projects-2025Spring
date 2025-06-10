@@ -58,10 +58,9 @@ While NeRF serves the purpose of learning a strong spatial prior, our running ex
   </p>
 </div>
 
-<p float="left">
-  <img src="{{ '/assets/images/ophir_siman-tov_student-24/strainer.PNG' | relative_url }}" width="250" alt="Image of strainer in a beaker"/>
-  <img src="{{ '/assets/images/ophir_siman-tov_student-24/strainer1_5.PNG' | relative_url }}" width="250" alt="DINO image features of previous image"/>
-</p>
+Solarized dark             |  Solarized Ocean
+:-------------------------:|:-------------------------:
+![](/assets/images/ophir_siman-tov_student-24/strainer.PNG)  |  ![](/assets/images/ophir_siman-tov_student-24/strainer1_5.PNG)
 
 While the Image Features from Foundational Models are incredibly powerful tools that can be used for all sorts of vision processing, they are quite expensive to produce and have their limitations. The first limitation is the cost to acquire these image features. Training foundational models requires an astronomical investment in computational resources, and a large set of curated data. This process is so involved, that in practice, very few organizations are willing to invest those resources beyond enormous companies in the ML field. For example, the foundational models referenced thus far belong to Meta, OpenAI, and Google. Secondly, vision encoders are limited to reasoning over 2D image data, or maybe 2D + Time video data. While this is useful for most applications, our Amazon robot needs to *understand* the physical world in 3D space. We must invest extra effort to use these powerful image features in 3D environments.
 
@@ -103,13 +102,13 @@ The first work, called F3RM, uses DFFs for robotic manipulation tasks. Their met
 
 The next work, called LERF-TOGO, is similar to the first. It also aims to perform robotic manipulation tasks, but focuses on performing them *safely*, and unlike F3RM provides a text description of the desired task as opposed to a demonstration. Just like F3RM, this approach uses DFFs to understand where and what to grasp, but introduces an additional step to direct the robotic arm to grab the parts of the object that are meant to be grasped. For example, LERF-TOGO directs the robotic arm to pick up a frying pan or a knife by their handles, and not by the parts that might harm the robot.
 
-
+<!-- 
 <div style="text-align: center;">
   <video width="320" height="240" controls>
     <source src="{{ '/assets/images/ophir_siman-tov_student-24/lang_results-42aeb03eb51b608658db0df55f1178d5.mp4' | relative_url }}" type="video/mp4">
   </video>
   <p><em>Results from F3RM showing how they use DFFs to perform robotic manipulation tasks.</em></p>
-</div>
+</div> -->
 
 
 ![]("{{ '/assets/images/ophir_siman-tov_student-24/lang_results-42aeb03eb51b608658db0df55f1178d5.mp4' | relative_url }}")
