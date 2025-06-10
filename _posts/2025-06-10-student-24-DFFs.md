@@ -58,6 +58,11 @@ While NeRF serves the purpose of learning a strong spatial prior, our running ex
   </p>
 </div>
 
+<p float="left">
+  <img src="{{ '/assets/images/ophir_siman-tov_student-24/strainer.PNG' | relative_url }}" style="width: 250px; max-width: 100%;" alt="Image of strainer in a beaker">
+  <img src="{{ '/assets/images/ophir_siman-tov_student-24/strainer1_5.PNG' | relative_url }}" style="width: 250px; max-width: 100%;" alt="DINO image features of previous image">
+</p>
+
 While the Image Features from Foundational Models are incredibly powerful tools that can be used for all sorts of vision processing, they are quite expensive to produce and have their limitations. The first limitation is the cost to acquire these image features. Training foundational models requires an astronomical investment in computational resources, and a large set of curated data. This process is so involved, that in practice, very few organizations are willing to invest those resources beyond enormous companies in the ML field. For example, the foundational models referenced thus far belong to Meta, OpenAI, and Google. Secondly, vision encoders are limited to reasoning over 2D image data, or maybe 2D + Time video data. While this is useful for most applications, our Amazon robot needs to *understand* the physical world in 3D space. We must invest extra effort to use these powerful image features in 3D environments.
 
 The strong semantic prior of the visual world is the last missing piece in our running example of the Amazon robot, and we will use it, in conjunction with NeRF, once more in DFFs.
