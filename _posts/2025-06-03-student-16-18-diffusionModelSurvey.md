@@ -300,7 +300,7 @@ When analyzing the characteristics of diffusion models, the authors discovered a
 
 <p></p>
 
-If the diffusion model's internal representations have high vision representation, then their performance will improve significantly. To ground their hypothesis, the authors first observed how the internal representations of current state-of-the-art diffusion models (such as SiT) compared to the representations of the best vision transformers (such as DINOv2). Vision transformers are self-supervised and trained to focus on having good vision representation and classify images, making them a good comparison to test vision representation. From their brief survey, the authors found a significant gap between the vision representations, with SiT having very poort representation compared to DINOv2. While longer training sessions resulted in slightly better representation, diffusion models in general had poor vision representation compared to vision transformers.
+If the diffusion model's internal representations have high vision representation, then their performance will improve significantly. To ground their hypothesis, the authors first observed how the internal representations of current state-of-the-art diffusion models (such as SiT) compared to the representations of the best vision transformers (such as DINOv2). Vision transformers are self-supervised and trained to focus on having good vision representation and classify images, making them a good comparison to test vision representation. From their brief survey, the authors found a significant gap between the vision representations, with SiT having very poor representation compared to DINOv2. While longer training sessions resulted in slightly better representation, diffusion models in general had poor vision representation compared to vision transformers.
 
 <figure>
     <img src="{{ '/assets/images/student-16-18/REPA_SiT_Observation.png'  | relative_url }}" alt="REPA_SiT_Observation" />
@@ -309,6 +309,11 @@ If the diffusion model's internal representations have high vision representatio
 
 ### 4.2 Approach
 From their study, the authors' main goal was to improve the internal vision representation of diffusion models. To do this, they proposed REPA, a pre-training regularization technique that encourages diffusion models to improve their vision representation. The idea is to calculate the similarity between the image embeddings of a pre-trained vision transformer and the internal representations of each layer of the diffusion model to regularize the objective function. Of course, the two embeddings are in different dimensions at first. Thus, the authors pass the internal representation through a MLP to give the embedding the same dimensionality as the external embedding. Then, they utilize a simple similarity function such as cosine-similiarity or cross-entropy to compare the two before adding it to the final objective function.
+
+<figure>
+    <img src="{{ '/assets/images/student-16-18/REPA_equation.png'  | relative_url }}" alt="REPA_equation" style="width: 80%; height: auto;" />
+    <figcaption><i>(Equations of REPA loss and total loss. The higher the similarity between the two images, the lower the loss. Total loss adds original diffusion objective with REPA as a regularization term)</i></figcaption>
+</figure>
 
 <figure>
     <img src="{{ '/assets/images/student-16-18/REPA_approach.png'  | relative_url }}" alt="REPA_approach" style="width: 80%; height: auto;" />
@@ -373,7 +378,7 @@ To evaluate REPA-E, the authors mainly use SiT and its varying model sizes as th
 
 <figure>
     <img src="{{ '/assets/images/student-16-18/REPAE_comparisonToREPA.png'  | relative_url }}" alt="REPAE_comparisonToREPA" />
-    <figcaption><i>(Comparing generations of REPA to REPA-E based on number of training iterations. We can see REPA-E has higher quality and lower convergence than REPA)</i></figcaption>
+    <figcaption><i>(Comparing generations of REPA to REPA-E based on number of training iterations. We can see REPA-E has higher quality and faster convergence than REPA)</i></figcaption>
 </figure>
 
 <p></p>
