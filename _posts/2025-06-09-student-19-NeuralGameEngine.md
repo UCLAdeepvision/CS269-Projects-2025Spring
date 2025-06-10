@@ -60,6 +60,7 @@ Since this report focuses on a literature based review without running code or e
 I rely on each paper’s empirical results, qualitative demos, and architectural insights to draw these comparisons, aiming for a high-level yet grounded evaluation of where each model stands.
 
 ### Comparison Table
+
 | Model         | Architecture            | Visual Quality        | Speed / FPS     | Controllability       | Generalization         | Use Case Fit                          |
 |---------------|--------------------------|------------------------|------------------|------------------------|-------------------------|----------------------------------------|
 | **World Models** [1] | VAE + RNN + Controller | Low (latent-only)      | Fast             | Weak (abstract input)  | Low (simple tasks)      | Latent planning, early imagination     |
