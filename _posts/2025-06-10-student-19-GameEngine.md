@@ -36,56 +36,15 @@ their perception in cluttered or obstructed environments.
 {:toc}
 
 ## Introduction
-In dynamic and cluttered environments, robotic systems
-with visual perception capabilities must be able to adapt their
-viewpoints to maintain visibility of target objects, even when
-occlusions or obstacles obstruct their line of sight. Traditional
-robotic vision systems often address this requirement by either
-using a large array of static sensors, usually cameras, pointing in different orientations, or by moving a single
-sensor in a predetermined path. Both approaches have their
-downsides. Arrays of static sensors are far more expensive than
-using a single sensor, and rely on the motion of their agent
-to acquire new viewpoints. Sensors that follow predetermined
-paths lack the flexibility to capture environment-dependent
-information about complex scenes common in real-world
-settings. These limitations serve as critical bottlenecks slowing
-the advancement of vision-based robotics. Active Vision is a
-promising field that aims to address these challenges. The goal
-of Active Vision is to mimic the way that humans perceive
-their environment: by learning to move and orient a single
-sensor in ways that capture information important for completing some task. 
+In the earlier presentation, we have explored the GameNGen together, a neural game engine built using a diffusion-based video model. The goal of GameNGen is to generate realistic gameplay sequences from pixel inputs, simulating game environments without relying on traditional physics or rule-based engines. One of the key ideas was to use a powerful video diffusion model that could produce rich and coherent game visuals, allowing agents to interact with imagined worlds in a way that looks visually convincing.
 
-Active Vision avoids the shortcomings of
-the other two approaches; the agent uses a single controllable
-sensor, as opposed to an array of fixed sensors to perceive
-its environment, and the agent can learn to manipulate its
-sensor in response to its environment in nuanced ways that
-a predetermined approach could not.
+While GameNGen showed promising results, especially in terms of visual quality, it also brought up some important limitations. For example, it struggled with speed due to the heavy diffusion process (achieved approximately 20 FPS), and had trouble maintaining long-term consistency in gameplay. These issues sparked a lot of interest in the community, and several newer models have tried to tackle these challenges from different angles.
 
-Recent advances in reinforcement learning (RL) have looked
-into enabling robots to learn behaviors directly from their
-interactions with the environment, making it possible to train
-autonomous systems to explore the environment, allowing
-for active perception. In robotic vision tasks, RL algorithms
-can enable a camera mounted on a robotic arm to not only
-locate objects but also to continuously adjust its position
-to avoid occlusions and improve object visibility. However,
-developing such an RL framework requires overcoming several
-challenges, including creating a robust training environment
-that mimics the need to shift camera perspectives, and engineering reward functions that incentivize behavior promoting
-consistent visibility.
+One of these new attempts is DIAMOND, which also uses diffusion for world modeling. But this model focuses more on action-conditioning and control. It shows that adding extra loss terms and guiding the model through better conditioning can help it generate more meaningful sequences, not just pretty. DIAMOND also runs experiments in classic environments like Atari games and demonstrates measurable improvements in decision-making performance, thanks to the improved visual details.
 
-We propose Peekaboo, an approach that addresses many
-of the shortcomings of previous methods. Peekaboo's key
-insight is that the Localization and Task Completion steps in
-manipulation tasks can be decoupled with minimal loss of
-generality. In practice, when humans perform manipulation
-tasks, we search our environment for an object before extending a hand in its direction to grasp it. The same logic applies here. Any manipulation task first requires the agent
-to localize the object, along with anything else critical for
-completing the task. Peekaboo focuses on this Localization
-step, but unlike previous works is designed to be robust to
-very heavy occlusions, and allows the camera to be controlled
-with many degrees of freedom.
+Besides, MineWorld goes in a different direction. Instead of diffusion, it uses an autoregressive transformer model to simulate future frames. In the Q&A part of my presentation, we discussed the diffculties for extending GameNGen to AAA games like Minecarft or Apex. Suprisingly, MineWorld has achieved this goal. Compared with DOOM for GameNGen, Mineworld simulates in Minecraft, which is much more complex. It takes both visual frames and player actions, turns them into discrete tokens, and feeds them into a transformer that predicts what happens next. Based on a parallel decoding strategy, MineWorld can generate multiple frames per second, which makes it much more usable for real-time interactions.
+
+All these models — GameNGen, DIAMOND, MineWorld — are part of a growing trend where generative models are being used not just to produce content, but to simulate interactive environments. This shift has major implications for reinforcement learning, robotics, and even game development. In this report, I’ll explore how these models differ in terms of architecture, speed, visual quality, and controllability, and I’ll also try to some small-scale experiments to compare them.
 
 ## Prior Works
 
