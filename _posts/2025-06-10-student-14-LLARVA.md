@@ -1,7 +1,7 @@
 ---
 layout: post
 comments: true
-title: Pong on Fire, Evaluating LLaVA's Potential as a Gaming Adversary
+title: "Pong on Fire: Evaluating LLaVA's Potential as a Gaming Adversary"
 author: Michael Shi
 date: 2025-06-10
 ---
@@ -107,7 +107,8 @@ the model to guide the end effector arm of a robot towards its end goal.
 </div>
 
 The LLARVA architecture similarly utilizes a visual and language input which are mapped 
-to the same projection space, according to LLaVA 1.5's implementation[3]. Their addition of structured prompts inspired my use of a less complex, but still structured prompt
+to the same projection space, according to LLaVA 1.5's implementation[3]. Their addition 
+of structured prompts inspired my use of a less complex, but still structured prompt
 which provides additional information and reasoning to tune LLaVA's response to Pong
 frames. Initially, I wanted to run a more robust experiment using LLARVA, however
 the compute power, memory, and time necessary to run my own experiments with LLARVA
@@ -182,7 +183,8 @@ a reasoning for why it chose the action.
 
 ```
 You are an AI Pong Player using keyboard controls who also provides reasoning after each input. 
-The task is to hit the ball back to the opponent (the user, who is playing with orange on the left side), not letting the ball hit your side of the screen (you are the player are on the right side in green).
+The task is to hit the ball back to the opponent (the user, who is playing with orange on the left side), 
+not letting the ball hit your side of the screen (you are the player are on the right side in green).
 You can move up or down to hit the ball. You will be shown a series of 3 frames from the game by the user.
 Respond to the user's images and analyze each frame and provide a two-part response:
 First, respond in with which action you will take in the frame after the last of the 3 frames:
@@ -210,7 +212,8 @@ messages = [
     {
         "role": "user",
         "content": [
-            {"type": "text", "text": f"""I will provide you with 3 frames from the game. What is your next move?
+            {"type": "text", "text": f"""I will provide you with 
+              3 frames from the game. What is your next move?
             """},
             {"type": "image", "path": ...path_to_frame_1...},
             {"type": "image", "path": ...path_to_frame_2...},
@@ -256,7 +259,10 @@ room for improvement. Fig. 5 and Resp. 1 indicate an ideal response given the in
   <p><em>Fig. 5,</em> A group of frames of Pong gameplay</p>
 </div>
 ```
-In the first frame, the paddle is positioned above the ball. In the second frame, the paddle is moving down to hit the ball. In the third frame, the paddle is about to make contact with the ball. Based on these frames, my next move would be to move the paddle down to hit the ball, aiming to return it to the opponent's side of the screen.
+In the first frame, the paddle is positioned above the ball. In the second frame, the 
+paddle is moving down to hit the ball. In the third frame, the paddle is about to make 
+contact with the ball. Based on these frames, my next move would be to move the paddle 
+down to hit the ball, aiming to return it to the opponent's side of the screen.
 ```
 <div style="text-align: center;">
   <p><em>Resp. 1,</em> LLaVA's response</p>
@@ -283,7 +289,10 @@ reasoning for its action, which can be see in Fig. 7 and Resp. 3.
   <p><em>Fig. 6,</em> A group of frames of Pong gameplay</p>
 </div>
 ```
-In the first frame, the paddle is positioned at the top left corner of the screen. In the second frame, the paddle is at the top right corner of the screen. In the third frame, the paddle is at the bottom left corner of the screen. Based on these frames, I will move the paddle to the bottom right corner of the screen in the next frame.
+In the first frame, the paddle is positioned at the top left corner of the screen. In 
+the second frame, the paddle is at the top right corner of the screen. In the third 
+frame, the paddle is at the bottom left corner of the screen. Based on these frames, I 
+will move the paddle to the bottom right corner of the screen in the next frame.
 ```
 <div style="text-align: center;">
   <p><em>Resp. 2,</em> LLaVA's hallucinated response</p>
@@ -363,18 +372,18 @@ performance of models, while also encouraging more intelligent reasoning.
 
 ## References
 [1] Liu, H., Li, C., Wu, Q., & Lee, Y. J. (2023). Visual Instruction Tuning. arXiv [cs.CV].
-Retrieved from https://arxiv.org/abs/2304.08485
+Retrieved from [https://arxiv.org/abs/2304.08485](https://arxiv.org/abs/2304.08485)
 
 [2] Niu, D., Sharma, Y., Biamby, G., Quenum, J., Bai, Y., Shi, B., ... & Herzig, R. (2024). LLARVA: Vision-Action Instruction Tuning Enhances Robot Learning. arXiv [cs.RO]
-Retrieved from https://arxiv.org/abs/2406.11815
+Retrieved from [https://arxiv.org/abs/2406.11815](https://arxiv.org/abs/2406.11815)
 
 [3] Liu, H., Li, C., Li, Y., & Lee, Y. J. (2024). Improved Baselines with Visual Instruction Tuning. arXiv [cs.CV].
-Retrieved from https://arxiv.org/abs/2310.03744
+Retrieved from [https://arxiv.org/abs/2310.03744](https://arxiv.org/abs/2310.03744)
 
 [4] Zhai, S., Bai, H., Lin, Z., Pan, J., Tong, P., Zhou, Y., ... & Levine, S. (2024). Fine-Tuning Large Vision-Language Models as Decision-Making Agents via Reinforcement Learning. arXiv [cs.AI]
-Retrieved from https://arxiv.org/abs/2405.10292
+Retrieved from [https://arxiv.org/abs/2405.10292](https://arxiv.org/abs/2405.10292)
 
 [5] M. G. Bellemare, Y. Naddaf, J. Veness and M. Bowling. The Arcade Learning Environment: An Evaluation Platform for General Agents, Journal of Artificial Intelligence Research, Volume 47, pages 253-279, 2013.
-https://github.com/Farama-Foundation/Arcade-Learning-Environment
+[https://github.com/Farama-Foundation/Arcade-Learning-Environment](https://github.com/Farama-Foundation/Arcade-Learning-Environment)
 
 ---
