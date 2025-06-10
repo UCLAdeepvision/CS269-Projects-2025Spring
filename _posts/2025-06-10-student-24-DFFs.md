@@ -50,15 +50,6 @@ While NeRF was a significant breakthrough in view synthesis, other works have si
 
 While NeRF serves the purpose of learning a strong spatial prior, our running example of an Amazon robot still needs a strong semantic understanding of the contents in its scene. Fortunately, the features learned from foundational models trained on internet-scale data are perfect for this purpose. During the training of foundational vision models like DINO ([Caron et al.](https://arxiv.org/pdf/2104.14294)) and CLIP ([Radford et al.](https://arxiv.org/pdf/2103.00020)), the models learn useful representations of their inputs, and use these intermediate representations for all downstream tasks they’re trained on. Since foundational vision models are trained on many diverse tasks and on enormous scales of data, the resulting representations they learn tend to be quite robust and expressive. In fact, the image features produced by foundational vision models are so powerful that they seem to exhibit an underlying *understanding* of what is happening in the image and the meaning of the objects visually present. Here is an example of image features extracted from an image using DINO, where the image features are visualized using PCA.
 
-<div style="text-align: center;">
-  <p float="left">
-    <img src="{{ '/assets/images/ophir_siman-tov_student-24/strainer.PNG' | relative_url }}" style="width: 250px; max-width: 100%;" alt="Image of strainer in a beaker">
-    <img src="{{ '/assets/images/ophir_siman-tov_student-24/strainer1_5.PNG' | relative_url }}" style="width: 250px; max-width: 100%;" alt="DINO image features of previous image">
-    <p><em>The DINO image features understand where one object ends, and another begins, and how they belong to different classes of objects.</em></p>
-  </p>
-</div>
-
-
   |  
 :-------------------------:|:-------------------------:
 ![Image of strainer in a beaker]({{ site.baseurl }}/assets/images/ophir_siman-tov_student-24/strainer.PNG)  |  ![DINO image features of previous image]({{ site.baseurl }}/assets/images/ophir_siman-tov_student-24/strainer1_5.PNG)
@@ -91,13 +82,12 @@ That’s it! We now trained a NeRF model not only to reconstruct the visual aspe
 Naturally, DFFs inherit the strengths and weaknesses of both NeRF and foundational models. They still take a long time to train a single scene, and degrade in performance when given too few images, or when components in the scene are in motion. But the strengths of DFFs become more pronounced too. By providing many images of the same scene, and using all of them to create a single NeRF model, the resulting image features for each view dramatically increase in fidelity. Let’s recall how the DINO features of this image looked. Now, using DFFs, the reconstructed image features look dramatically better: something we could only accomplish with NeRF and foundational models in unison.
 
 
+  |  |  
+:-------------------------:|:-------------------------:|:-------------------------:
+![Image of strainer in a beaker]({{ site.baseurl }}/assets/images/ophir_siman-tov_student-24/strainer.PNG)  |  ![DINO image features of previous image]({{ site.baseurl }}/assets/images/ophir_siman-tov_student-24/strainer1_5.PNG) | ![NeRF reconstruction of the first image]({{ site.baseurl }}/assets/images/ophir_siman-tov_student-24/strainer2.PNG)
+
 <div style="text-align: center;">
-  <p float="left">
-    <img src="{{ '/assets/images/ophir_siman-tov_student-24/strainer.PNG' | relative_url }}" style="width: 250px; max-width: 100%;" alt="Image of strainer in a beaker">
-    <img src="{{ '/assets/images/ophir_siman-tov_student-24/strainer1_5.PNG' | relative_url }}" style="width: 250px; max-width: 100%;" alt="DINO image features of previous image">
-    <img src="{{ '/assets/images/ophir_siman-tov_student-24/strainer2.png' | relative_url }}" style="width: 250px; max-width: 100%;" alt="NeRF reconstruction of the first image">
-    <p><em>The DINO image features understand where one object ends, and another begins, and how they belong to different classes of objects.</em></p>
-  </p>
+  <p><em>NeRF uses all views given to it to contruct its image feature representation, and as a result can achieve much higher fidelity views than foundational models that only use a single view to contruct their image features</em></p>
 </div>
 
 
