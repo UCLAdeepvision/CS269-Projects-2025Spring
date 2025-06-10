@@ -50,13 +50,16 @@ Building on the foundation laid by GameNGen, newer models such as DIAMOND (2024)
 
 ## Comparison
 ### Methodology
-Since this report focuses on a literature based review without running code or experiments, the comparison of models is conducted through a conceptual and technical analysis of their published papers, reported results, and architectural designs. Specifically, I analyze each model across the following key dimensions:
-  Architecture: The type of model used (e.g., VAE-RNN, GAN, Transformer, Diffusion) and its general structure.
-  Visual Quality: The realism and coherence of the generated frames, often judged via FVD scores, human evaluation, or qualitative inspection.
-  Speed and Efficiency: The reported or estimated inference speed, often measured in FPS or number of frames generated per second.
-  Controllability: How well the model responds to agent actions and whether it supports meaningful interaction.
-  Generalization: The model's ability to work across varied game environments or settings, beyond the specific domains it was trained on.
-  Use Case Fit: Whether the model is better suited for reinforcement learning simulation, visual imitation, real-time play, or offline rollout.
+
+Since this report focuses on a literature-based review without running code or experiments, the comparison of models is conducted through a conceptual and technical analysis of their published papers, reported results, and architectural designs. Specifically, I analyze each model across the following key dimensions:
+
+- **Architecture**: The type of model used (e.g., VAE-RNN, GAN, Transformer, Diffusion) and its general structure.
+- **Visual Quality**: The realism and coherence of the generated frames, often judged via FVD scores, human evaluation, or qualitative inspection.
+- **Speed and Efficiency**: The reported or estimated inference speed, often measured in FPS or number of frames generated per second.
+- **Controllability**: How well the model responds to agent actions and whether it supports meaningful interaction.
+- **Generalization**: The model's ability to work across varied game environments or settings, beyond the specific domains it was trained on.
+- **Use Case Fit**: Whether the model is better suited for reinforcement learning simulation, visual imitation, real-time play, or offline rollout.
+
 I rely on each paper’s empirical results, qualitative demos, and architectural insights to draw these comparisons, aiming for a high-level yet grounded evaluation of where each model stands.
 
 ### Comparison Table
