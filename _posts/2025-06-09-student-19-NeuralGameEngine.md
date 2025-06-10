@@ -49,6 +49,27 @@ Building on the foundation laid by GameNGen, newer models such as DIAMOND (2024)
 
 
 ## Comparison
+### Methodology
+Since this report focuses on a literature based review without running code or experiments, the comparison of models is conducted through a conceptual and technical analysis of their published papers, reported results, and architectural designs. Specifically, I analyze each model across the following key dimensions:
+  Architecture: The type of model used (e.g., VAE-RNN, GAN, Transformer, Diffusion) and its general structure.
+  Visual Quality: The realism and coherence of the generated frames, often judged via FVD scores, human evaluation, or qualitative inspection.
+  Speed and Efficiency: The reported or estimated inference speed, often measured in FPS or number of frames generated per second.
+  Controllability: How well the model responds to agent actions and whether it supports meaningful interaction.
+  Generalization: The model's ability to work across varied game environments or settings, beyond the specific domains it was trained on.
+  Use Case Fit: Whether the model is better suited for reinforcement learning simulation, visual imitation, real-time play, or offline rollout.
+I rely on each paper’s empirical results, qualitative demos, and architectural insights to draw these comparisons, aiming for a high-level yet grounded evaluation of where each model stands.
+
+### Comparison Table
+| Model         | Architecture            | Visual Quality        | Speed / FPS     | Controllability       | Generalization         | Use Case Fit                          |
+|---------------|--------------------------|------------------------|------------------|------------------------|-------------------------|----------------------------------------|
+| **World Models** [1] | VAE + RNN + Controller | Low (latent-only)      | Fast             | Weak (abstract input)  | Low (simple tasks)      | Latent planning, early imagination     |
+| **GameGAN** [2]      | GAN-based video model   | Moderate (GAN artifacts)| Medium           | Weak–Moderate          | Moderate (2D games)     | Visual imitation, offline simulation   |
+| **IRIS** [3]         | VQ-VAE + Transformer    | Moderate (token-based) | Fast             | Moderate               | Moderate (Atari)        | Efficient Atari world modeling         |
+| **GameNGen** [4]     | Diffusion (video)       | High (DOOM-level detail)| Slow (~20 FPS)   | Weak–Moderate          | Limited (mostly DOOM)   | High-fidelity simulation               |
+| **DIAMOND** [5]      | Diffusion + EDM         | High (Atari + CS:GO)   | Medium–Slow      | Strong (action-guided) | High (2D + 3D)           | RL rollout, controllable simulation    |
+| **MineWorld** [6]    | Tokenized Transformer   | Moderate–Good (MCraft) | Fast             | Strong                 | High (open-world envs)  | Real-time interaction, Minecraft AI    |
+
+### Advantages and Disadvantages
 World Models (Ha & Schmidhuber, 2018) introduced a foundational framework that combined a variational autoencoder (VAE), a recurrent world model (RNN), and a simple controller to allow agents to learn entirely within a compressed simulation. The biggest strength of this approach was its simplicity and efficiency—it could represent complex visual environments like car racing in a compact latent space, enabling fast simulation and lightweight training. However, the trade-off was a loss in visual fidelity. Because the model learned to represent only abstract latent features rather than full-resolution frames, it often missed small but important visual cues. This made it less suitable for tasks where detailed spatial information or pixel-level feedback was crucial.
 
 GameGAN (Kim et al., 2020) took a different approach by directly learning to generate game frames using GANs, conditioned on previous frames and player actions. This allowed the model to learn game mechanics visually, without being explicitly programmed. It was a breakthrough in terms of realism for simple arcade-style games like Pac-Man. The major advantage was its end-to-end frame generation, which made it more intuitive and visual than latent-based approaches. However, GameGAN faced several limitations. It struggled to generalize to more complex or 3D environments, produced visual artifacts under longer rollouts, and often failed to capture longer-term game dynamics, making it unreliable for extended agent interaction.
