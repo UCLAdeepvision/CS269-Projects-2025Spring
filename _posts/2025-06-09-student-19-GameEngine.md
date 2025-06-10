@@ -48,68 +48,11 @@ All these models — GameNGen, DIAMOND, MineWorld — are part of a growing tren
 
 ## Prior Works
 
-Prior works in Active Vision address similar problems to
-ours, but all differ in some key areas. While there are many
-works in Active Vision, we mention those most relevant to
-our method. A recent approach by researchers at Google
-Deepmind proposes using navigation data to enhance the
-performance of cross-embodiment manipulation tasks [8]. The
-researchers demonstrate that learning a general approach to
-navigation from sources using different embodiments is key
-to performing manipulation tasks. Their findings reinforce the
-notion that navigation is a robotics control primitive that can
-aid any task, even those that do not explicitly perform navigation. 
+The idea of learning a model to simulate environments, also known as world modeling, has been explored for years in reinforcement learning and generative modeling. Early work like Ha and Schmidhuber’s World Models (2018) introduced a framework that combined a variational autoencoder (VAE), a recurrent world model, and a controller, allowing agents to learn entirely within their own imagination. While this approach was conceptually powerful, it relied heavily on low-dimensional latent states, which meant that much of the visual richness and contextual information was lost during compression. Later efforts such as IRIS (2022) built on this by introducing discrete latents via vector quantization and modeling sequences with Transformers, achieving strong results on Atari with limited data. However, these models still suffered from the trade-off between visual fidelity and computational efficiency, often missing important details like small sprites or dynamic elements critical to gameplay decisions.
 
-Other works like those by researchers from the University of Texas at Austin have proposed performing complex
-tasks using an "information-seeking" and an "information-receiving" policy to guide the search task and manipulation task separately [3]. While impressive, their approach Learning
-to Look is designed to perform complex manipulation tasks in
-simple unobstructed environments with limited camera motion.
-In contrast, our goal is to operate in environments designed to
-hinder search tasks and force the agent to substantially move
-its camera to succeed. There has also been plenty of work
-in using Active Vision as a tool to improve performance in
-well-studied tasks like grasping [6] and object classification
-[7]. More recently, there has been an increased focus on
-learning Active Vision policies from human demonstrations
-using Imitation Learning. Ian Chuang et al. propose a method
-that allows a human teleoperator to control both a camera and
-a robotic arm in a VR environment in order to collect near-optimal human demonstration data of Active Vision tasks like inserting a key into a lock.
+A major turning point came with the introduction of GameGAN (2020), which used a GAN-based approach to learn how to simulate entire environments directly from visual observations and player actions. While impressive for its time, GameGAN still lacked generalization capabilities and tended to fail on long-horizon rollouts or 3D environments. That’s where GameNGen entered the scene. Instead of compressing the environment into a minimal latent space or relying on GANs, GameNGen employed diffusion models—originally designed for high-quality image synthesis—to generate video game frames in an autoregressive fashion. By training on gameplay data from DOOM and leveraging a modified Stable Diffusion model, GameNGen could generate realistic, temporally coherent frames based on previous context and action inputs. It introduced several techniques to stabilize the generation process, including noise augmentation during training and decoder fine-tuning for UI elements. The result was a neural “game engine” capable of producing video sequences at a surprisingly high quality, even reaching up to 20 FPS on a TPU. However, its main limitations were relatively high computational costs and limited memory, which affected both real-time interaction and long-horizon consistency.
 
-<div style="text-align: center;">
-  <img src="{{ '/assets/images/group-01/pworksfig1.png' | relative_url }}" style="width: 500px; max-width: 100%;" alt="RobosuiteEnv">
-  <p><em>Using learned Active Vision policies as a method to acquire novel views of objects to aid in object classification.</em></p>
-</div>
-
-Two prior works stand out as particularly similar to our task
-and deserve additional attention. The first approach by Stanford researchers, DREAM, proposes decoupling their agent's
-task into an explorative navigation step and exploitative task
-completion stage, each of which is learned separately [5]. This
-approach relies on an intrinsic task ID, and leverages memory
-from previous explorative iterations through a memorization
-process to aid it in the current iteration. While the researchers
-demonstrate impressive results, we find that their environment
-is somewhat limited. Since the researchers are performing
-navigation, their agent is limited to moving in two degrees
-of freedom, and rotating in a single degree of freedom. In
-contrast, our approach freely manipulates the agent in six
-degrees of freedom. In addition, their task is designed such
-that the agent can physically access the entire environment:
-an assumption that is often not true in physical systems in the
-real world. 
-
-Another highly relevant paper from researchers
-at Carnegie Mellon uses Active Vision to aid a manipulation
-task in the presence of visual occlusions [1]. The authors
-propose a task of pushing a target cube onto a target coordinate
-using a robotic arm, where the agent learns to independently
-manipulate its robotic arm and the camera from which it sees
-to avoid physical occlusions preventing task completion. Like
-DREAM, the proposed method limits the agent to few degrees
-of freedom in its motion. In addition, the agent operates on
-fairly "weak" occlusions that rarely impede task completion.
-Lastly, the authors learn a single policy that jointly manipulates
-the robotic arm and controls the camera -- a process we
-believe can be decoupled.
+Building on the foundation laid by GameNGen, newer models such as DIAMOND (2024) extended the idea of diffusion-based world modeling while directly addressing some of these limitations. DIAMOND uses a more optimized sampling process based on the EDM (Elucidated Diffusion Models) framework, which reduces the number of denoising steps needed for generating a frame. This leads to significant speedups without sacrificing visual fidelity. More importantly, DIAMOND emphasized the importance of preserving visual detail for reinforcement learning agents: even small improvements in pixel accuracy translated to better decision-making in agents trained purely in simulation. It also introduced an action-conditioned training setup that enabled better controllability, allowing the model to generate scenes that actually respond to input actions. DIAMOND outperformed all previous approaches on the Atari 100K benchmark and even demonstrated impressive results on a real-world FPS game (CS:GO), showing that diffusion-based world models could scale beyond 2D arcade games. Together, these works reflect a major evolution in learned simulators—from basic frame predictors to highly detailed, interactive neural environments that blur the line between video generation and game engine functionality.
 
 <div style="text-align: center;">
   <img src="{{ '/assets/images/group-01/pworks2.png' | relative_url }}" style="width: 500px; max-width: 100%;" alt="RobosuiteEnv">
