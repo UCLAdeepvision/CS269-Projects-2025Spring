@@ -106,6 +106,11 @@ The next work, called LERF-TOGO, is similar to the first. It also aims to perfor
   <p><em>Results from F3RM showing how they use DFFs to perform robotic manipulation tasks.</em></p>
 </div>
 
+<video controls width="1000">
+    <source src="{{ '/assets/images/ophir_siman-tov_student-24/lang_results-42aeb03eb51b608658db0df55f1178d5.mp4' | relative_url }}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
 
 <!-- ![]({{ site.baseurl }}/assets/images/ophir_siman-tov_student-24/lang_results-42aeb03eb51b608658db0df55f1178d5.mp4) -->
 
