@@ -7,7 +7,7 @@ date: 2025-06-09
 ---
 
 
-> This report explores recent advances in neural game engines, with a focus on generative models that simulate interactive game environments. Based on the prior presentation of GameNGen, a diffusion-based video model trained on DOOM, I review and compare several state-of-the-art approaches including DIAMOND, MineWorld, IRIS, GameGAN, and the original World Models. I analyze their differences in architecture, visual fidelity, speed, and controllability, highlighting the trade-offs each design makes. Finally I conclude with a discussion on future directions for building responsive, efficient, and generalizable neural simulators for reinforcement learning and interactive media.
+> This report explores recent advances in neural game engines, with a focus on generative models that simulate interactive game environments. Based on the prior presentation of GameNGen, a diffusion-based video model trained on DOOM, I review and compare several state-of-the-art approaches including DIAMOND, MineWorld, IRIS, GameGAN, and the original World Models. I also analyze their differences in architecture, visual fidelity, speed, and controllability, highlighting the trade-offs each design makes. Finally I conclude with a discussion on future directions for building responsive, efficient, and generalizable neural simulators for reinforcement learning and interactive media.
 
 
 
