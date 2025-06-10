@@ -33,11 +33,13 @@ The density of a voxel is a little more complicated. Some voxels in the scene mi
 
 
 Once we have a fully populated 3D grid of all voxels in the scene, each with its own view-dependent color and density, we can generate any view of the scene we would like. The inner workings of cameras are beyond the scope of this work, but feel free to look into *perspective projection* on your own time to learn how a set of 3D points can be transformed into an image of pixels. In short, once we produce the full 3D grid, our job is done, as now any view can be synthesized from the original set of images.
+
 The obvious next question is how to acquire this dense grid? This is where the authors propose their solution. The authors use a Neural Network that takes the 3D coordinates of the voxel of interest and the desired viewing angle as input, and outputs the RGB color and density of that voxel. Beyond the traditional Neural Network architecture, the authors introduce positional encoding to the 3D position inputs to increase the model’s sensitivity to small changes in positions, and hierarchical volume sampling for computational efficiency. Each such Neural Network is trained end-to-end for each scene using the set of images that are provided, and can be queried repeatedly to populate the dense grid needed for view synthesis.
+
 NeRF is an incredible technology and was a huge step forward in its field. It was among the first approaches to produce results that look accurate to the human eye, and thanks to the parameterization of Neural Networks is a very general method that can work with nearly any scene. That being said, NeRF has its downsides too. For starters, representing a scene using NeRF involves retraining the entire NeRF Neural Network from scratch to overfit it to the provided images. This alone requires minutes or hours of training for a single scene, and a large computational overhead. Additionally, NeRF fails when any component of the scene is in motion, as temporal dynamics are not intrinsically modeled by NeRF. Lastly, NeRF’s performance dramatically degrades when too few images are provided in training. Below is an example of NeRF’s sharp degradation as the number of images is reduced.
 
 <div style="text-align: center;">
-  <img src="{{ '/assets/images/ophir_siman-tov_student-24/nerf_degrade.PNG' | relative_url }}" style="width: 500px; max-width: 100%;" alt="Degredation of NeRF recontruction as less images are provided">
+  <img src="{{ '/assets/images/ophir_siman-tov_student-24/nerf_degrade.PNG' | relative_url }}" style="width: 1000px; max-width: 100%;" alt="Degredation of NeRF recontruction as less images are provided">
   <p><em>The fewer views of the scene we provide NeRF during training, the worse the reconstruction becomes. Eventually degredation "falls off a cliff" between 18 and 20 views.</em></p>
 </div>
 
@@ -49,9 +51,11 @@ While NeRF was a significant breakthrough in view synthesis, other works have si
 While NeRF serves the purpose of learning a strong spatial prior, our running example of an Amazon robot still needs a strong semantic understanding of the contents in its scene. Fortunately, the features learned from foundational models trained on internet-scale data are perfect for this purpose. During the training of foundational vision models like DINO ([Caron et al.](https://arxiv.org/pdf/2104.14294)) and CLIP ([Radford et al.](https://arxiv.org/pdf/2103.00020)), the models learn useful representations of their inputs, and use these intermediate representations for all downstream tasks they’re trained on. Since foundational vision models are trained on many diverse tasks and on enormous scales of data, the resulting representations they learn tend to be quite robust and expressive. In fact, the image features produced by foundational vision models are so powerful that they seem to exhibit an underlying *understanding* of what is happening in the image and the meaning of the objects visually present. Here is an example of image features extracted from an image using DINO, where the image features are visualized using PCA.
 
 <div style="text-align: center;">
-  <img src="{{ '/assets/images/ophir_siman-tov_student-24/strainer.PNG' | relative_url }}" style="width: 500px; max-width: 100%;" alt="Image of strainer in a beaker">
-  <img src="{{ '/assets/images/ophir_siman-tov_student-24/strainer1_5.PNG' | relative_url }}" style="width: 500px; max-width: 100%;" alt="DINO image features of previous image">
-  <p><em>The DINO image features understand where one object ends, and another begins, and how they belong to different classes of objects.</em></p>
+  <p float="left">
+    <img src="{{ '/assets/images/ophir_siman-tov_student-24/strainer.PNG' | relative_url }}" style="width: 250px; max-width: 100%;" alt="Image of strainer in a beaker">
+    <img src="{{ '/assets/images/ophir_siman-tov_student-24/strainer1_5.PNG' | relative_url }}" style="width: 250px; max-width: 100%;" alt="DINO image features of previous image">
+    <p><em>The DINO image features understand where one object ends, and another begins, and how they belong to different classes of objects.</em></p>
+  </p>
 </div>
 
 While the Image Features from Foundational Models are incredibly powerful tools that can be used for all sorts of vision processing, they are quite expensive to produce and have their limitations. The first limitation is the cost to acquire these image features. Training foundational models requires an astronomical investment in computational resources, and a large set of curated data. This process is so involved, that in practice, very few organizations are willing to invest those resources beyond enormous companies in the ML field. For example, the foundational models referenced thus far belong to Meta, OpenAI, and Google. Secondly, vision encoders are limited to reasoning over 2D image data, or maybe 2D + Time video data. While this is useful for most applications, our Amazon robot needs to *understand* the physical world in 3D space. We must invest extra effort to use these powerful image features in 3D environments.
@@ -76,11 +80,14 @@ That’s it! We now trained a NeRF model not only to reconstruct the visual aspe
 
 Naturally, DFFs inherit the strengths and weaknesses of both NeRF and foundational models. They still take a long time to train a single scene, and degrade in performance when given too few images, or when components in the scene are in motion. But the strengths of DFFs become more pronounced too. By providing many images of the same scene, and using all of them to create a single NeRF model, the resulting image features for each view dramatically increase in fidelity. Let’s recall how the DINO features of this image looked. Now, using DFFs, the reconstructed image features look dramatically better: something we could only accomplish with NeRF and foundational models in unison.
 
+
 <div style="text-align: center;">
-  <img src="{{ '/assets/images/ophir_siman-tov_student-24/strainer.PNG' | relative_url }}" style="width: 500px; max-width: 100%;" alt="Image of strainer in a beaker">
-  <img src="{{ '/assets/images/ophir_siman-tov_student-24/strainer1_5.PNG' | relative_url }}" style="width: 500px; max-width: 100%;" alt="DINO image features of previous image">
-  <img src="{{ '/assets/images/ophir_siman-tov_student-24/strainer2.PNG' | relative_url }}" style="width: 500px; max-width: 100%;" alt="NeRF reconstruction of the first image">
-  <p><em>The NeRF model uses all views in its reconstruction, and as a result, produces reconstructions of much higher fidelity than DINO's image features from a single view</em></p>
+  <p float="left">
+    <img src="{{ '/assets/images/ophir_siman-tov_student-24/strainer.PNG' | relative_url }}" style="width: 250px; max-width: 100%;" alt="Image of strainer in a beaker">
+    <img src="{{ '/assets/images/ophir_siman-tov_student-24/strainer1_5.PNG' | relative_url }}" style="width: 250px; max-width: 100%;" alt="DINO image features of previous image">
+    <img src="{{ '/assets/images/ophir_siman-tov_student-24/strainer2.png' | relative_url }}" style="width: 250px; max-width: 100%;" alt="NeRF reconstruction of the first image">
+    <p><em>The DINO image features understand where one object ends, and another begins, and how they belong to different classes of objects.</em></p>
+  </p>
 </div>
 
 
@@ -98,6 +105,9 @@ The next work, called LERF-TOGO, is similar to the first. It also aims to perfor
   </video>
   <p><em>Results from F3RM showing how they use DFFs to perform robotic manipulation tasks.</em></p>
 </div>
+
+
+![](/assets/images/ophir_siman-tov_student-24/lang_results-42aeb03eb51b608658db0df55f1178d5.mp4)
 
 
 
