@@ -36,15 +36,7 @@ their perception in cluttered or obstructed environments.
 {:toc}
 
 ## Introduction
-In the earlier presentation, we have explored the GameNGen together, a neural game engine built using a diffusion-based video model. The goal of GameNGen is to generate realistic gameplay sequences from pixel inputs, simulating game environments without relying on traditional physics or rule-based engines. One of the key ideas was to use a powerful video diffusion model that could produce rich and coherent game visuals, allowing agents to interact with imagined worlds in a way that looks visually convincing.
 
-While GameNGen showed promising results, especially in terms of visual quality, it also brought up some important limitations. For example, it struggled with speed due to the heavy diffusion process (achieved approximately 20 FPS), and had trouble maintaining long-term consistency in gameplay. These issues sparked a lot of interest in the community, and several newer models have tried to tackle these challenges from different angles.
-
-One of these new attempts is DIAMOND, which also uses diffusion for world modeling. But this model focuses more on action-conditioning and control. It shows that adding extra loss terms and guiding the model through better conditioning can help it generate more meaningful sequences, not just pretty. DIAMOND also runs experiments in classic environments like Atari games and demonstrates measurable improvements in decision-making performance, thanks to the improved visual details.
-
-Besides, MineWorld goes in a different direction. Instead of diffusion, it uses an autoregressive transformer model to simulate future frames. In the Q&A part of my presentation, we discussed the diffculties for extending GameNGen to AAA games like Minecarft or Apex. Suprisingly, MineWorld has achieved this goal. Compared with DOOM for GameNGen, Mineworld simulates in Minecraft, which is much more complex. It takes both visual frames and player actions, turns them into discrete tokens, and feeds them into a transformer that predicts what happens next. Based on a parallel decoding strategy, MineWorld can generate multiple frames per second, which makes it much more usable for real-time interactions.
-
-All these models — GameNGen, DIAMOND, MineWorld — are part of a growing trend where generative models are being used not just to produce content, but to simulate interactive environments. This shift has major implications for reinforcement learning, robotics, and even game development. In this report, I’ll explore how these models differ in terms of architecture, speed, visual quality, and controllability, and I’ll also try to some small-scale experiments to compare them.
 
 ## Prior Works
 
