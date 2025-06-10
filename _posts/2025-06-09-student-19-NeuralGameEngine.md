@@ -1,7 +1,7 @@
 ---
 layout: post
 comments: true
-title: GameEngine
+title: NeuralGameEngine
 author: Yi Han
 date: 2025-06-09
 ---
