@@ -84,10 +84,10 @@ Naturally, DFFs inherit the strengths and weaknesses of both NeRF and foundation
 
   |  |  
 :-------------------------:|:-------------------------:|:-------------------------:
-![Image of strainer in a beaker]({{ site.baseurl }}/assets/images/ophir_siman-tov_student-24/strainer.PNG)  |  ![DINO image features of previous image]({{ site.baseurl }}/assets/images/ophir_siman-tov_student-24/strainer1_5.PNG) | ![NeRF reconstruction of the first image]({{ site.baseurl }}/assets/images/ophir_siman-tov_student-24/strainer2.PNG)
+![Image of strainer in a beaker]({{ site.baseurl }}/assets/images/ophir_siman-tov_student-24/strainer.PNG)  |  ![DINO image features of previous image]({{ site.baseurl }}/assets/images/ophir_siman-tov_student-24/strainer1_5.PNG) | ![NeRF reconstruction of the first image]({{ site.baseurl }}/assets/images/ophir_siman-tov_student-24/strainer2.png)
 
 <div style="text-align: center;">
-  <p><em>NeRF uses all views given to it to contruct its image feature representation, and as a result can achieve much higher fidelity views than foundational models that only use a single view to contruct their image features</em></p>
+  <p><em>DFFs use all views given to it to contruct its image feature representation, and as a result can achieve much higher fidelity views than foundational models that only use a single view to contruct their image features</em></p>
 </div>
 
 
@@ -98,16 +98,16 @@ The first work, called F3RM, uses DFFs for robotic manipulation tasks. Their met
 
 The next work, called LERF-TOGO, is similar to the first. It also aims to perform robotic manipulation tasks, but focuses on performing them *safely*, and unlike F3RM provides a text description of the desired task as opposed to a demonstration. Just like F3RM, this approach uses DFFs to understand where and what to grasp, but introduces an additional step to direct the robotic arm to grab the parts of the object that are meant to be grasped. For example, LERF-TOGO directs the robotic arm to pick up a frying pan or a knife by their handles, and not by the parts that might harm the robot.
 
-<!-- 
+
 <div style="text-align: center;">
   <video width="320" height="240" controls>
     <source src="{{ '/assets/images/ophir_siman-tov_student-24/lang_results-42aeb03eb51b608658db0df55f1178d5.mp4' | relative_url }}" type="video/mp4">
   </video>
   <p><em>Results from F3RM showing how they use DFFs to perform robotic manipulation tasks.</em></p>
-</div> -->
+</div>
 
 
-![]({{ site.baseurl }}/assets/images/ophir_siman-tov_student-24/lang_results-42aeb03eb51b608658db0df55f1178d5.mp4)
+<!-- ![]({{ site.baseurl }}/assets/images/ophir_siman-tov_student-24/lang_results-42aeb03eb51b608658db0df55f1178d5.mp4) -->
 
 
 
