@@ -29,7 +29,10 @@ without any human intervention at all. The results of this work
 showcase the potential for robotic systems to actively improve
 their perception in cluttered or obstructed environments.
 
-
+<!--more-->
+{: class="table-of-content"}
+* TOC
+{:toc}
 
 
 ## Introduction
