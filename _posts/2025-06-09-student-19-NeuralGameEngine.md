@@ -79,7 +79,7 @@ World Models (Ha & Schmidhuber, 2018) introduced a foundational framework that c
 GameGAN (Kim et al., 2020) took a different approach by directly learning to generate game frames using GANs, conditioned on previous frames and player actions. This allowed the model to learn game mechanics visually, without being explicitly programmed. It was a breakthrough in terms of realism for simple arcade-style games like Pac-Man. The major advantage was its end-to-end frame generation, which made it more intuitive and visual than latent-based approaches. However, GameGAN faced several limitations. It struggled to generalize to more complex or 3D environments, produced visual artifacts under longer rollouts, and often failed to capture longer-term game dynamics, making it unreliable for extended agent interaction.
 
 <div style="text-align: center;">
-  <img src="{{ '/assets/images/student-19/figure3.png' | relative_url }}" style="width: 500px; max-width: 100%;" alt="RobosuiteEnv">
+  <img src="{{ '/assets/images/student-19/figure3.png' | relative_url }}" style="width: 300px; max-width: 100%;" alt="RobosuiteEnv">
   <p><em> Comparison from GameGAN: Box plot for Come-back-home metric. Lower is better. As a reference, a pair of randomly selected frames from the same episode gives a score of 1.17 ± 0.56.</em></p>
 </div>
 
@@ -90,7 +90,7 @@ GameNGen (2024) represented a leap forward by introducing diffusion models into 
 DIAMOND (2024) followed GameNGen but aimed to make diffusion-based simulation more practical and controllable. By switching to EDM (Elucidated Diffusion Models), DIAMOND significantly reduced the number of denoising steps needed during frame generation, speeding up inference while maintaining high visual quality. It also emphasized the importance of preserving visual details for reinforcement learning, showing that better visuals could directly translate into better policy learning. DIAMOND incorporated action-conditioning more explicitly, making its predictions more responsive and meaningful. It achieved top performance on Atari benchmarks and even scaled to more complex environments like CS:GO. However, it still required substantial computational resources, and its real-time interactivity—while improved—was not yet on par with faster autoregressive models.
 
 <div style="text-align: center;">
-  <img src="{{ '/assets/images/student-19/figure4.png' | relative_url }}" style="width: 500px; max-width: 100%;" alt="RobosuiteEnv">
+  <img src="{{ '/assets/images/student-19/figure4.png' | relative_url }}" style="width: 800px; max-width: 100%;" alt="RobosuiteEnv">
   <p><em> Consecutive frames imagined with IRIS (left) and DIAMOND (right). The white boxes highlight inconsistencies between frames, which we see only arise in trajectories generated with IRIS. In Asterix (top row), an enemy (orange) becomes a reward (red) in the second frame, before reverting to an enemy in the third, and again to a reward in the fourth. In Breakout (middle row), the bricks and score are inconsistent between frames. In Road Runner (bottom row), the rewards (small blue dots on the road) are inconsistently rendered between frames. None of these inconsistencies occur with DIAMOND. In Breakout, the score is even reliably updated by +7 when a red brick is broken.</em></p>
 </div>
 
