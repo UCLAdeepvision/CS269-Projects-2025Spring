@@ -2,8 +2,8 @@
 layout: post
 comments: true
 title: Peek-A-Boo, Occlusion-Aware Visual Perception through Active Exploration
-author: Medha Kini, Ophir Siman-Tov
-date: 2024-12-13
+author: Yi Han
+date: 2025-06-10
 ---
 
 
