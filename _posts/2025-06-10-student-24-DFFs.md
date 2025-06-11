@@ -95,11 +95,21 @@ Naturally, DFFs inherit the strengths and weaknesses of both NeRF and foundation
 
 ## Applications of DFFs
 
-DFFs are powerful spatial and semantic representations of 3D scenes, but how can we make efficient use of them? We mentioned that they were originally introduced in image editing tasks, but recent work has successfully applied them to robotics tasks. Two works stand out as particularly relevant: F3RM ([Shen et al.](https://arxiv.org/pdf/2308.07931)) and LERF-TOFO ([Rashid et al.](https://arxiv.org/pdf/2309.07970)).
+DFFs are powerful spatial and semantic representations of 3D scenes, but how can we make efficient use of them? We mentioned that they were originally introduced in image editing tasks, but recent work has successfully applied them to robotics tasks. Two works stand out as particularly relevant: F3RM ([Shen et al.](https://arxiv.org/pdf/2308.07931)) and LERF-TOGO ([Rashid et al.](https://arxiv.org/pdf/2309.07970)).
 
 The first work, called F3RM, uses DFFs for robotic manipulation tasks. Their method involves training a DFF for each scene as described above, then using this 3D representation, in conjunction with a human demonstration, to perform robotic manipulation tasks. They acquire the human demonstrations using a VR headset and controllers, and develop a method utilizing the DFF to enable a robotic arm to perform the same task as the one in the demonstration, but in a totally different environment with new objects. Here, the semantic property of DFFs comes in handy, because often the user will demonstrate how to pick up a tall wine glass, and the robotic arm might be expected to pick up a short and wide coffee mug. These two cups don’t look particularly similar, but they have similar meanings, which lets F3RM generalize beyond visual appearances.
 
+<div style="text-align: center;">
+  <img src="{{ '/assets/images/ophir_siman-tov_student-24/f3rm.PNG' | relative_url }}" style="width: 500px; max-width: 100%;" alt="Example of F3RM using DFFs for robotic manipulation">
+  <p><em>F3RM using DFFs for the task of robotic manipulation. Here it uses the DFF to pick up "Baymax" provided to it through a natural language query.</em></p>
+</div>
+
 The next work, called LERF-TOGO, is similar to the first. It also aims to perform robotic manipulation tasks, but focuses on performing them *safely*, and unlike F3RM provides a text description of the desired task as opposed to a demonstration. Just like F3RM, this approach uses DFFs to understand where and what to grasp, but introduces an additional step to direct the robotic arm to grab the parts of the object that are meant to be grasped. For example, LERF-TOGO directs the robotic arm to pick up a frying pan or a knife by their handles, and not by the parts that might harm the robot.
+
+<div style="text-align: center;">
+  <img src="{{ '/assets/images/ophir_siman-tov_student-24/lerftogo.PNG' | relative_url }}" style="width: 500px; max-width: 100%;" alt="Example of LERF-TOGO using DFFs for safe robotic manipulation">
+  <p><em>LERF-TOGO using DFFs for the task of safe robotic manipulation. LERF-TOGO uses the DFF and a natural language query to grasp the rose from the step and not the flower.</em></p>
+</div>
 
 ## Additional Approaches
 
