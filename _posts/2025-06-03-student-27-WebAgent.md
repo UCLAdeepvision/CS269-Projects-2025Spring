@@ -152,6 +152,156 @@ Another angle of learning from experience is self-improvement via trajectory rel
 In more recent literature, Agent Q [27] couples Monte-Carlo Tree Search with an LLM policy, augments each node with AI-feedback self-critique to densify sparse web rewards, and finally distills both winning and failing branches through Direct Preference Optimization; this “search-and-learn” loop boosts WebShop success to roughly 50 % and raises real-world OpenTable booking from 18 % to 81–95 %, surpassing GPT-4o and human baselines. InfiGUI-R1 [28] moves GUI agents from reactive clicking to deliberative reasoning via a two-stage Actor2Reasoner pipeline: Spatial Reasoning Distillation first implants explicit cross-modal reasoning traces, then RL-based Deliberation Enhancement rewards sub-goal planning and error recovery, producing a 3 B-parameter agent that matches or outperforms far larger models on ScreenSpot [29] grounding and long-horizon AndroidControl [31] tasks. Complementing these, UI-R1 [30] shows that a lean rule-based reinforcement fine-tuning regime—with a novel action-type/argument/format reward and GRPO on just 136 hard examples—can lift a 3 B Qwen-2.5-VL model by +22 pp on ScreenSpot and +12 pp on AndroidControl [31], rivaling much larger SFT models and even demonstrating that explicit reasoning can be skipped for simple grounding without loss of accuracy.
 
 
+## [Extra Credit Attempt] Running the RealWebAssist Benchmark with Qwen-2.5-VL
+
+In this session, we integrated the Qwen-2.5-VL model into the latest open-source [RealWebAssist](https://github.com/SCAI-JHU/RealWebAssist) benchmark for evaluation. We began by exploring the repository structure and understanding the existing evaluation pipeline. The `evaluate.py` script is the main entry point for running evaluations, and it imports various model scripts from the model_scripts directory. Each model script implements a `get_coordinate` function, which is called during evaluation to predict the coordinates of user interactions on web pages.
+
+To integrate the `Qwen-2.5-VL` model, we created a new script named `qwen_vl_baseline.py` in the `model_scripts` directory. This script loads the `Qwen-2.5-VL` model using the `transformers` library and processes input data using the `AutoProcessor` and `process_vision_info` functions. The `get_coordinate` function in this script takes configuration data, history, base directory, and output directory as inputs. It constructs messages for the model, including the instruction and image path, and performs inference to generate output text. The output text is then parsed to extract the predicted coordinates.
+
+We modified the `evaluate.py` script to include the `Qwen-2.5-VL` model by adding a block that imports the `qwen_vl_baseline` script and assigns its `get_coordinate` function. This function is called for each interaction in the dataset during evaluation. The script processes each episode, loading questions and history data, and calls the `get_coordinate` function to predict coordinates for click actions. The results are compared against ground truth bounding boxes to calculate accuracy and other metrics.
+
+### Results
+
+After setting up the evaluation pipeline, we ran the evaluation on episode 1 of the dataset. The dataset contains 225 interactions, of which 111 are click actions that require coordinate predictions. The evaluation results show that the Qwen-2.5-VL model correctly predicted 1 out of 111 click actions, resulting in an accuracy of approximately 0.9%. The average distance between predicted and actual coordinates was 516.14 pixels, and the task success rate was 0%, indicating that the model struggled to accurately predict the required coordinates for the tasks. The results highlight areas for potential improvement in the model's performance on this benchmark.
+
+We attach the full code that we implemented for the Qwen-2.5-VL eval script here:
+
+```python
+import torch
+from transformers import Qwen2_5_VLForConditionalGeneration, AutoTokenizer, AutoProcessor
+from qwen_vl_utils import process_vision_info
+from PIL import Image
+import re
+import os
+
+# Load model and processor globally
+model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
+    "Qwen/Qwen2.5-VL-32B-Instruct",
+    torch_dtype=torch.bfloat16,
+    attn_implementation="flash_attention_2",
+    device_map="auto",
+)
+
+# The default range for the number of visual tokens per image in the model is 4-16384.
+min_pixels = 256*28*28
+max_pixels = 1280*28*28
+processor = AutoProcessor.from_pretrained("Qwen/Qwen2.5-VL-3B-Instruct", min_pixels=min_pixels, max_pixels=max_pixels)
+
+count = 0
+
+def parse_coordinates(output_text):
+    """Parse coordinates from model output text."""
+    if isinstance(output_text, list):
+        output_text = " ".join(output_text)
+    
+    # Look for various coordinate patterns: (x, y), [x, y], x,y, etc.
+    patterns = [
+        r"[\(\[](\d+),\s*(\d+)[\)\]]",  # (x, y) or [x, y]
+        r"(\d+),\s*(\d+)",  # x, y
+        r"x:\s*(\d+).*?y:\s*(\d+)",  # x: 123, y: 456
+        r"x=(\d+).*?y=(\d+)",  # x=123, y=456
+    ]
+    
+    for pattern in patterns:
+        match = re.search(pattern, output_text, re.IGNORECASE)
+        if match:
+            x, y = map(int, match.groups())
+            return (x, y)
+    
+    # If no pattern matches, try to find any two numbers
+    numbers = re.findall(r'\d+', output_text)
+    if len(numbers) >= 2:
+        return (int(numbers[0]), int(numbers[1]))
+    
+    raise ValueError("No valid coordinates found in the output text.")
+
+def get_coordinate(config_data, history, base_dir, output_dir):
+    """Main function that returns coordinates for the given instruction and image."""
+    global count
+    count += 1
+    
+    try:
+        instruction = config_data.get("instruction", "")
+        image_path = config_data.get("final_image", "")
+        bounding_box_data = config_data.get("bounding_box", [])
+
+        if not bounding_box_data:
+            print(f"No bounding box data")
+            return None, None
+
+        print(f"Processing item {count}")
+        print(f"Image: {image_path}")
+        print(f"Instruction: {instruction}")
+
+        # Build the full image path
+        full_image_path = image_path  # Path is already complete from config_data
+        if not os.path.exists(full_image_path):
+            print(f"Image not found: {full_image_path}")
+            return None, None
+
+        # Prepare the messages for the model
+        messages = [
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "image",
+                        "image": full_image_path,
+                    },
+                    {
+                        "type": "text", 
+                        "text": f"In this web page screenshot, I need to {instruction}. Please identify the exact pixel coordinates (x, y) where I should click to perform this action. Return the coordinates as (x, y)."
+                    },
+                ],
+            }
+        ]
+
+        # Add history context if available
+        if history and history.strip():
+            messages[0]["content"].append({
+                "type": "text",
+                "text": f"Here is the previous interaction history for context:\n{history}"
+            })
+
+        # Preparation for inference
+        text = processor.apply_chat_template(
+            messages, tokenize=False, add_generation_prompt=True
+        )
+        image_inputs, video_inputs = process_vision_info(messages)
+        inputs = processor(
+            text=[text],
+            images=image_inputs,
+            videos=video_inputs,
+            padding=True,
+            return_tensors="pt",
+        )
+        inputs = inputs.to("cuda")
+
+        # Inference: Generation of the output
+        generated_ids = model.generate(**inputs, max_new_tokens=128)
+        generated_ids_trimmed = [
+            out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
+        ]
+        output_text = processor.batch_decode(
+            generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
+        )
+
+        print(f"Raw model output: {output_text}")
+
+        # Parse coordinates from output
+        try:
+            coordinates = parse_coordinates(output_text[0] if output_text else "")
+            print(f"Parsed coordinates: {coordinates}")
+            return coordinates[0], coordinates[1]
+        except ValueError as e:
+            print(f"Failed to parse coordinates: {e}")
+            return None, None
+
+    except Exception as e:
+        print(f"Error in get_coordinate: {e}")
+        return None, None 
+```
+
 ## Conclusion
 
 GUI web agents are quickly becoming an important part of how we interact with the internet. Unlike earlier agents that only worked with text, these new agents can see and use websites much like a human would. They can click buttons, fill out forms, and follow instructions to complete real tasks online. But building a smart web agent isn’t just about giving it eyes and hands—it also needs a brain. It must be able to think ahead, make decisions, and fix mistakes when things go wrong. That’s why reasoning is such an important part of recent progress. Developers are finding better ways to help these agents plan, learn from experience, and solve harder tasks.

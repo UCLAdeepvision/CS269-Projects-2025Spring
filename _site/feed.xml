@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/CS269-Projects-2025Spring/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/CS269-Projects-2025Spring/" rel="alternate" type="text/html" /><updated>2025-06-10T15:18:37-07:00</updated><id>http://localhost:4000/CS269-Projects-2025Spring/feed.xml</id><title type="html">2025S, UCLA CS269 Course Projects</title><subtitle>Course projects for UCLA CS269, Seminar on AI Agents and Foundation Models</subtitle><author><name>UCLAdeepvision</name></author><entry><title type="html">Recent Developments in GUI Web Agents</title><link href="http://localhost:4000/CS269-Projects-2025Spring/2025/06/03/student-27-WebAgent.html" rel="alternate" type="text/html" title="Recent Developments in GUI Web Agents" /><published>2025-06-03T00:00:00-07:00</published><updated>2025-06-03T00:00:00-07:00</updated><id>http://localhost:4000/CS269-Projects-2025Spring/2025/06/03/student-27-WebAgent</id><content type="html" xml:base="http://localhost:4000/CS269-Projects-2025Spring/2025/06/03/student-27-WebAgent.html"><![CDATA[<blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/CS269-Projects-2025Spring/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/CS269-Projects-2025Spring/" rel="alternate" type="text/html" /><updated>2025-06-10T22:50:54-07:00</updated><id>http://localhost:4000/CS269-Projects-2025Spring/feed.xml</id><title type="html">2025S, UCLA CS269 Course Projects</title><subtitle>Course projects for UCLA CS269, Seminar on AI Agents and Foundation Models</subtitle><author><name>UCLAdeepvision</name></author><entry><title type="html">Recent Developments in GUI Web Agents</title><link href="http://localhost:4000/CS269-Projects-2025Spring/2025/06/03/student-27-WebAgent.html" rel="alternate" type="text/html" title="Recent Developments in GUI Web Agents" /><published>2025-06-03T00:00:00-07:00</published><updated>2025-06-03T00:00:00-07:00</updated><id>http://localhost:4000/CS269-Projects-2025Spring/2025/06/03/student-27-WebAgent</id><content type="html" xml:base="http://localhost:4000/CS269-Projects-2025Spring/2025/06/03/student-27-WebAgent.html"><![CDATA[<blockquote>
   <p>Web agents are a new class of agents that can interact with the web. They are able to navigate the web, search for information, and perform tasks. They are a type of multi-modal agent that can use text, images, and other modalities to interact with the web. Since 2024, we have seen a surge in the development of web agents, with many new agents being developed and released. In this blog post, we survey the recent developments in the field of web and particularly GUI agents, and provide a comprehensive overview of the state of the art. We review core benchmarks - WebArena, VisualWebArena, Mind2Web, and AssistantBench — that have enabled systematic measurement of these capabilities. We discuss the backbone vision-language models that power these agents, as well as the recent advancement in reasoning.</p>
 </blockquote>
 
@@ -21,6 +21,10 @@
   <li><a href="#architectures-and-methods-enhancing-reasoning-in-gui-agents" id="markdown-toc-architectures-and-methods-enhancing-reasoning-in-gui-agents">Architectures and Methods: Enhancing Reasoning in GUI Agents</a>    <ul>
       <li><a href="#prompt-based-planning-and-chain-of-thought" id="markdown-toc-prompt-based-planning-and-chain-of-thought">Prompt-Based Planning and Chain-of-Thought</a></li>
       <li><a href="#reinforcement-learning" id="markdown-toc-reinforcement-learning">Reinforcement Learning</a></li>
+    </ul>
+  </li>
+  <li><a href="#extra-credit-attempt-running-the-realwebassist-benchmark-with-qwen-25-vl" id="markdown-toc-extra-credit-attempt-running-the-realwebassist-benchmark-with-qwen-25-vl">[Extra Credit Attempt] Running the RealWebAssist Benchmark with Qwen-2.5-VL</a>    <ul>
+      <li><a href="#results" id="markdown-toc-results">Results</a></li>
     </ul>
   </li>
   <li><a href="#conclusion" id="markdown-toc-conclusion">Conclusion</a></li>
@@ -157,6 +161,155 @@ environments that involve web navigation and visual understanding Source: [4]</e
 <p>Another angle of learning from experience is self-improvement via trajectory relabeling or self-play. Researchers have explored letting an LLM agent run on many tasks, then analyzing its failures and successes to generate additional training data [16]. The agent would attempt tasks, then (using the LLM’s own evaluation or a heuristic) identify where it went wrong, and synthesize corrected trajectories or critiques. These synthetic trajectories, added to a finetuning dataset, boosted the task completion rate by ~31% over the base model on WebArena. Such self-refinement approaches are appealing because they mitigate the need for large human-labeled datasets – the agent essentially learns from its mistakes. However, they also require careful validation to ensure the agent doesn’t reinforce bad behaviors.</p>
 
 <p>In more recent literature, Agent Q [27] couples Monte-Carlo Tree Search with an LLM policy, augments each node with AI-feedback self-critique to densify sparse web rewards, and finally distills both winning and failing branches through Direct Preference Optimization; this “search-and-learn” loop boosts WebShop success to roughly 50 % and raises real-world OpenTable booking from 18 % to 81–95 %, surpassing GPT-4o and human baselines. InfiGUI-R1 [28] moves GUI agents from reactive clicking to deliberative reasoning via a two-stage Actor2Reasoner pipeline: Spatial Reasoning Distillation first implants explicit cross-modal reasoning traces, then RL-based Deliberation Enhancement rewards sub-goal planning and error recovery, producing a 3 B-parameter agent that matches or outperforms far larger models on ScreenSpot [29] grounding and long-horizon AndroidControl [31] tasks. Complementing these, UI-R1 [30] shows that a lean rule-based reinforcement fine-tuning regime—with a novel action-type/argument/format reward and GRPO on just 136 hard examples—can lift a 3 B Qwen-2.5-VL model by +22 pp on ScreenSpot and +12 pp on AndroidControl [31], rivaling much larger SFT models and even demonstrating that explicit reasoning can be skipped for simple grounding without loss of accuracy.</p>
+
+<h2 id="extra-credit-attempt-running-the-realwebassist-benchmark-with-qwen-25-vl">[Extra Credit Attempt] Running the RealWebAssist Benchmark with Qwen-2.5-VL</h2>
+
+<p>In this session, we integrated the Qwen-2.5-VL model into the latest open-source <a href="https://github.com/SCAI-JHU/RealWebAssist">RealWebAssist</a> benchmark for evaluation. We began by exploring the repository structure and understanding the existing evaluation pipeline. The <code class="language-plaintext highlighter-rouge">evaluate.py</code> script is the main entry point for running evaluations, and it imports various model scripts from the model_scripts directory. Each model script implements a <code class="language-plaintext highlighter-rouge">get_coordinate</code> function, which is called during evaluation to predict the coordinates of user interactions on web pages.</p>
+
+<p>To integrate the <code class="language-plaintext highlighter-rouge">Qwen-2.5-VL</code> model, we created a new script named <code class="language-plaintext highlighter-rouge">qwen_vl_baseline.py</code> in the <code class="language-plaintext highlighter-rouge">model_scripts</code> directory. This script loads the <code class="language-plaintext highlighter-rouge">Qwen-2.5-VL</code> model using the <code class="language-plaintext highlighter-rouge">transformers</code> library and processes input data using the <code class="language-plaintext highlighter-rouge">AutoProcessor</code> and <code class="language-plaintext highlighter-rouge">process_vision_info</code> functions. The <code class="language-plaintext highlighter-rouge">get_coordinate</code> function in this script takes configuration data, history, base directory, and output directory as inputs. It constructs messages for the model, including the instruction and image path, and performs inference to generate output text. The output text is then parsed to extract the predicted coordinates.</p>
+
+<p>We modified the <code class="language-plaintext highlighter-rouge">evaluate.py</code> script to include the <code class="language-plaintext highlighter-rouge">Qwen-2.5-VL</code> model by adding a block that imports the <code class="language-plaintext highlighter-rouge">qwen_vl_baseline</code> script and assigns its <code class="language-plaintext highlighter-rouge">get_coordinate</code> function. This function is called for each interaction in the dataset during evaluation. The script processes each episode, loading questions and history data, and calls the <code class="language-plaintext highlighter-rouge">get_coordinate</code> function to predict coordinates for click actions. The results are compared against ground truth bounding boxes to calculate accuracy and other metrics.</p>
+
+<h3 id="results">Results</h3>
+
+<p>After setting up the evaluation pipeline, we ran the evaluation on episode 1 of the dataset. The dataset contains 225 interactions, of which 111 are click actions that require coordinate predictions. The evaluation results show that the Qwen-2.5-VL model correctly predicted 1 out of 111 click actions, resulting in an accuracy of approximately 0.9%. The average distance between predicted and actual coordinates was 516.14 pixels, and the task success rate was 0%, indicating that the model struggled to accurately predict the required coordinates for the tasks. The results highlight areas for potential improvement in the model’s performance on this benchmark.</p>
+
+<p>We attach the full code that we implemented for the Qwen-2.5-VL eval script here:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">Qwen2_5_VLForConditionalGeneration</span><span class="p">,</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">AutoProcessor</span>
+<span class="kn">from</span> <span class="nn">qwen_vl_utils</span> <span class="kn">import</span> <span class="n">process_vision_info</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># Load model and processor globally
+</span><span class="n">model</span> <span class="o">=</span> <span class="n">Qwen2_5_VLForConditionalGeneration</span><span class="p">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+    <span class="s">"Qwen/Qwen2.5-VL-32B-Instruct"</span><span class="p">,</span>
+    <span class="n">torch_dtype</span><span class="o">=</span><span class="n">torch</span><span class="p">.</span><span class="n">bfloat16</span><span class="p">,</span>
+    <span class="n">attn_implementation</span><span class="o">=</span><span class="s">"flash_attention_2"</span><span class="p">,</span>
+    <span class="n">device_map</span><span class="o">=</span><span class="s">"auto"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># The default range for the number of visual tokens per image in the model is 4-16384.
+</span><span class="n">min_pixels</span> <span class="o">=</span> <span class="mi">256</span><span class="o">*</span><span class="mi">28</span><span class="o">*</span><span class="mi">28</span>
+<span class="n">max_pixels</span> <span class="o">=</span> <span class="mi">1280</span><span class="o">*</span><span class="mi">28</span><span class="o">*</span><span class="mi">28</span>
+<span class="n">processor</span> <span class="o">=</span> <span class="n">AutoProcessor</span><span class="p">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s">"Qwen/Qwen2.5-VL-3B-Instruct"</span><span class="p">,</span> <span class="n">min_pixels</span><span class="o">=</span><span class="n">min_pixels</span><span class="p">,</span> <span class="n">max_pixels</span><span class="o">=</span><span class="n">max_pixels</span><span class="p">)</span>
+
+<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">def</span> <span class="nf">parse_coordinates</span><span class="p">(</span><span class="n">output_text</span><span class="p">):</span>
+    <span class="s">"""Parse coordinates from model output text."""</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">output_text</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">output_text</span> <span class="o">=</span> <span class="s">" "</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_text</span><span class="p">)</span>
+    
+    <span class="c1"># Look for various coordinate patterns: (x, y), [x, y], x,y, etc.
+</span>    <span class="n">patterns</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="sa">r</span><span class="s">"[\(\[](\d+),\s*(\d+)[\)\]]"</span><span class="p">,</span>  <span class="c1"># (x, y) or [x, y]
+</span>        <span class="sa">r</span><span class="s">"(\d+),\s*(\d+)"</span><span class="p">,</span>  <span class="c1"># x, y
+</span>        <span class="sa">r</span><span class="s">"x:\s*(\d+).*?y:\s*(\d+)"</span><span class="p">,</span>  <span class="c1"># x: 123, y: 456
+</span>        <span class="sa">r</span><span class="s">"x=(\d+).*?y=(\d+)"</span><span class="p">,</span>  <span class="c1"># x=123, y=456
+</span>    <span class="p">]</span>
+    
+    <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">patterns</span><span class="p">:</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">output_text</span><span class="p">,</span> <span class="n">re</span><span class="p">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">match</span><span class="p">.</span><span class="n">groups</span><span class="p">())</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    
+    <span class="c1"># If no pattern matches, try to find any two numbers
+</span>    <span class="n">numbers</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s">'\d+'</span><span class="p">,</span> <span class="n">output_text</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    
+    <span class="k">raise</span> <span class="nb">ValueError</span><span class="p">(</span><span class="s">"No valid coordinates found in the output text."</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_coordinate</span><span class="p">(</span><span class="n">config_data</span><span class="p">,</span> <span class="n">history</span><span class="p">,</span> <span class="n">base_dir</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">):</span>
+    <span class="s">"""Main function that returns coordinates for the given instruction and image."""</span>
+    <span class="k">global</span> <span class="n">count</span>
+    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">instruction</span> <span class="o">=</span> <span class="n">config_data</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"instruction"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
+        <span class="n">image_path</span> <span class="o">=</span> <span class="n">config_data</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"final_image"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
+        <span class="n">bounding_box_data</span> <span class="o">=</span> <span class="n">config_data</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"bounding_box"</span><span class="p">,</span> <span class="p">[])</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bounding_box_data</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"No bounding box data"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Processing item </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Image: </span><span class="si">{</span><span class="n">image_path</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Instruction: </span><span class="si">{</span><span class="n">instruction</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+
+        <span class="c1"># Build the full image path
+</span>        <span class="n">full_image_path</span> <span class="o">=</span> <span class="n">image_path</span>  <span class="c1"># Path is already complete from config_data
+</span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">exists</span><span class="p">(</span><span class="n">full_image_path</span><span class="p">):</span>
+            <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Image not found: </span><span class="si">{</span><span class="n">full_image_path</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span>
+
+        <span class="c1"># Prepare the messages for the model
+</span>        <span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s">"role"</span><span class="p">:</span> <span class="s">"user"</span><span class="p">,</span>
+                <span class="s">"content"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s">"type"</span><span class="p">:</span> <span class="s">"image"</span><span class="p">,</span>
+                        <span class="s">"image"</span><span class="p">:</span> <span class="n">full_image_path</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s">"type"</span><span class="p">:</span> <span class="s">"text"</span><span class="p">,</span> 
+                        <span class="s">"text"</span><span class="p">:</span> <span class="sa">f</span><span class="s">"In this web page screenshot, I need to </span><span class="si">{</span><span class="n">instruction</span><span class="si">}</span><span class="s">. Please identify the exact pixel coordinates (x, y) where I should click to perform this action. Return the coordinates as (x, y)."</span>
+                    <span class="p">},</span>
+                <span class="p">],</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+
+        <span class="c1"># Add history context if available
+</span>        <span class="k">if</span> <span class="n">history</span> <span class="ow">and</span> <span class="n">history</span><span class="p">.</span><span class="n">strip</span><span class="p">():</span>
+            <span class="n">messages</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">"content"</span><span class="p">].</span><span class="n">append</span><span class="p">({</span>
+                <span class="s">"type"</span><span class="p">:</span> <span class="s">"text"</span><span class="p">,</span>
+                <span class="s">"text"</span><span class="p">:</span> <span class="sa">f</span><span class="s">"Here is the previous interaction history for context:</span><span class="se">\n</span><span class="si">{</span><span class="n">history</span><span class="si">}</span><span class="s">"</span>
+            <span class="p">})</span>
+
+        <span class="c1"># Preparation for inference
+</span>        <span class="n">text</span> <span class="o">=</span> <span class="n">processor</span><span class="p">.</span><span class="n">apply_chat_template</span><span class="p">(</span>
+            <span class="n">messages</span><span class="p">,</span> <span class="n">tokenize</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">add_generation_prompt</span><span class="o">=</span><span class="bp">True</span>
+        <span class="p">)</span>
+        <span class="n">image_inputs</span><span class="p">,</span> <span class="n">video_inputs</span> <span class="o">=</span> <span class="n">process_vision_info</span><span class="p">(</span><span class="n">messages</span><span class="p">)</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="n">processor</span><span class="p">(</span>
+            <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="n">text</span><span class="p">],</span>
+            <span class="n">images</span><span class="o">=</span><span class="n">image_inputs</span><span class="p">,</span>
+            <span class="n">videos</span><span class="o">=</span><span class="n">video_inputs</span><span class="p">,</span>
+            <span class="n">padding</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+            <span class="n">return_tensors</span><span class="o">=</span><span class="s">"pt"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">.</span><span class="n">to</span><span class="p">(</span><span class="s">"cuda"</span><span class="p">)</span>
+
+        <span class="c1"># Inference: Generation of the output
+</span>        <span class="n">generated_ids</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">generate</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">,</span> <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+        <span class="n">generated_ids_trimmed</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">out_ids</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">in_ids</span><span class="p">)</span> <span class="p">:]</span> <span class="k">for</span> <span class="n">in_ids</span><span class="p">,</span> <span class="n">out_ids</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">inputs</span><span class="p">.</span><span class="n">input_ids</span><span class="p">,</span> <span class="n">generated_ids</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">output_text</span> <span class="o">=</span> <span class="n">processor</span><span class="p">.</span><span class="n">batch_decode</span><span class="p">(</span>
+            <span class="n">generated_ids_trimmed</span><span class="p">,</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">clean_up_tokenization_spaces</span><span class="o">=</span><span class="bp">False</span>
+        <span class="p">)</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Raw model output: </span><span class="si">{</span><span class="n">output_text</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+
+        <span class="c1"># Parse coordinates from output
+</span>        <span class="k">try</span><span class="p">:</span>
+            <span class="n">coordinates</span> <span class="o">=</span> <span class="n">parse_coordinates</span><span class="p">(</span><span class="n">output_text</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">output_text</span> <span class="k">else</span> <span class="s">""</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Parsed coordinates: </span><span class="si">{</span><span class="n">coordinates</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">coordinates</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">coordinates</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">except</span> <span class="nb">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Failed to parse coordinates: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span>
+
+    <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Error in get_coordinate: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span> 
+</code></pre></div></div>
 
 <h2 id="conclusion">Conclusion</h2>
 
