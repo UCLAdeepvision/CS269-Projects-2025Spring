@@ -108,7 +108,7 @@ The next work, called LERF-TOGO, is similar to the first. It also aims to perfor
 
 <div style="text-align: center;">
   <img src="{{ '/assets/images/ophir_siman-tov_student-24/lerftogo.PNG' | relative_url }}" style="width: 500px; max-width: 100%;" alt="Example of LERF-TOGO using DFFs for safe robotic manipulation">
-  <p><em>LERF-TOGO using DFFs for the task of safe robotic manipulation. LERF-TOGO uses the DFF and a natural language query to grasp the rose from the step and not the flower.</em></p>
+  <p><em>LERF-TOGO using DFFs for the task of safe robotic manipulation. LERF-TOGO uses the DFF and a natural language query to grasp the rose from the stem and not the flower.</em></p>
 </div>
 
 ## Additional Approaches
