@@ -27,6 +27,13 @@ In this section, we summarize the main challenges of foundation models for robot
 The success of the foundation model lies in the broad and diverse data source for training. This should be no exception when it comes to robotics. However, acquiring large-scale and high-quality real-world robotic data remains a significant challenge. 
 Since it takes time for the robot to interact with the real world, the collection of such time is not only time-consuming but also expensive [1]. There are also safety concerns for both the robot and the surrounding environments [2]. While simulation offers a controlled environment for the efficient generation of synthetic data [3] [4] [5], the challenge remains whether and how they could cover the full diversity of the real world.
 
+
+
+<div style="text-align: center;">
+  <img src="{{ '/assets/images/student-21/isaac.png' | relative_url }}" style="width: 500px; max-width: 100%;" alt="RobosuiteEnv">
+  <p><em>Isaac gym for the simulation of robotics environments.</em></p>
+</div>
+
 ### Task Specification
 
 Given the diversity in the large number of possible robotic tasks, having a precise task specification is challenging. The need to resolve ambiguities under limited demonstrations and the robot's limited cognitive ability raises questions about what is the best way for task specifications. Existing approaches commonly specific the tasks through language prompts [6] [7], images [8], or reward signals for reinforcement learning [9].
@@ -47,6 +54,12 @@ The most straightforward use of foundation models for robotic perception will be
 
 For environment understanding, NLMap [13] provides an open-vocabulary and queryable scene representations. This serves as a framework to gather and integrate contextual information to the robot. With NLMap, robots are now capable of seeing and querying the available objects before their action planning. During the robots exploration of the environment, a map is being built. The region of interest for the exploration is then encoded by the visual language model and being added to the map. ConceptFusion [14] provides multimodal maps, allowing the robots to query different modalities such as image, audio, and text. The authors of ConceptFusion had shown that it is applicable to real-world applications such as autonomous driving.
 
+
+<div style="text-align: center;">
+  <img src="{{ '/assets/images/student-21/nlmap.png' | relative_url }}" style="width: 500px; max-width: 100%;" alt="RobosuiteEnv">
+  <p><em>The open-vocabulary framework NLMap provides for queryable scene representations.</em></p>
+</div>
+
 ### Localization
 
 The task of localization is to determine the position of the robot. LEXIS [15] and FM-Loc [16] both attempt to use CLIP [17] features for indoor localization. They both use the CLIP model to encode reference objects, by mapping the view of the robots to the reference objects, they are able to achieve indoor localization. Specifically, FM-Loc [16] utilizes CLIP and GPT3 features for reference object matching, while LEXIS [15] additionally introduces a dynamic topological graph for real-time reference object matching.
@@ -55,6 +68,11 @@ The task of localization is to determine the position of the robot. LEXIS [15] a
 
 Task planning involves dividing complex tasks into smaller, actionable steps. For the use of foundational models to achieve this, the initial attempts rely on plaintext for planning [6]. The later approaches like ProgPrompt [18] and GenSim [19] formalize the process of planning through code. Common coding structures like for-loop and function calls provide convenient ways to express high-level plans. Additionally, the form of code also helps address ambiguity and provides higher modularity and portability.
 
+
+<div style="text-align: center;">
+  <img src="{{ '/assets/images/student-21/eureka.png' | relative_url }}" style="width: 500px; max-width: 100%;" alt="RobosuiteEnv">
+  <p><em>The eureka framework utilizes code structures for high-level robotic plannings.</em></p>
+</div>
 ## Robotics Foundation Models
 
 With the increased amount of robotic data sets, the class of foundation models that are native to robotics becomes more viable. Different from text and visual foundational models, which are trained on NLP and CV tasks, robotics foundation models are trained on native robotic data.
