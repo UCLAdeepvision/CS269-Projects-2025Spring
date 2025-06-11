@@ -162,7 +162,41 @@ We modified the `evaluate.py` script to include the `Qwen-2.5-VL` model by addin
 
 ### Results
 
-After setting up the evaluation pipeline, we ran the evaluation on episode 1 of the dataset. The dataset contains 225 interactions, of which 111 are click actions that require coordinate predictions. The evaluation results show that the Qwen-2.5-VL model correctly predicted 1 out of 111 click actions, resulting in an accuracy of approximately 0.9%. The average distance between predicted and actual coordinates was 516.14 pixels, and the task success rate was 0%, indicating that the model struggled to accurately predict the required coordinates for the tasks. The results highlight areas for potential improvement in the model's performance on this benchmark.
+After setting up the evaluation pipeline, we ran the evaluation on episode 1 of the dataset. The dataset contains 225 interactions, of which 111 are click actions that require coordinate predictions. The evaluation results show that the Qwen-2.5-VL model correctly predicted 1 out of 111 click actions, resulting in an accuracy of approximately 0.9%. The average distance between predicted and actual coordinates was 516.14 pixels, and the task success rate was 0%, indicating that the model struggled to accurately predict the required coordinates for the tasks. The results highlight areas for potential improvement in the model's performance on this benchmark. Due to limitations in our local compute resources, we were unable to run the evaluation on the entire dataset or with larger models. However, the authors of the RealWebAssist benchmark do provide results on some closed-source models.
+
+<div style="text-align: center;">
+  <img src="{{ '/assets/images/student-27/real-web-assist.png' | relative_url }}" style="width: 900px; max-width: 100%;" alt="realwebassist-results">
+  <p><em>Results from the RealWebAssist benchmark for closed-source models. Source: [32]</em></p>
+</div>
+
+As we can see, even the state-of-the-art closed-source models like claude-3.7-sonnet struggled to achieve more than 11% accuracy on this benchmark. This is a very challenging benchmark and we believe that larger or finetuned versions of Qwen-2.5-VL model could perform better. We leave this as an open question for future work.
+
+This is the raw json file for the results on episode 1 of `qwen-2.5-vl-3b-instruct`:
+
+```json
+{
+    "overall": {
+        "total": 111,
+        "correct": 1,
+        "skipped": 114,
+        "accuracy": 0.9009009009009009,
+        "average_distance": 516.140350877193,
+        "average_progress": 0.6944444444444444,
+        "task_success_rate": 0.0
+    },
+    "episodes": {
+        "1": {
+            "total": 111,
+            "correct": 1,
+            "skipped": 114,
+            "accuracy": 0.9009009009009009,
+            "average_distance": 516.140350877193,
+            "average_progress": 0.6944444444444444,
+            "task_success_rate": 0.0
+        }
+    }
+}
+```
 
 We attach the full code that we implemented for the Qwen-2.5-VL eval script here:
 

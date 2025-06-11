@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/CS269-Projects-2025Spring/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/CS269-Projects-2025Spring/" rel="alternate" type="text/html" /><updated>2025-06-10T22:50:54-07:00</updated><id>http://localhost:4000/CS269-Projects-2025Spring/feed.xml</id><title type="html">2025S, UCLA CS269 Course Projects</title><subtitle>Course projects for UCLA CS269, Seminar on AI Agents and Foundation Models</subtitle><author><name>UCLAdeepvision</name></author><entry><title type="html">Recent Developments in GUI Web Agents</title><link href="http://localhost:4000/CS269-Projects-2025Spring/2025/06/03/student-27-WebAgent.html" rel="alternate" type="text/html" title="Recent Developments in GUI Web Agents" /><published>2025-06-03T00:00:00-07:00</published><updated>2025-06-03T00:00:00-07:00</updated><id>http://localhost:4000/CS269-Projects-2025Spring/2025/06/03/student-27-WebAgent</id><content type="html" xml:base="http://localhost:4000/CS269-Projects-2025Spring/2025/06/03/student-27-WebAgent.html"><![CDATA[<blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/CS269-Projects-2025Spring/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/CS269-Projects-2025Spring/" rel="alternate" type="text/html" /><updated>2025-06-10T22:57:13-07:00</updated><id>http://localhost:4000/CS269-Projects-2025Spring/feed.xml</id><title type="html">2025S, UCLA CS269 Course Projects</title><subtitle>Course projects for UCLA CS269, Seminar on AI Agents and Foundation Models</subtitle><author><name>UCLAdeepvision</name></author><entry><title type="html">Recent Developments in GUI Web Agents</title><link href="http://localhost:4000/CS269-Projects-2025Spring/2025/06/03/student-27-WebAgent.html" rel="alternate" type="text/html" title="Recent Developments in GUI Web Agents" /><published>2025-06-03T00:00:00-07:00</published><updated>2025-06-03T00:00:00-07:00</updated><id>http://localhost:4000/CS269-Projects-2025Spring/2025/06/03/student-27-WebAgent</id><content type="html" xml:base="http://localhost:4000/CS269-Projects-2025Spring/2025/06/03/student-27-WebAgent.html"><![CDATA[<blockquote>
   <p>Web agents are a new class of agents that can interact with the web. They are able to navigate the web, search for information, and perform tasks. They are a type of multi-modal agent that can use text, images, and other modalities to interact with the web. Since 2024, we have seen a surge in the development of web agents, with many new agents being developed and released. In this blog post, we survey the recent developments in the field of web and particularly GUI agents, and provide a comprehensive overview of the state of the art. We review core benchmarks - WebArena, VisualWebArena, Mind2Web, and AssistantBench — that have enabled systematic measurement of these capabilities. We discuss the backbone vision-language models that power these agents, as well as the recent advancement in reasoning.</p>
 </blockquote>
 
@@ -172,7 +172,40 @@ environments that involve web navigation and visual understanding Source: [4]</e
 
 <h3 id="results">Results</h3>
 
-<p>After setting up the evaluation pipeline, we ran the evaluation on episode 1 of the dataset. The dataset contains 225 interactions, of which 111 are click actions that require coordinate predictions. The evaluation results show that the Qwen-2.5-VL model correctly predicted 1 out of 111 click actions, resulting in an accuracy of approximately 0.9%. The average distance between predicted and actual coordinates was 516.14 pixels, and the task success rate was 0%, indicating that the model struggled to accurately predict the required coordinates for the tasks. The results highlight areas for potential improvement in the model’s performance on this benchmark.</p>
+<p>After setting up the evaluation pipeline, we ran the evaluation on episode 1 of the dataset. The dataset contains 225 interactions, of which 111 are click actions that require coordinate predictions. The evaluation results show that the Qwen-2.5-VL model correctly predicted 1 out of 111 click actions, resulting in an accuracy of approximately 0.9%. The average distance between predicted and actual coordinates was 516.14 pixels, and the task success rate was 0%, indicating that the model struggled to accurately predict the required coordinates for the tasks. The results highlight areas for potential improvement in the model’s performance on this benchmark. Due to limitations in our local compute resources, we were unable to run the evaluation on the entire dataset or with larger models. However, the authors of the RealWebAssist benchmark do provide results on some closed-source models.</p>
+
+<div style="text-align: center;">
+  <img src="/CS269-Projects-2025Spring/assets/images/student-27/real-web-assist.png" style="width: 900px; max-width: 100%;" alt="realwebassist-results" />
+  <p><em>Results from the RealWebAssist benchmark for closed-source models. Source: [32]</em></p>
+</div>
+
+<p>As we can see, even the state-of-the-art closed-source models like claude-3.7-sonnet struggled to achieve more than 11% accuracy on this benchmark. This is a very challenging benchmark and we believe that larger or finetuned versions of Qwen-2.5-VL model could perform better. We leave this as an open question for future work.</p>
+
+<p>This is the raw json file for the results on episode 1 of <code class="language-plaintext highlighter-rouge">qwen-2.5-vl-3b-instruct</code>:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"overall"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">111</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"correct"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"skipped"</span><span class="p">:</span><span class="w"> </span><span class="mi">114</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"accuracy"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.9009009009009009</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"average_distance"</span><span class="p">:</span><span class="w"> </span><span class="mf">516.140350877193</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"average_progress"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.6944444444444444</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"task_success_rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"episodes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">111</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"correct"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"skipped"</span><span class="p">:</span><span class="w"> </span><span class="mi">114</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"accuracy"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.9009009009009009</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"average_distance"</span><span class="p">:</span><span class="w"> </span><span class="mf">516.140350877193</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"average_progress"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.6944444444444444</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"task_success_rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
 
 <p>We attach the full code that we implemented for the Qwen-2.5-VL eval script here:</p>
 
