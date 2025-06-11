@@ -94,7 +94,7 @@ These tasks were chosen to evaluate both task-specific and general reasoning imp
 
 As shown in Figure 1, we see that the optimal split for performance was using the 0.25 data split. This appears to retain the models initial performance and prevents catastrophic knowledge collapse.
 
-![summary_abs_by_model]({{ '/assets/images/student-15-16/viz_output_3_2_1/by_model/summary_abs_by_model.png' | relative_url }})
+![summary_abs_by_model]({{ '/assets/images/student-29-30/viz_output_3_2_1/by_model/summary_abs_by_model.png' | relative_url }})
 {: style="width: 800px; max-width: 100%;"}
 {: style="text-align: center;"}
 *Fig 1. Model performance across different zh_ratio splits*
@@ -103,7 +103,7 @@ As shown in Figure 1, we see that the optimal split for performance was using th
 
 Overall, as shown in Figure 2, all the benchmarks evaluated seem to increase in performance, except for hellaswag. The highest relative gain we see is in humaneval with over 130% performance boost.
 
-![summary_rel]({{ '/assets/images/student-15-16/viz_output_3_2_1/0_25/2025-06-10T18-48-50/summary_rel.png' | relative_url }})
+![summary_rel]({{ '/assets/images/student-29-30/viz_output_3_2_1/0_25/2025-06-10T18-48-50/summary_rel.png' | relative_url }})
 {: style="width: 800px; max-width: 100%;"}
 {: style="text-align: center;"}
 *Fig 2. Relative performance gains across benchmarks*
@@ -114,35 +114,35 @@ To further understand the nuance driving these performance changes, dive into th
 
 **Belebele:** As shown in Figure 3, 3/4 of the sub tasks are improved. With the biggest increases seen in languages like Urdu, Southern Pashto, and Lithuanian. The languages that see the largest decrease in performance are Standard Tibetan, Macedonian, and Macedonian. Surprisingly, while the training data was in Chinese, that is not where we see the biggest gain.
 
-![belebele_rel]({{ '/assets/images/student-15-16/viz_output_3_2_1/0_25/2025-06-10T18-48-50/belebele_rel.png' | relative_url }})
+![belebele_rel]({{ '/assets/images/student-29-30/viz_output_3_2_1/0_25/2025-06-10T18-48-50/belebele_rel.png' | relative_url }})
 {: style="width: 800px; max-width: 100%;"}
 {: style="text-align: center;"}
 *Fig 3. Belebele benchmark performance by language*
 
 **Math:** For math, as shown in Figure 4, we see increase in subtopics like geometry, algebra, and probability. On the other hand, performance in prealgebra, number theory, and precalculus diminish in score.
 
-![hendrycks_math_rel]({{ '/assets/images/student-15-16/viz_output_3_2_1/0_25/2025-06-10T18-48-50/hendrycks_math_rel.png' | relative_url }})
+![hendrycks_math_rel]({{ '/assets/images/student-29-30/viz_output_3_2_1/0_25/2025-06-10T18-48-50/hendrycks_math_rel.png' | relative_url }})
 {: style="width: 800px; max-width: 100%;"}
 {: style="text-align: center;"}
 *Fig 4. Mathematics performance by subtopic*
 
 **MGSM:** MGSM is delineated across languages. As shown in Figure 5, we see big performance gains in Chinese, Spanish, and English. On the contrary, Russian, French, and Thai.
 
-![mgsm_rel]({{ '/assets/images/student-15-16/viz_output_3_2_1/0_25/2025-06-10T18-48-50/mgsm_rel.png' | relative_url }})
+![mgsm_rel]({{ '/assets/images/student-29-30/viz_output_3_2_1/0_25/2025-06-10T18-48-50/mgsm_rel.png' | relative_url }})
 {: style="width: 800px; max-width: 100%;"}
 {: style="text-align: center;"}
 *Fig 5. MGSM multilingual math performance*
 
 **MMLU:** As shown in Figure 6, logical topics like statistics, computer science, and astronomy, see big performance gains. However, public relations, machine learning, and accounting see diminishing performance.
 
-![mmlu_rel]({{ '/assets/images/student-15-16/viz_output_3_2_1/0_25/2025-06-10T18-48-50/mmlu_rel.png' | relative_url }})
+![mmlu_rel]({{ '/assets/images/student-29-30/viz_output_3_2_1/0_25/2025-06-10T18-48-50/mmlu_rel.png' | relative_url }})
 {: style="width: 800px; max-width: 100%;"}
 {: style="text-align: center;"}
 *Fig 6. MMLU performance across subjects*
 
 **TruthfulQA:** As shown in Figure 7, this metric sees the most decrease in performance; with over a third of the scores decreasing. Surprisingly, we see performance decrease even in the language of interest, Chinese.
 
-![truthfulqa_rel]({{ '/assets/images/student-15-16/viz_output_3_2_1/0_25/2025-06-10T18-48-50/truthfulqa_rel.png' | relative_url }})
+![truthfulqa_rel]({{ '/assets/images/student-29-30/viz_output_3_2_1/0_25/2025-06-10T18-48-50/truthfulqa_rel.png' | relative_url }})
 {: style="width: 800px; max-width: 100%;"}
 {: style="text-align: center;"}
 *Fig 7. TruthfulQA performance changes*
