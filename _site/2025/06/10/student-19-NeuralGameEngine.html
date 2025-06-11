@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    
+      
+
+
+
+
+
+
+    
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Neural Game Engine</title>
+
+    <meta name="description" content="This report explores recent advances in neural game engines, with a focus on generative models that simulate interactive game environments. Based on the prio...">
+
+    <meta content="2025S, UCLA CS269 Course Projects" property="og:site_name">
+    
+        <meta content="Neural Game Engine" property="og:title">
+    
+    
+        <meta content="article" property="og:type">
+    
+    
+        <meta content="This report explores recent advances in neural game engines, with a focus on generative models that simulate interactive game environments. Based on the prior presentation of GameNGen, a diffusion-based video model trained on DOOM, I review and compare several state-of-the-art approaches including DIAMOND, MineWorld, IRIS, GameGAN, and the original World..." property="og:description">
+    
+    
+        <meta content="http://localhost:4000/2025/06/10/student-19-NeuralGameEngine.html" property="og:url">
+    
+<!--
+    
+        <meta content="Yi Han" property="article:author">
+        <meta content="http://localhost:4000/about/" property="article:author">
+     -->
+
+    <!-- 
+        <meta content="2025-06-10T00:00:00-07:00" property="article:published_time">
+        <meta content="http://localhost:4000/about/" property="article:author">
+    
+    
+    
+        
+     -->
+
+    <link rel="shortcut icon" href="/CS269-Projects-2025Spring/assets/ucla_ico.jpg">
+    <link rel="stylesheet" href="/CS269-Projects-2025Spring/assets/css/main.css">
+    <link rel="canonical" href="http://localhost:4000/CS269-Projects-2025Spring/2025/06/10/student-19-NeuralGameEngine.html">
+
+    <!-- For Latex -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+    <!-- Google Analytics -->
+    <!-- <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-8161570-6', 'auto');
+        ga('send', 'pageview');
+    </script> -->
+
+    <!-- For Facebook share button -->
+    <!-- <div id="fb-root"></div>
+    <script>
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script> -->
+
+    <!-- Twitter cards -->
+    <!-- <meta name="twitter:site"    content="@">
+    <meta name="twitter:creator" content="@UCLAdeepvision">
+    <meta name="twitter:title"   content="Neural Game Engine">
+
+    
+        <meta name="twitter:description" content="<blockquote>
+  <p>This report explores recent advances in neural game engines, with a focus on generative models that simulate interactive game environments. Based on the prior presentation of GameNGen, a diffusion-based video model trained on DOOM, I review and compare several state-of-the-art approaches including DIAMOND, MineWorld, IRIS, GameGAN, and the original World Models. I also analyze their differences in architecture, visual fidelity, speed, and controllability, highlighting the trade-offs each design makes. Finally I conclude with a discussion on future directions for building responsive, efficient, and generalizable neural simulators for reinforcement learning and interactive media.</p>
+</blockquote>
+
+">
+    
+
+    
+        <meta name="twitter:card"  content="summary">
+        <meta name="twitter:image" content="">
+     -->
+    <!-- end of Twitter cards -->
+
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner" id='header-bar'>
+
+    <div class="wrapper">
+        
+        <a class="site-title" style="color:#F2A900" href="/CS269-Projects-2025Spring/">2025S, UCLA CS269 Course Projects  </a>
+
+        <!-- <nav class="site-nav">
+            <a class="page-link" href="http://lilianweng.github.io" target="_blank">&#x1f349; About</a>
+        </nav> -->
+        <nav class="site-nav">
+            <a class="page-link" style="color:#F2A900" href="/CS269-Projects-2025Spring/about.html"> About</a>
+        </nav>
+
+        <nav class="site-nav">
+            <a class="page-link" style="color:#F2A900" href="/CS269-Projects-2025Spring/archive.html"> Archive</a>
+        </nav>
+
+
+        <!-- <nav class="site-nav">
+            <a class="page-link" style="color:#FFD100" href="/CS269-Projects-2025Spring/FAQ.html"> FAQ</a>
+        </nav> -->
+        <!-- <nav class="site-nav">
+            <a class="page-link" href="/CS269-Projects-2025Spring/log.html">&#x231b; Log</a>
+        </nav> -->
+
+
+    </div>
+
+</header>
+
+
+    <!-- Back to top button -->
+    <script src="/CS269-Projects-2025Spring/assets/vanilla-back-to-top.min.js"></script>
+    <script>addBackToTop()</script>
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Neural Game Engine</h1>
+    <p class="post-meta">
+
+      <time datetime="2025-06-10T00:00:00-07:00" itemprop="datePublished">
+        
+        Jun 10, 2025
+      </time>
+
+      <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        by <span itemprop="name">Yi Han</span>
+      </span>
+
+      <!-- <span>
+        
+      </span> -->
+      <!--
+      <span class="share-buttons">
+        <span class="share-button"><a class="twitter-share-button" href="https://twitter.com/share" data-show-count="false">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></span>
+
+        <span class="share-button"><span class="fb-like" data-href="/2025/06/10/student-19-NeuralGameEngine.html" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></span></span>
+      </span>
+      <div style="clear: both;"/>
+      -->
+
+    </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <blockquote>
+  <p>This report explores recent advances in neural game engines, with a focus on generative models that simulate interactive game environments. Based on the prior presentation of GameNGen, a diffusion-based video model trained on DOOM, I review and compare several state-of-the-art approaches including DIAMOND, MineWorld, IRIS, GameGAN, and the original World Models. I also analyze their differences in architecture, visual fidelity, speed, and controllability, highlighting the trade-offs each design makes. Finally I conclude with a discussion on future directions for building responsive, efficient, and generalizable neural simulators for reinforcement learning and interactive media.</p>
+</blockquote>
+
+<!--more-->
+<ul id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#prior-works" id="markdown-toc-prior-works">Prior Works</a></li>
+  <li><a href="#comparison" id="markdown-toc-comparison">Comparison</a>    <ul>
+      <li><a href="#methodology" id="markdown-toc-methodology">Methodology</a></li>
+      <li><a href="#comparison-table" id="markdown-toc-comparison-table">Comparison Table</a></li>
+      <li><a href="#advantages-and-disadvantages" id="markdown-toc-advantages-and-disadvantages">Advantages and Disadvantages</a></li>
+    </ul>
+  </li>
+  <li><a href="#discussion" id="markdown-toc-discussion">Discussion</a>    <ul>
+      <li><a href="#conclusion-and-future-work" id="markdown-toc-conclusion-and-future-work">Conclusion and Future Work</a></li>
+    </ul>
+  </li>
+  <li><a href="#references" id="markdown-toc-references">References</a></li>
+</ul>
+
+<h2 id="introduction">Introduction</h2>
+<p>In the earlier presentation, we have explored the GameNGen together, a neural game engine built using a diffusion-based video model. The goal of GameNGen is to generate realistic gameplay sequences from pixel inputs, simulating game environments without relying on traditional physics or rule-based engines. One of the key ideas was to use a powerful video diffusion model that could produce rich and coherent game visuals, allowing agents to interact with imagined worlds in a way that looks visually convincing.</p>
+
+<p>Before these recent advances, earlier models like World Models, GameGAN, and IRIS laid the foundation by either simulating in compact latent spaces or using GANs and transformers for visual prediction. However, they struggled with long-term consistency, visual detail, or speed—motivating the newer generation of neural game engines I focus on in this report.</p>
+
+<p>While GameNGen showed promising results, especially in terms of visual quality, it also brought up some important limitations. For example, it struggled with speed due to the heavy diffusion process (achieved approximately 20 FPS), and had trouble maintaining long-term consistency in gameplay. These issues sparked a lot of interest in the community, and several newer models have tried to tackle these challenges from different angles.</p>
+
+<p>One of these new attempts is DIAMOND, which also uses diffusion for world modeling. But this model focuses more on action-conditioning and control. It shows that adding extra loss terms and guiding the model through better conditioning can help it generate more meaningful sequences, not just pretty. DIAMOND also runs experiments in classic environments like Atari games and demonstrates measurable improvements in decision-making performance, thanks to the improved visual details.</p>
+
+<p>Besides, MineWorld goes in a different direction. Instead of diffusion, it uses an autoregressive transformer model to simulate future frames. In the Q&amp;A part of my presentation, we discussed the diffculties for extending GameNGen to AAA games like Minecarft or Apex. Suprisingly, MineWorld has achieved this goal. Compared with DOOM for GameNGen, Mineworld simulates in Minecraft, which is much more complex. It takes both visual frames and player actions, turns them into discrete tokens, and feeds them into a transformer that predicts what happens next. Based on a parallel decoding strategy, MineWorld can generate multiple frames per second, which makes it much more usable for real-time interactions.</p>
+
+<p>All these models — GameNGen, DIAMOND, MineWorld — are part of a growing trend where generative models are being used not just to produce content, but to simulate interactive environments. This shift has major implications for reinforcement learning, robotics, and even game development. In this report, I will explore how these models differ in terms of architecture, speed, visual quality, and controllability.</p>
+
+<h2 id="prior-works">Prior Works</h2>
+<p>The idea of learning a model to simulate environments, also known as world modeling, has been explored for years in reinforcement learning and generative modeling. Early work like Ha and Schmidhuber’s World Models (2018) introduced a framework that combined a variational autoencoder (VAE), a recurrent world model, and a controller, allowing agents to learn entirely within their own imagination. While this approach was conceptually powerful, it relied heavily on low-dimensional latent states, which means that much of the visual richness and contextual information was lost during compression. Later efforts such as IRIS (2022) built on this by introducing discrete latents via vector quantization and modeling sequences with Transformers, achieving strong results on Atari with limited data. However, these models still suffered from the trade-off between visual fidelity and computational efficiency, often missing important details like small sprites or dynamic elements critical to gameplay decisions.</p>
+
+<p>Personally I would say that the introduction of GameGAN (2020) could be a milestone, which used a GAN-based approach to learn how to simulate entire environments directly from visual observations and player actions. While impressive for its time, GameGAN still lacked generalization capabilities and tended to fail on relatively long horizon rollouts or 3D environments. That’s where GameNGen entered the scene. Instead of compressing the environment into a minimal latent space or relying on GANs, GameNGen employed diffusion models, which was originally designed for high-quality image synthesis, to generate video game frames in an autoregressive fashion. By training on gameplay data from DOOM and leveraging a modified Stable Diffusion model, GameNGen could generate realistic, temporally coherent frames based on previous context and action inputs. It introduced several techniques to stabilize the generation process, including noise augmentation during training and decoder fine-tuning for UI elements. The result was a neural “game engine” capable of producing video sequences at a surprisingly high quality, even reaching up to 20 FPS on a TPU. However, its main limitations were relatively high computational costs and limited memory, which affected both real-time interaction and long-horizon consistency.</p>
+
+<div style="text-align: center;">
+  <img src="/CS269-Projects-2025Spring/assets/images/student-19/figure1.png" style="width: 500px; max-width: 100%;" alt="RobosuiteEnv" />
+  <p><em>Figure 1. GameGAN: If you look at the person on the top-left picture, you might think she is playing Pacman of Toru Iwatani, but she is not! She is actually playing with a GAN generated version of Pacman. In this paper, GameGAN was introduced that learns to reproduce games by just observing lots of playing rounds. Moreover, the model can disentangle background from dynamic objects, allowing us to create new games by swapping components as shown in the center and right images of the bottom row.</em></p>
+</div>
+
+<p>Building on the foundation laid by GameNGen, newer models such as DIAMOND (2024) extended the idea of diffusion-based world modeling while directly addressing some of these limitations. DIAMOND uses a more optimized sampling process based on the Elucidated Diffusion Models (also called “EDM”) framework, which reduces the number of denoising steps needed for generating a frame. This leads to significant speedups without sacrificing visual fidelity. More importantly, DIAMOND emphasized the importance of preserving visual detail for reinforcement learning agents: even small improvements in pixel accuracy translated to better decision-making in agents trained purely in simulation. It also introduced an action-conditioned training setup that enabled better controllability, allowing the model to generate scenes that actually respond to input actions. DIAMOND outperformed all previous approaches on the Atari 100K benchmark and even demonstrated impressive results on a real-world FPS game (CS:GO), showing that diffusion-based world models could scale beyond 2D arcade games. Together, these works reflect a major evolution in learned simulators—from basic frame predictors to highly detailed, interactive neural environments that blur the line between video generation and game engine functionality.</p>
+
+<div style="text-align: center;">
+  <img src="/CS269-Projects-2025Spring/assets/images/student-19/figure2.png" style="width: 500px; max-width: 100%;" alt="RobosuiteEnv" />
+  <p><em>Figure 2. Images captured from people playing with keyboard and mouse inside DIAMOND’s diffusion world model. This model was trained on 87 hours of static Counter-Strike: Global Offensive (CS:GO) gameplay (Pearce and Zhu, 2022) to produce an interactive neural game engine for the popular in-game map, Dust II. Best viewed as videos at https://diamond-wm.github.io.</em></p>
+</div>
+
+<h2 id="comparison">Comparison</h2>
+<h3 id="methodology">Methodology</h3>
+
+<p>Since this report focuses on a literature-based review without running code or experiments, the comparison of models is conducted through a conceptual and technical analysis of their published papers, reported results, and architectural designs. Specifically, I analyze each model across the following key dimensions:</p>
+
+<ul>
+  <li><strong>Architecture</strong>: The type of model used (e.g., VAE-RNN, GAN, Transformer, Diffusion) and its general structure.</li>
+  <li><strong>Visual Quality</strong>: The realism and coherence of the generated frames, often judged via FVD scores, human evaluation, or qualitative inspection.</li>
+  <li><strong>Speed and Efficiency</strong>: The reported or estimated inference speed, often measured in FPS or number of frames generated per second.</li>
+  <li><strong>Controllability</strong>: How well the model responds to agent actions and whether it supports meaningful interaction.</li>
+  <li><strong>Generalization</strong>: The model’s ability to work across varied game environments or settings, beyond the specific domains it was trained on.</li>
+  <li><strong>Use Case Fit</strong>: Whether the model is better suited for reinforcement learning simulation, visual imitation, real-time play, or offline rollout.</li>
+</ul>
+
+<p>I rely on each paper’s empirical results, qualitative demos, and architectural insights to draw these comparisons, aiming for a high-level yet grounded evaluation of where each model stands.</p>
+
+<h3 id="comparison-table">Comparison Table</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Architecture</th>
+      <th>Visual Quality</th>
+      <th>Speed / FPS</th>
+      <th>Controllability</th>
+      <th>Generalization</th>
+      <th>Use Case Fit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>World Models</strong> [1]</td>
+      <td>VAE + RNN + Controller</td>
+      <td>Low (latent-only)</td>
+      <td>Fast</td>
+      <td>Weak (abstract input)</td>
+      <td>Low (simple tasks)</td>
+      <td>Latent planning, early imagination</td>
+    </tr>
+    <tr>
+      <td><strong>GameGAN</strong> [2]</td>
+      <td>GAN-based video model</td>
+      <td>Moderate (GAN artifacts)</td>
+      <td>Medium</td>
+      <td>Weak–Moderate</td>
+      <td>Moderate (2D games)</td>
+      <td>Visual imitation, offline simulation</td>
+    </tr>
+    <tr>
+      <td><strong>IRIS</strong> [3]</td>
+      <td>VQ-VAE + Transformer</td>
+      <td>Moderate (token-based)</td>
+      <td>Fast</td>
+      <td>Moderate</td>
+      <td>Moderate (Atari)</td>
+      <td>Efficient Atari world modeling</td>
+    </tr>
+    <tr>
+      <td><strong>GameNGen</strong> [4]</td>
+      <td>Diffusion (video)</td>
+      <td>High (DOOM-level detail)</td>
+      <td>Slow (~20 FPS)</td>
+      <td>Weak–Moderate</td>
+      <td>Limited (mostly DOOM)</td>
+      <td>High-fidelity simulation</td>
+    </tr>
+    <tr>
+      <td><strong>DIAMOND</strong> [5]</td>
+      <td>Diffusion + EDM</td>
+      <td>High (Atari + CS:GO)</td>
+      <td>Medium–Slow</td>
+      <td>Strong (action-guided)</td>
+      <td>High (2D + 3D)</td>
+      <td>RL rollout, controllable simulation</td>
+    </tr>
+    <tr>
+      <td><strong>MineWorld</strong> [6]</td>
+      <td>Tokenized Transformer</td>
+      <td>Moderate–Good (MCraft)</td>
+      <td>Fast</td>
+      <td>Strong</td>
+      <td>High (open-world envs)</td>
+      <td>Real-time interaction, Minecraft AI</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="advantages-and-disadvantages">Advantages and Disadvantages</h3>
+<p>World Models (Ha &amp; Schmidhuber, 2018) introduced a foundational framework that combined a variational autoencoder (VAE), a recurrent world model (RNN), and a simple controller to allow agents to learn entirely within a compressed simulation. The biggest strength of this approach was its simplicity and efficiency—it could represent complex visual environments like car racing in a compact latent space, enabling fast simulation and lightweight training. However, the trade-off was a loss in visual fidelity. Because the model learned to represent only abstract latent features rather than full-resolution frames, it often missed small but important visual cues. This made it less suitable for tasks where detailed spatial information or pixel-level feedback was crucial.</p>
+
+<p>GameGAN (Kim et al., 2020) took a different approach by directly learning to generate game frames using GANs, conditioned on previous frames and player actions. This allowed the model to learn game mechanics visually, without being explicitly programmed. It was a breakthrough in terms of realism for simple arcade-style games like Pac-Man. The major advantage was its end-to-end frame generation, which made it more intuitive and visual than latent-based approaches. However, GameGAN faced several limitations. It struggled to generalize to more complex or 3D environments, produced visual artifacts under longer rollouts, and often failed to capture longer-term game dynamics, making it unreliable for extended agent interaction.</p>
+
+<div style="text-align: center;">
+  <img src="/CS269-Projects-2025Spring/assets/images/student-19/figure3.png" style="width: 300px; max-width: 100%;" alt="RobosuiteEnv" />
+  <p><em>Figure 3. Comparison from GameGAN: Box plot for Come-back-home metric. Lower is better. As a reference, a pair of randomly selected frames from the same episode gives a score of 1.17 ± 0.56.</em></p>
+</div>
+
+<p>IRIS (2022) improved upon earlier world modeling efforts by combining discrete latent tokenization (via VQ-VAE) with an autoregressive Transformer architecture to predict future observations. This method proved to be very sample-efficient, achieving strong performance on Atari with limited training data. Its key strengths were in planning and sequence modeling—the Transformer could reason over long horizons better than RNNs, and the tokenized representations kept the input compact and manageable. Still, IRIS inherited a core limitation from its discretization step: subtle visual details often got lost or blurred, which could affect tasks where pixel accuracy matters, such as tracking small objects or UI elements in games.</p>
+
+<p>GameNGen (2024) represented a leap forward by introducing diffusion models into the world modeling space. Unlike earlier models that worked with compressed latent spaces or low-res visuals, GameNGen was trained to directly generate high-resolution game frames (from DOOM) using a video diffusion pipeline. This gave it a huge boost in visual quality—even human observers had difficulty distinguishing generated frames from real gameplay. It also incorporated techniques like noise-augmented training to improve rollouts and added decoder fine-tuning for in-game UI clarity. However, diffusion models are notoriously slow, and GameNGen was no exception. Despite achieving ~20 FPS on a TPU, its computational demands make it impractical for lightweight or real-time settings. It also lacked a robust memory mechanism, which sometimes caused inconsistencies over longer sequences.</p>
+
+<p>DIAMOND (2024) followed GameNGen but aimed to make diffusion-based simulation more practical and controllable. By switching to EDM (Elucidated Diffusion Models), DIAMOND significantly reduced the number of denoising steps needed during frame generation, speeding up inference while maintaining high visual quality. It also emphasized the importance of preserving visual details for reinforcement learning, showing that better visuals could directly translate into better policy learning. DIAMOND incorporated action-conditioning more explicitly, making its predictions more responsive and meaningful. It achieved top performance on Atari benchmarks and even scaled to more complex environments like CS:GO. However, it still required substantial computational resources, and its real-time interactivity—while improved—was not yet on par with faster autoregressive models.</p>
+
+<div style="text-align: center;">
+  <img src="/CS269-Projects-2025Spring/assets/images/student-19/figure4.png" style="width: 800px; max-width: 100%;" alt="RobosuiteEnv" />
+  <p><em>Figure 4. Consecutive frames imagined with IRIS (left) and DIAMOND (right). The white boxes highlight inconsistencies between frames, which we see only arise in trajectories generated with IRIS. In Asterix (top row), an enemy (orange) becomes a reward (red) in the second frame, before reverting to an enemy in the third, and again to a reward in the fourth. In Breakout (middle row), the bricks and score are inconsistent between frames. In Road Runner (bottom row), the rewards (small blue dots on the road) are inconsistently rendered between frames. None of these inconsistencies occur with DIAMOND. In Breakout, the score is even reliably updated by +7 when a red brick is broken.</em></p>
+</div>
+
+<p>MineWorld (2025) tackled the problem from the opposite direction. Instead of focusing on high-fidelity image generation, it aimed for real-time, controllable simulation using an autoregressive Transformer trained on Minecraft gameplay. By tokenizing both visual and action data, MineWorld created a compact representation that could be processed quickly in parallel, achieving interactive speeds of several frames per second. This made it ideal for real-time agent interaction, especially in open-ended environments like Minecraft. The model was also open-source and included useful metrics to evaluate controllability and action alignment. However, its visual output was less detailed than diffusion models, and the heavy reliance on Minecraft-specific discretization raised questions about generalization to other environments or tasks with more complex visuals.</p>
+
+<h2 id="discussion">Discussion</h2>
+<p>Looking across the models I have reviewed, including World Models, GameGAN, IRIS, GameNGen, DIAMOND, and MineWorld, a few key patterns and trade-offs may be emerged. One of the most important is the balance between visual fidelity and computational efficiency. Models like GameNGen and DIAMOND prioritize generating highly detailed and realistic frames using diffusion processes. This level of realism is important for agent decision-making in environments where small visual cues can change outcomes, such as spotting an enemy or a power-up. However, these benefits come at a cost. Diffusion-based models require iterative sampling, which slows down generation significantly. Even with optimization tricks like the ones DIAMOND uses, they still lag behind autoregressive models in terms of speed and usability for real-time interaction.</p>
+
+<p>On the other side of the trade-off are models like IRIS and MineWorld. These transformer-based architectures tokenize input data and process it sequentially or in parallel, allowing for much faster inference. Specifically, MineWorld is designed with real-time interaction in mind, decoding multiple spatial tokens in parallel to reach playable frame rates. This makes it far more suitable for live environments, such as interactive simulations or multi-agent games. However, the drawback is that these tokenized models often lack the richness of full-frame diffusion outputs. They abstract away some details at the level of pixel, which might be acceptable for planning but could be a limitation in tasks requiring high visual precision.</p>
+
+<p>Another dimension of comparison is controllability—how well a model can respond to specific player or agent actions. GameGAN and early latent-based models tended to blur this relationship, generating plausible but sometimes unrelated frames. In contrast, DIAMOND and MineWorld both place a strong emphasis on action-conditioning, ensuring that generated outcomes align more closely with inputs. This is especially important for reinforcement learning or agent-based tasks where the quality of feedback directly affects learning. Action-aware training objectives, like the ones used in DIAMOND, have proven to significantly improve this aspect.</p>
+
+<p>I also noticed differences in how well these models generalize to more complex or diverse environments. Earlier models were usually tested on simple settings like Atari or 2D arcade games. GameNGen moved to DOOM, a more dynamic and visually rich environment, while MineWorld tackled the challenge of Minecraft, which is both open-ended and visually complex. This progression reflects growing confidence in these architectures, but also highlights how scaling up introduces new challenges—especially around long-term memory, scene coherence, and temporal consistency.</p>
+
+<p>Overall, there’s no single model that “wins” in every category. Each represents a different point along the spectrum of speed, quality, and control. For applications like agent training in offline simulators, slower but richer models like DIAMOND may be more useful. For interactive settings or games, MineWorld’s transformer-based design is a better fit. These trade-offs are likely to remain central as the field continues to explore what the ideal neural game engine should look like.</p>
+
+<h3 id="conclusion-and-future-work">Conclusion and Future Work</h3>
+<p>In this report, I examined the evolution of learned world models and neural game engines, starting from early latent-based simulators like World Models and IRIS, to more visually sophisticated generators like GameNGen and DIAMOND, and finally to real-time transformer-based systems like MineWorld. Each model reflects a different design philosophy and set of trade-offs between visual quality, generation speed, controllability, and generalization. GameNGen and DIAMOND showed how diffusion models can deliver high-fidelity visuals and boost agent performance, but they remain limited by their computational demands and relatively slow inference. On the other hand, models like MineWorld prioritize usability and speed, making them more practical for interactive or online applications, even if they compromise on pixel-level detail.</p>
+
+<p>Across all these models, one theme stands out: the growing ambition to build neural simulators that are not just generative, but interactive, responsive, and reliable. Whether the goal is to train reinforcement learning agents, generate synthetic training data, or build immersive game environments, the requirements go far beyond simple frame prediction. We now need models that can reason over time, respond meaningfully to input actions, and scale to diverse, dynamic worlds. While current architectures have taken big steps in this direction, challenges like long-term memory, cross-domain generalization, and efficient conditioning still remain open problems.</p>
+
+<p>Looking ahead, promising directions include hybrid models that combine the realism of diffusion with the speed of token-based transformers, memory-augmented agents that can retain state over long episodes, and modular systems that separate world dynamics from rendering or control. Another key area is improving action controllability without sacrificing sample efficiency—potentially using auxiliary objectives, disentangled representations, or contrastive methods. As this field matures, we expect the boundary between learned models and traditional engines to blur even further, opening up exciting opportunities not just in AI, but in game design, robotics, and interactive media more broadly.</p>
+
+<h2 id="references">References</h2>
+<p>[1] D. Ha and J. Schmidhuber, World Models, arXiv:1803.10122, 2018. Available: https://arxiv.org/abs/1803.10122</p>
+
+<p>[2] S. Kim, Y. Choi, J. Yu, J. Kim, J. Ha, and B. Zhang, Learning to Simulate Dynamic Environments with GameGAN, arXiv:2005.12126, 2020. Available: https://arxiv.org/abs/2005.12126</p>
+
+<p>[3] V. Micheli, E. Grefenstette, and S. Racanière, Transformers are Sample-Efficient World Models, arXiv:2209.00588, 2022. Available: https://arxiv.org/abs/2209.00588</p>
+
+<p>[4] Y. Valevski, O. Sharir, A. Gordon, M. Tal, A. Bar, A. Azaria, N. Shenfeld, Y. Meshulam, J. Berant, and S. Shalev, Diffusion Models Are Real-Time Game Engines, arXiv:2408.14837, 2024. Available: https://arxiv.org/abs/2408.14837</p>
+
+<p>[5] M. Alonso, A. Ramesh, Y. B. Kim, M. G. Azar, M. Janner, P. Agrawal, Y. Chebotar, and Y. Tassa, Diffusion for World Modeling: Visual Details Matter in Atari, arXiv:2405.12399, 2024. Available: https://arxiv.org/abs/2405.12399</p>
+
+<p>[6] J. Fang, Y. Wang, W. Shao, Y. Zhao, Z. Wang, M. Yang, W. Zhan, B. Dai, H. Shi, C. Liu, B. Zhou, and J. Wang, MineWorld: A Real-Time and Open-Source Interactive World Model on Minecraft, arXiv:2505.14357, 2025. Available: https://arxiv.org/abs/2505.14357</p>
+
+<hr />
+
+  </div>
+
+
+  <!-- <div class="page-navigation">
+    
+      <a class="prev" href="/CS269-Projects-2025Spring/2024/12/13/student-01-peekaboo.html">&larr; Peek-A-Boo, Occlusion-Aware Visual Perception through Active Exploration</a>
+    
+
+    <!--  -->
+
+
+  <!--comment-->
+  
+    <div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-ucladeepvision-github-io.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <div style="clear: both;" />
+<footer class="site-footer">
+    2024 &copy; by UCLAdeepvision. All Rights Reserved. Built by <a href="https://jekyllrb.com/"
+        target="_blank">Jekyll</a>
+
+    <!-- <p>
+        <a href="/CS269-Projects-2025Spring/feed.xml" target="_blank">
+            <img src="/CS269-Projects-2025Spring/assets/images/logo_rss.png" />
+        </a>
+        <a href="https://scholar.google.com/citations?user=dCa-pW8AAAAJ&hl=en&oi=ao" target="_blank">
+            <img src="/CS269-Projects-2025Spring/assets/images/logo_scholar.png" />
+        </a>
+        <a href="https://github.com/lilianweng" target="_blank">
+            <img src="/CS269-Projects-2025Spring/assets/images/logo_github.png" />
+        </a>
+    </p> -->
+</footer>
+
+  </body>
+
+</html>
