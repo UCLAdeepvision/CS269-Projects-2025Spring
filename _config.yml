@@ -14,6 +14,7 @@ plugins:
   - jekyll-archives
 exclude:
   - Gemfile
+  - vendor  
   - Gemfile.lock
   - vendor/bundle/
 kramdown:
