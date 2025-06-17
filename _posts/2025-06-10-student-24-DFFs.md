@@ -86,7 +86,7 @@ Naturally, DFFs inherit the strengths and weaknesses of both NeRF and foundation
 
   |  |  
 :-------------------------:|:-------------------------:|:-------------------------:
-![Image of strainer in a beaker]({{ site.baseurl }}/assets/student-24/strainer.PNG)  |  ![DINO image features of previous image]({{ site.baseurl }}/assets/images/student-24/strainer1_5.PNG) | ![NeRF reconstruction of the first image]({{ site.baseurl }}/assets/images/student-24/strainer2.png)
+![Image of strainer in a beaker]({{ site.baseurl }}/assets/images/student-24/strainer.PNG)  |  ![DINO image features of previous image]({{ site.baseurl }}/assets/images/student-24/strainer1_5.PNG) | ![NeRF reconstruction of the first image]({{ site.baseurl }}/assets/images/student-24/strainer2.png)
 
 <div style="text-align: center;">
   <p><em>DFFs use all views given to it to construct its image feature representation, and as a result can achieve much higher fidelity views than foundational models that only use a single view to construct their image features</em></p>
