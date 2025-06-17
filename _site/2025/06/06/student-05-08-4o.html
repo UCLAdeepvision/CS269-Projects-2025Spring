@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    
+      
+
+
+
+
+
+
+    
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Understanding GPT-4o: Capabilities, Trade-offs, and Real-World Utility</title>
+
+    <meta name="description" content="This blog aims to provide a comprehensive analysis of GPT-4o by examining both its technical architecture and real-world usability. It explores GPT-4o’s mult...">
+
+    <meta content="2025S, UCLA CS269 Course Projects" property="og:site_name">
+    
+        <meta content="Understanding GPT-4o: Capabilities, Trade-offs, and Real-World Utility" property="og:title">
+    
+    
+        <meta content="article" property="og:type">
+    
+    
+        <meta content="This blog aims to provide a comprehensive analysis of GPT-4o by examining both its technical architecture and real-world usability. It explores GPT-4o’s multimodal capabilities—spanning text, image, and audio processing—and situates them within the broader evolution of reasoning-enhanced and multimodal language models. Through a combination of literature review, system-level speculation, and..." property="og:description">
+    
+    
+        <meta content="http://localhost:4000/2025/06/06/student-05-08-4o.html" property="og:url">
+    
+<!--
+    
+        <meta content="Minhao Ren, Haixin Wang" property="article:author">
+        <meta content="http://localhost:4000/about/" property="article:author">
+     -->
+
+    <!-- 
+        <meta content="2025-06-06T00:00:00+08:00" property="article:published_time">
+        <meta content="http://localhost:4000/about/" property="article:author">
+    
+    
+    
+        
+     -->
+
+    <link rel="shortcut icon" href="/CS269-Projects-2025Spring/assets/ucla_ico.jpg">
+    <link rel="stylesheet" href="/CS269-Projects-2025Spring/assets/css/main.css">
+    <link rel="canonical" href="http://localhost:4000/CS269-Projects-2025Spring/2025/06/06/student-05-08-4o.html">
+
+    <!-- For Latex -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+    <!-- Google Analytics -->
+    <!-- <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-8161570-6', 'auto');
+        ga('send', 'pageview');
+    </script> -->
+
+    <!-- For Facebook share button -->
+    <!-- <div id="fb-root"></div>
+    <script>
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script> -->
+
+    <!-- Twitter cards -->
+    <!-- <meta name="twitter:site"    content="@">
+    <meta name="twitter:creator" content="@UCLAdeepvision">
+    <meta name="twitter:title"   content="Understanding GPT-4o: Capabilities, Trade-offs, and Real-World Utility">
+
+    
+        <meta name="twitter:description" content="<blockquote>
+  <p>This blog aims to provide a comprehensive analysis of GPT-4o by examining both its technical architecture and real-world usability. It explores GPT-4o’s multimodal capabilities—spanning text, image, and audio processing—and situates them within the broader evolution of reasoning-enhanced and multimodal language models. Through a combination of literature review, system-level speculation, and a user survey of early adopters, the blog investigates how GPT-4o is actually used in practice, what trade-offs it introduces in terms of speed, reasoning fidelity, and interactivity, and whether its multimodal design represents a genuine leap or a transitional phase in LLM development. Ultimately, it seeks to bridge the gap between technical potential and lived user experience, offering insights into the future trajectory of multimodal AI systems.</p>
+</blockquote>
+
+">
+    
+
+    
+        <meta name="twitter:card"  content="summary">
+        <meta name="twitter:image" content="">
+     -->
+    <!-- end of Twitter cards -->
+
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner" id='header-bar'>
+
+    <div class="wrapper">
+        
+        <a class="site-title" style="color:#F2A900" href="/CS269-Projects-2025Spring/">2025S, UCLA CS269 Course Projects  </a>
+
+        <!-- <nav class="site-nav">
+            <a class="page-link" href="http://lilianweng.github.io" target="_blank">&#x1f349; About</a>
+        </nav> -->
+        <nav class="site-nav">
+            <a class="page-link" style="color:#F2A900" href="/CS269-Projects-2025Spring/about.html"> About</a>
+        </nav>
+
+        <nav class="site-nav">
+            <a class="page-link" style="color:#F2A900" href="/CS269-Projects-2025Spring/archive.html"> Archive</a>
+        </nav>
+
+
+        <!-- <nav class="site-nav">
+            <a class="page-link" style="color:#FFD100" href="/CS269-Projects-2025Spring/FAQ.html"> FAQ</a>
+        </nav> -->
+        <!-- <nav class="site-nav">
+            <a class="page-link" href="/CS269-Projects-2025Spring/log.html">&#x231b; Log</a>
+        </nav> -->
+
+
+    </div>
+
+</header>
+
+
+    <!-- Back to top button -->
+    <script src="/CS269-Projects-2025Spring/assets/vanilla-back-to-top.min.js"></script>
+    <script>addBackToTop()</script>
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Understanding GPT-4o: Capabilities, Trade-offs, and Real-World Utility</h1>
+    <p class="post-meta">
+
+      <time datetime="2025-06-06T00:00:00+08:00" itemprop="datePublished">
+        
+        Jun 6, 2025
+      </time>
+
+      <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        by <span itemprop="name">Minhao Ren, Haixin Wang</span>
+      </span>
+
+      <!-- <span>
+        
+      </span> -->
+      <!--
+      <span class="share-buttons">
+        <span class="share-button"><a class="twitter-share-button" href="https://twitter.com/share" data-show-count="false">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></span>
+
+        <span class="share-button"><span class="fb-like" data-href="/2025/06/06/student-05-08-4o.html" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></span></span>
+      </span>
+      <div style="clear: both;"/>
+      -->
+
+    </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <blockquote>
+  <p>This blog aims to provide a comprehensive analysis of GPT-4o by examining both its technical architecture and real-world usability. It explores GPT-4o’s multimodal capabilities—spanning text, image, and audio processing—and situates them within the broader evolution of reasoning-enhanced and multimodal language models. Through a combination of literature review, system-level speculation, and a user survey of early adopters, the blog investigates how GPT-4o is actually used in practice, what trade-offs it introduces in terms of speed, reasoning fidelity, and interactivity, and whether its multimodal design represents a genuine leap or a transitional phase in LLM development. Ultimately, it seeks to bridge the gap between technical potential and lived user experience, offering insights into the future trajectory of multimodal AI systems.</p>
+</blockquote>
+
+<!--more-->
+<ul id="markdown-toc">
+  <li><a href="#1-introduction" id="markdown-toc-1-introduction">1. Introduction</a></li>
+  <li><a href="#2-technical-background" id="markdown-toc-2-technical-background">2. Technical Background</a></li>
+  <li><a href="#3-user-survey-how-are-people-actually-using-gpt-4o" id="markdown-toc-3-user-survey-how-are-people-actually-using-gpt-4o">3. User Survey: How Are People Actually Using GPT-4o?</a>    <ul>
+      <li><a href="#31-participant-overview" id="markdown-toc-31-participant-overview">3.1. Participant Overview</a></li>
+      <li><a href="#32-survey-questions-and-responses" id="markdown-toc-32-survey-questions-and-responses">3.2. Survey Questions and Responses</a></li>
+    </ul>
+  </li>
+  <li><a href="#4-under-the-hood-hypothesizing-the-architecture-of-gpt-4o" id="markdown-toc-4-under-the-hood-hypothesizing-the-architecture-of-gpt-4o">4. Under the Hood: Hypothesizing the Architecture of GPT-4o</a>    <ul>
+      <li><a href="#41-decoder-core-text-first-autoregression" id="markdown-toc-41-decoder-core-text-first-autoregression">4.1. Decoder Core: Text First Autoregression</a></li>
+      <li><a href="#42-audio-input-streaming-segment-based-processing" id="markdown-toc-42-audio-input-streaming-segment-based-processing">4.2. Audio Input: Streaming, Segment Based Processing</a></li>
+      <li><a href="#43-voice-output-cascaded-system" id="markdown-toc-43-voice-output-cascaded-system">4.3. Voice Output: Cascaded System?</a></li>
+      <li><a href="#44-why-text-as-the-central-output" id="markdown-toc-44-why-text-as-the-central-output">4.4. Why Text as the Central Output?</a></li>
+    </ul>
+  </li>
+  <li><a href="#5-gpt-4o-vs-gpt-4-turbo-what-changed" id="markdown-toc-5-gpt-4o-vs-gpt-4-turbo-what-changed">5. GPT-4o vs GPT-4 Turbo: What Changed?</a></li>
+  <li><a href="#6-conclusion-efficient-unified-but-still-evolving" id="markdown-toc-6-conclusion-efficient-unified-but-still-evolving">6. Conclusion: Efficient, Unified, But Still Evolving</a></li>
+  <li><a href="#7-future-work" id="markdown-toc-7-future-work">7. Future Work</a></li>
+  <li><a href="#8-reference" id="markdown-toc-8-reference">8. Reference</a></li>
+</ul>
+
+<h2 id="1-introduction">1. Introduction</h2>
+<p>Since its release in May 2024, GPT-4 [1] has attracted widespread attention as OpenAI’s first truly multimodal model, capable of processing text, images, and audio seamlessly in real time.
+Marketed as faster, more affordable, and more interactive than its predecessors, GPT-4o also became the first GPT-4-class model made available to free tier users, marking a major shift in accessibility and user expectations.</p>
+
+<p>But as the hype settles, important questions arise: How do people actually use GPT-4o? Is its multimodal ability just a novelty, or a real need? How does it compare to past versions in practical use?
+To better understand its impact, I conducted a small-scale user survey, asking people how often they use GPT-4o’s different modalities and how useful they find them in daily tasks.</p>
+
+<p>In this blog, I present insights from that survey alongside a broader discussion of GPT-4o’s potential internal architecture, performance trade-offs, and reasoning abilities.
+By combining technical context with user perspectives, I aim to explore not just what GPT-4o can do, but what people are actually doing with it, and whether multimodality is the future of LLMs or just a stepping stone.</p>
+
+<h2 id="2-technical-background">2. Technical Background</h2>
+<p>In parallel with the rise of general-purpose LLMs, there has been significant progress in reasoning-enhanced language models, which aim to solve complex tasks through multi-step, interpretable chains of logic. Approaches like Chain-of-Thought prompting [2], Tree-of-Thoughts [3], and Program-aided Language Models [4] enable models to decompose tasks into subgoals, improving performance on mathematical reasoning [5], symbolic manipulation [6], and multi-hop QA tasks [7]. These reasoning-focused paradigms have become essential in pushing LLMs toward higher factual accuracy and interpretability, especially when combined with reinforcement learning techniques [8].</p>
+
+<p>Simultaneously, multimodal generation has emerged as a central direction in frontier AI systems, extending the capabilities of LLMs beyond pure text. Recent models like Flamingo [9], Kosmos-2 [10], Gemini 1.5 [11], and Claude 3 [12] demonstrate impressive results in cross-modal understanding and generation, enabling applications in visual QA, diagram interpretation, and image-conditioned storytelling [13]. Additionally, systems such as GILL [14] and LLaVA [15] show how visual context can enhance reasoning and factual consistency, particularly in open-ended generative tasks.</p>
+
+<p>The convergence of multimodal inputs with structured reasoning not only expands the functional reach of LLMs, but also introduces new challenges in efficiency, inference latency, and interpretability—areas where models like GPT-4o aim to strike a balance through optimization and system-level integration [1, 16].</p>
+
+<h2 id="3-user-survey-how-are-people-actually-using-gpt-4o">3. User Survey: How Are People Actually Using GPT-4o?</h2>
+
+<p>To better understand GPT-4o’s real world impact, especially its multimodal capabilities, I conducted an online survey with 34 participants, the majority of whom are college students who use AI tools frequently in their academic or creative work.</p>
+
+<h3 id="31-participant-overview">3.1. Participant Overview</h3>
+<ul>
+  <li>34 total respondents</li>
+  <li>27 are current college students</li>
+  <li>21 actively use OpenAI products</li>
+  <li>18 said they default to GPT-4o when using ChatGPT</li>
+</ul>
+
+<p>This audience represents a group of highly engaged AI users, ideal for exploring how GPT-4o is being adopted in practice.</p>
+
+<h3 id="32-survey-questions-and-responses">3.2. Survey Questions and Responses</h3>
+
+<h4 id="321-how-do-you-feel-about-gpt-4os-multimodal-capabilities">3.2.1. “How do you feel about GPT-4o’s multimodal capabilities?”</h4>
+<ul>
+  <li>Most respondents acknowledged the innovation, but only a few found themselves using multimodal features regularly.</li>
+  <li>Common sentiments:
+    <ul>
+      <li>“It’s cool but I forget it exists.”</li>
+      <li>“I mostly use it like a regular text chatbot.”</li>
+      <li>“Image input is useful for graphs or screenshots, but I haven’t used audio or video.”</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="322-how-often-do-you-use-the-imagevoicevideo-input-features">3.2.2. “How often do you use the image/voice/video input features?”</h4>
+<ul>
+  <li><strong>Image input</strong>: ~35% said they had used it occasionally, especially for interpreting visuals (e.g., math problems, diagrams).</li>
+  <li><strong>Voice input</strong>: Only about 15% had tried it, mostly out of curiosity.</li>
+  <li><strong>Video</strong>: Usage was almost nonexistent. Most users weren’t even aware of this capability or said it felt awkward to use in practice.</li>
+</ul>
+
+<h4 id="323-how-do-you-rate-its-reasoning-ability-compared-to-earlier-models">3.2.3. “How do you rate its reasoning ability compared to earlier models?”</h4>
+<ul>
+  <li>Most users described GPT-4o as on par or slightly better than GPT-4-turbo in speed and responsiveness.</li>
+  <li>However, around 20% noted occasional lapses in logical reasoning or hallucinations that felt more noticeable than with GPT-4.</li>
+  <li>Comments included:
+    <ul>
+      <li>“It answers faster but sometimes seems less careful.”</li>
+      <li>“Great for brainstorming, but I double check it for factual stuff.”</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Multimodal usage is limited</strong>, even among highly active users. While image inputs have found niche use cases, voice and video modes are still underutilized, likely due to lack of habit, technical friction, or unclear benefits in most workflows.</p>
+
+<p>GPT-4o is appreciated for its speed and free tier availability, but users are mixed on whether its reasoning ability is an upgrade from previous versions.</p>
+
+<p>Overall, users treat GPT-4o like a faster, more accessible version of GPT-4, but the promise of multimodality hasn’t yet translated into widespread behavior change.</p>
+
+<h2 id="4-under-the-hood-hypothesizing-the-architecture-of-gpt-4o">4. Under the Hood: Hypothesizing the Architecture of GPT-4o</h2>
+
+<p>While OpenAI has not released detailed architecture documentation for GPT-4o, we can piece together a plausible structure based on available demos, past papers (like Whisper and GPT-4), and community reverse engineering.</p>
+
+<p style="width: 800px; max-width: 100%;"><img src="/CS269-Projects-2025Spring/assets/images/student-05-08/architecture.png" alt="YOLO" /></p>
+<p><em>Fig. 1: GPT-4o Architecture.</em></p>
+
+<h3 id="41-decoder-core-text-first-autoregression">4.1. Decoder Core: Text First Autoregression</h3>
+<ul>
+  <li>GPT-4o behaves like a traditional autoregressive language model for text input:
+    <ul>
+      <li>Text is tokenized and passed into a stack of transformer decoders (no encoder-decoder cross attention).</li>
+      <li>Tokens are decoded one by one, with each output token appended to the input stream and shifted right.</li>
+      <li>Positional encoding is required to preserve order.</li>
+      <li>Likely optimizations:
+        <ul>
+          <li>Highly efficient attention implementations (e.g., FlashAttention-style)</li>
+          <li>Parallel token streaming</li>
+          <li>Memory reuse and fused operations</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="42-audio-input-streaming-segment-based-processing">4.2. Audio Input: Streaming, Segment Based Processing</h3>
+<ul>
+  <li>GPT-4o can process long, uninterrupted audio without pauses.</li>
+  <li>Input is chunked into audio segments over time (e.g., every 0.1 seconds).</li>
+</ul>
+
+<h4 id="421-audio-processing-flow">4.2.1. Audio Processing Flow:</h4>
+<ol>
+  <li><strong>Audio Encoder</strong>: Receives a segment and extracts low-level audio features (phonemes, speaker tone, etc.) using convolutional or transformer layers.</li>
+  <li><strong>Audio Language Connector</strong>: Maps continuous audio features into discrete audio tokens, making them compatible with the LLM token space.</li>
+  <li><strong>MLLM Decoder</strong>: Combines audio tokens with prior text tokens (which act as prompts or context) and outputs the next text token.</li>
+</ol>
+
+<p>This is similar to Whisper, where past outputs are used as prompts for contextual understanding. In GPT-4o, it’s likely these text prompts provide continuity and memory between audio segments.</p>
+
+<h3 id="43-voice-output-cascaded-system">4.3. Voice Output: Cascaded System?</h3>
+<ul>
+  <li>The model likely still uses a cascade system for audio output.</li>
+  <li>The audio decoder takes the generated text tokens and converts them into synthetic audio segments, which are concatenated to produce fluent speech.</li>
+  <li>The voice styles are fixed, indicating it’s not personalized or generated from raw latent speech representations (yet).</li>
+</ul>
+
+<h3 id="44-why-text-as-the-central-output">4.4. Why Text as the Central Output?</h3>
+<ul>
+  <li>Text is computationally cheap to generate and easy to post-process.</li>
+  <li>LLMs are deeply trained on language; leveraging this avoids retraining entire modalities from scratch.</li>
+  <li>Downstream systems (like voice synthesis) can easily operate off text output.</li>
+</ul>
+
+<h2 id="5-gpt-4o-vs-gpt-4-turbo-what-changed">5. GPT-4o vs GPT-4 Turbo: What Changed?</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>GPT-4 Turbo</th>
+      <th>GPT-4o</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Input Modalities</strong></td>
+      <td>Text, Images (GPT-4V only)</td>
+      <td>Text, Images, <strong>Audio (real-time)</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Output</strong></td>
+      <td>Text only</td>
+      <td>Text + <strong>Voice (streamed audio)</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Speed</strong></td>
+      <td>Moderate</td>
+      <td><strong>Much faster (lower latency)</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Reasoning</strong></td>
+      <td>Very strong</td>
+      <td>Slightly below GPT-4 Turbo in some benchmarks</td>
+    </tr>
+    <tr>
+      <td><strong>Availability</strong></td>
+      <td>Paid tier only</td>
+      <td><strong>Free for everyone (limited)</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Use Cases</strong></td>
+      <td>Research, complex tasks</td>
+      <td>Conversational, interactive AI</td>
+    </tr>
+    <tr>
+      <td><strong>Architecture</strong></td>
+      <td>Likely text decoder only</td>
+      <td><strong>Multimodal LLM decoder</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="6-conclusion-efficient-unified-but-still-evolving">6. Conclusion: Efficient, Unified, But Still Evolving</h2>
+<ul>
+  <li>GPT-4o seems to follow a modular but unified pipeline:
+    <ul>
+      <li>Different encoders for audio and video.</li>
+      <li>A single multimodal transformer decoder that processes tokenized representations from all modalities.</li>
+      <li>A text focused generation core, possibly connected to legacy systems for voice output.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>This design explains GPT-4o’s responsiveness and versatility, but also its current limitations, such as lack of real time video output or fully personalized speech.</p>
+
+<h2 id="7-future-work">7. Future Work</h2>
+<p>Looking ahead, the integration of multimodality will increasingly become native to foundational models, as exemplified by emerging systems such as Gemini and Grok. These models are no longer merely adding modalities onto existing language frameworks but are being designed from the ground up to process and reason across text, images, audio, and video in a unified manner. This shift signifies a broader transition toward truly native multimodal architectures, where all modalities are treated as first-class citizens during training and inference.</p>
+
+<p>At the application level, multimodal agent systems are poised to become the dominant framework. These agents will not only perceive and interpret inputs from multiple modalities but also act autonomously in complex, dynamic environments. By combining perception, memory, and decision-making across modalities, multimodal agents will power next-generation applications in digital assistants, robotics, creative tools, and scientific research.</p>
+
+<p>In parallel, the focus of multimodal intelligence will evolve from simple modality fusion to deeper multimodal reasoning. Instead of merely aligning or combining features from different sources, future models will be expected to infer causal relationships, perform abstract reasoning, and maintain consistent semantic understanding across modalities. This requires breakthroughs in architecture design, training paradigms, and data construction.</p>
+
+<p>As a result of these advancements, evaluation standards for multimodal models will need to be redefined. Traditional metrics that assess isolated capabilities within individual modalities will no longer suffice. Instead, future benchmarks must test cross-modal consistency, reasoning depth, and generalization ability across diverse tasks and scenarios. Comprehensive, robust, and aligned evaluation frameworks will be essential to accurately reflect the true intelligence of multimodal systems.</p>
+
+<h2 id="8-reference">8. Reference</h2>
+<p>[1]	OpenAI, “GPT-4o Technical Report,” 2024.</p>
+
+<p>[2]	Wei et al., “Chain-of-Thought Prompting Elicits Reasoning in Large Language Models,” NeurIPS, 2022.</p>
+
+<p>[3]	Yao et al., “Tree of Thoughts: Deliberate Problem Solving with Large Language Models,” arXiv:2305.10601, 2023.</p>
+
+<p>[4]	Chen et al., “Program-Aided Language Models,” NeurIPS, 2022.</p>
+
+<p>[5]	Lewkowycz et al., “Solving Quantitative Reasoning Problems with Language Models,” arXiv:2206.14858, 2022.</p>
+
+<p>[6]	Zhang et al., “Symbolic Reasoning with Large Language Models,” arXiv:2303.09014, 2023.</p>
+
+<p>[7]	Khot et al., “Decomposed Prompting: A Modular Approach for Solving Complex Tasks,” EMNLP, 2022.</p>
+
+<p>[8]	Ziegler et al., “Fine-Tuning Language Models from Human Preferences,” ICLR, 2020.</p>
+
+<p>[9]	Alayrac et al., “Flamingo: A Visual Language Model for Few-Shot Learning,” DeepMind, 2022.</p>
+
+<p>[10]	Huang et al., “Language Is Not All You Need: Aligning Perception with Language Models,” Microsoft Research, 2023.</p>
+
+<p>[11]	Google DeepMind, “Gemini 1.5 Technical Report,” 2024.</p>
+
+<p>[12]	Anthropic, “Claude 3 Model Family,” 2024.</p>
+
+<p>[13]	Wang et al., “StoryDALL-E: Adapting Pretrained Text-to-Image Models for Story Continuation,” ICML, 2023.</p>
+
+<p>[14]	Dai et al., “GILL: Grounded Image-Language Learning with Multimodal Feedback,” arXiv:2305.12556, 2023.</p>
+
+<p>[15]	Liu et al., “Visual Instruction Tuning,” arXiv:2304.08485, 2023.</p>
+
+<p>[16]	OpenAI, “GPT-4o System Card,” 2024.</p>
+
+  </div>
+
+
+  <!-- <div class="page-navigation">
+    
+      <a class="prev" href="/CS269-Projects-2025Spring/2024/12/13/student-01-peekaboo.html">&larr; Peek-A-Boo, Occlusion-Aware Visual Perception through Active Exploration</a>
+    
+
+    <!--  -->
+
+
+  <!--comment-->
+  
+    <div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-ucladeepvision-github-io.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <div style="clear: both;" />
+<footer class="site-footer">
+    2024 &copy; by UCLAdeepvision. All Rights Reserved. Built by <a href="https://jekyllrb.com/"
+        target="_blank">Jekyll</a>
+
+    <!-- <p>
+        <a href="/CS269-Projects-2025Spring/feed.xml" target="_blank">
+            <img src="/CS269-Projects-2025Spring/assets/images/logo_rss.png" />
+        </a>
+        <a href="https://scholar.google.com/citations?user=dCa-pW8AAAAJ&hl=en&oi=ao" target="_blank">
+            <img src="/CS269-Projects-2025Spring/assets/images/logo_scholar.png" />
+        </a>
+        <a href="https://github.com/lilianweng" target="_blank">
+            <img src="/CS269-Projects-2025Spring/assets/images/logo_github.png" />
+        </a>
+    </p> -->
+</footer>
+
+  </body>
+
+</html>
