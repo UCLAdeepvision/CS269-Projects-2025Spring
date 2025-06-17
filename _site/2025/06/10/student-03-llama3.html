@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    
+      
+
+
+
+
+
+
+    
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Unpacking Llama 3 Meta&#39;s Next Leap in Open-Source AI</title>
+
+    <meta name="description" content="Meta’s Llama 3 series offers the open-source world a GPT-4-level model family—raising the bar on what public AI models can do across instruction-following, c...">
+
+    <meta content="2025S, UCLA CS269 Course Projects" property="og:site_name">
+    
+        <meta content="Unpacking Llama 3 Meta's Next Leap in Open-Source AI" property="og:title">
+    
+    
+        <meta content="article" property="og:type">
+    
+    
+        <meta content="Meta’s Llama 3 series offers the open-source world a GPT-4-level model family—raising the bar on what public AI models can do across instruction-following, coding, multilinguality, and long-context reasoning." property="og:description">
+    
+    
+        <meta content="http://localhost:4000/2025/06/10/student-03-llama3.html" property="og:url">
+    
+<!--
+    
+        <meta content="Owen Ou" property="article:author">
+        <meta content="http://localhost:4000/about/" property="article:author">
+     -->
+
+    <!-- 
+        <meta content="2025-06-10T00:00:00-04:00" property="article:published_time">
+        <meta content="http://localhost:4000/about/" property="article:author">
+    
+    
+    
+        
+     -->
+
+    <link rel="shortcut icon" href="/CS269-Projects-2025Spring/assets/ucla_ico.jpg">
+    <link rel="stylesheet" href="/CS269-Projects-2025Spring/assets/css/main.css">
+    <link rel="canonical" href="http://localhost:4000/CS269-Projects-2025Spring/2025/06/10/student-03-llama3.html">
+
+    <!-- For Latex -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+    <!-- Google Analytics -->
+    <!-- <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-8161570-6', 'auto');
+        ga('send', 'pageview');
+    </script> -->
+
+    <!-- For Facebook share button -->
+    <!-- <div id="fb-root"></div>
+    <script>
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script> -->
+
+    <!-- Twitter cards -->
+    <!-- <meta name="twitter:site"    content="@">
+    <meta name="twitter:creator" content="@UCLAdeepvision">
+    <meta name="twitter:title"   content="Unpacking Llama 3 Meta's Next Leap in Open-Source AI">
+
+    
+        <meta name="twitter:description" content="<blockquote>
+  <p>Meta’s Llama 3 series offers the open-source world a GPT-4-level model family—raising the bar on what public AI models can do across instruction-following, coding, multilinguality, and long-context reasoning.</p>
+</blockquote>
+
+">
+    
+
+    
+        <meta name="twitter:card"  content="summary">
+        <meta name="twitter:image" content="">
+     -->
+    <!-- end of Twitter cards -->
+
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner" id='header-bar'>
+
+    <div class="wrapper">
+        
+        <a class="site-title" style="color:#F2A900" href="/CS269-Projects-2025Spring/">2025S, UCLA CS269 Course Projects  </a>
+
+        <!-- <nav class="site-nav">
+            <a class="page-link" href="http://lilianweng.github.io" target="_blank">&#x1f349; About</a>
+        </nav> -->
+        <nav class="site-nav">
+            <a class="page-link" style="color:#F2A900" href="/CS269-Projects-2025Spring/about.html"> About</a>
+        </nav>
+
+        <nav class="site-nav">
+            <a class="page-link" style="color:#F2A900" href="/CS269-Projects-2025Spring/archive.html"> Archive</a>
+        </nav>
+
+
+        <!-- <nav class="site-nav">
+            <a class="page-link" style="color:#FFD100" href="/CS269-Projects-2025Spring/FAQ.html"> FAQ</a>
+        </nav> -->
+        <!-- <nav class="site-nav">
+            <a class="page-link" href="/CS269-Projects-2025Spring/log.html">&#x231b; Log</a>
+        </nav> -->
+
+
+    </div>
+
+</header>
+
+
+    <!-- Back to top button -->
+    <script src="/CS269-Projects-2025Spring/assets/vanilla-back-to-top.min.js"></script>
+    <script>addBackToTop()</script>
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Unpacking Llama 3 Meta&#39;s Next Leap in Open-Source AI</h1>
+    <p class="post-meta">
+
+      <time datetime="2025-06-10T00:00:00-04:00" itemprop="datePublished">
+        
+        Jun 10, 2025
+      </time>
+
+      <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        by <span itemprop="name">Owen Ou</span>
+      </span>
+
+      <!-- <span>
+        
+      </span> -->
+      <!--
+      <span class="share-buttons">
+        <span class="share-button"><a class="twitter-share-button" href="https://twitter.com/share" data-show-count="false">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></span>
+
+        <span class="share-button"><span class="fb-like" data-href="/2025/06/10/student-03-llama3.html" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></span></span>
+      </span>
+      <div style="clear: both;"/>
+      -->
+
+    </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <blockquote>
+  <p>Meta’s Llama 3 series offers the open-source world a GPT-4-level model family—raising the bar on what public AI models can do across instruction-following, coding, multilinguality, and long-context reasoning.</p>
+</blockquote>
+
+<!--more-->
+<ul id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#what-is-llama-3" id="markdown-toc-what-is-llama-3">What Is Llama 3?</a></li>
+  <li><a href="#where-were-we-before-llama-3" id="markdown-toc-where-were-we-before-llama-3">Where Were We Before Llama 3?</a></li>
+  <li><a href="#training-innovations" id="markdown-toc-training-innovations">Training Innovations</a></li>
+  <li><a href="#instruction-tuning-and-alignment" id="markdown-toc-instruction-tuning-and-alignment">Instruction Tuning and Alignment</a></li>
+  <li><a href="#tokenizer--architecture-enhancements" id="markdown-toc-tokenizer--architecture-enhancements">Tokenizer &amp; Architecture Enhancements</a></li>
+  <li><a href="#the-role-of-annealing-in-data-quality" id="markdown-toc-the-role-of-annealing-in-data-quality">The Role of Annealing in Data Quality</a></li>
+  <li><a href="#new-capabilities-long-context-and-multilinguality" id="markdown-toc-new-capabilities-long-context-and-multilinguality">New Capabilities: Long Context and Multilinguality</a></li>
+  <li><a href="#how-does-llama-3-compare-to-other-models" id="markdown-toc-how-does-llama-3-compare-to-other-models">How Does Llama 3 Compare to Other Models?</a></li>
+  <li><a href="#implications-for-developers-and-researchers" id="markdown-toc-implications-for-developers-and-researchers">Implications for Developers and Researchers</a></li>
+  <li><a href="#final-thoughts" id="markdown-toc-final-thoughts">Final Thoughts</a></li>
+  <li><a href="#references" id="markdown-toc-references">References</a></li>
+</ul>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Large language models (LLMs) have exploded in popularity, becoming core tools in software development, content creation, customer support, and education. While companies like OpenAI and Anthropic have built state-of-the-art proprietary models, Meta’s Llama 3 represents a major leap for open-source AI.</p>
+
+<p>Llama 3 is not a single model, but a family of models including <strong>8B</strong>, <strong>70B</strong>, and an experimental <strong>405B</strong>-parameter variant. These models are designed to handle a wide range of tasks—from coding and math reasoning to multilingual conversation and document summarization—all with transparency and accessibility in mind.</p>
+
+<p>This post breaks down what makes Llama 3 unique, how it compares to previous models, and why it matters to developers, researchers, and startups.</p>
+
+<h2 id="what-is-llama-3">What Is Llama 3?</h2>
+
+<p>Llama 3 (Large Language Model Meta AI) is Meta’s third-generation open-weight LLM suite. The current public release includes:</p>
+
+<ul>
+  <li><strong>Llama 3 8B and 70B models</strong>: instruction-tuned and pre-trained variants.</li>
+  <li><strong>128K token context window</strong>: enabling longer, more coherent documents and dialogues.</li>
+  <li><strong>Trained on 15T+ tokens</strong>: using curated, filtered, and multilingual data.</li>
+  <li><strong>Optimized with SFT and DPO</strong>: to align with human intent in real-world tasks.</li>
+</ul>
+
+<p>The goal: deliver a powerful and transparent foundation model that rivals GPT-4 and Claude 3 in performance, while remaining open to the research and development community.</p>
+
+<h2 id="where-were-we-before-llama-3">Where Were We Before Llama 3?</h2>
+
+<p>Before Llama 3, open-source models like Llama 2, Falcon, and Mistral offered a glimpse of high-performance LLMs but fell short on:</p>
+
+<ul>
+  <li>Long-context reasoning.</li>
+  <li>Instruction-following accuracy.</li>
+  <li>Multilingual capability.</li>
+  <li>Transparency in training and evaluation.</li>
+</ul>
+
+<p>Meanwhile, proprietary models like GPT-4, Claude 3, and Gemini dominated benchmarks, but were locked behind APIs. The tradeoff was clear: openness vs. performance.</p>
+
+<p>Llama 3 aims to collapse this tradeoff by offering both: high performance <strong>and</strong> open access.</p>
+
+<h2 id="training-innovations">Training Innovations</h2>
+
+<p>Llama 3 benefits from significant improvements in training strategy:</p>
+
+<ul>
+  <li><strong>Massive compute</strong>: 6,000 GPUs over several months.</li>
+  <li><strong>15.6 trillion tokens</strong>: cleaned and deduplicated data.</li>
+  <li><strong>128K context window</strong>: up from 4K in Llama 2.</li>
+  <li><strong>Tokenization</strong>: updated with a 128K vocabulary and multi-byte encoding for better efficiency.</li>
+</ul>
+
+<p>Meta applied aggressive filtering, deduplication, and quality assessment—including the use of smaller models like Llama 2 and FastText to rate data quality heuristically.</p>
+
+<h2 id="instruction-tuning-and-alignment">Instruction Tuning and Alignment</h2>
+
+<p>Meta placed a strong emphasis on aligning Llama 3 to user intent using:</p>
+
+<ul>
+  <li><strong>Supervised Fine-Tuning (SFT)</strong>: models learn from human-crafted examples across diverse domains.</li>
+  <li><strong>Direct Preference Optimization (DPO)</strong>: helps the model select better responses when given a prompt and multiple completions.</li>
+</ul>
+
+<p>These tuning steps are key to Llama 3’s usefulness in everyday tasks—making it better at answering questions, following instructions, and generating safe, concise outputs.</p>
+
+<p>Safety tools like <strong>Llama Guard 3</strong>, <strong>Code Shield</strong>, and <strong>CautiousSampling</strong> were introduced alongside the model to ensure outputs are responsible, especially in user-facing applications.</p>
+
+<h2 id="tokenizer--architecture-enhancements">Tokenizer &amp; Architecture Enhancements</h2>
+
+<p>Llama 3 introduces a <strong>new tokenizer</strong> with better efficiency and fewer dropped tokens in multilingual contexts. Unlike older byte-pair encodings, the tokenizer uses a 128K vocabulary and incorporates multi-byte tokenization strategies that improve coverage for non-English languages and code.</p>
+
+<p>Architecturally, Llama 3 builds on the transformer decoder-only backbone, with:</p>
+
+<ul>
+  <li>Grouped Query Attention (GQA)</li>
+  <li>SwiGLU activations</li>
+  <li>RMSNorm</li>
+  <li>No MoE (Mixture of Experts) yet—though future models may explore this</li>
+</ul>
+
+<p>All of this translates to better speed, memory usage, and multi-task performance across benchmarks.</p>
+
+<h2 id="the-role-of-annealing-in-data-quality">The Role of Annealing in Data Quality</h2>
+
+<p>One of the most innovative strategies Meta introduced in Llama 3’s development is <strong>annealing</strong>—a training approach that gradually reduces the influence of lower-quality data sources over time.</p>
+
+<p>Here’s how it works:</p>
+
+<ul>
+  <li>The learning rate is linearly reduced to zero during the final training stages.</li>
+  <li>Higher weights (e.g., 30%) are assigned to new domain-specific datasets to evaluate their utility.</li>
+  <li>This was tested on the GSM8K and MATH benchmarks using the 8B model, leading to:
+    <ul>
+      <li><strong>+24.0%</strong> improvement on GSM8K.</li>
+      <li><strong>+6.4%</strong> improvement on MATH.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Interestingly, the gains disappeared in the 405B model—suggesting that larger models rely less on targeted data and more on in-context learning.</p>
+
+<p>This technique is a lightweight and scalable alternative to large-scale ablation or scaling law experiments—making it easier to assess dataset value in research.</p>
+
+<h2 id="new-capabilities-long-context-and-multilinguality">New Capabilities: Long Context and Multilinguality</h2>
+
+<p>Llama 3’s 128K token context window unlocks tasks previously limited by shorter memory:</p>
+
+<ul>
+  <li>Legal and financial document analysis.</li>
+  <li>Multi-step mathematical proofs.</li>
+  <li>Longform code generation and debugging.</li>
+  <li>Multi-turn conversational agents.</li>
+</ul>
+
+<p>The model also excels in <strong>multilingual performance</strong>, especially in German, French, Spanish, Chinese, and Arabic—supporting global deployments and culturally aware interactions.</p>
+
+<h2 id="how-does-llama-3-compare-to-other-models">How Does Llama 3 Compare to Other Models?</h2>
+
+<p>Here’s how Llama 3 stacks up:</p>
+
+<ul>
+  <li><strong>GPT-4</strong>: Slightly more accurate on some benchmarks, but closed-source.</li>
+  <li><strong>Claude 3</strong>: Strong in reasoning and multilinguality, also closed and API-limited.</li>
+  <li><strong>Mixtral</strong>: Open MoE model with high throughput but shorter context (32K).</li>
+  <li><strong>Llama 2</strong>: A solid foundation, but limited to 4K context and weaker instruction tuning.</li>
+  <li><strong>Llama 3</strong>: Offers top-tier benchmark performance with full transparency and open weights.</li>
+</ul>
+
+<p>If you’re building research tools, custom applications, or want to explore alignment techniques, Llama 3 is a uniquely powerful and accessible platform.</p>
+
+<h2 id="implications-for-developers-and-researchers">Implications for Developers and Researchers</h2>
+
+<p>With Llama 3, you get:</p>
+
+<ul>
+  <li><strong>Instruction-tuned models</strong> that rival GPT-4, but are fully open.</li>
+  <li><strong>Full control</strong> over weights, prompting, fine-tuning, and deployment.</li>
+  <li><strong>Advanced safety tools</strong> like Llama Guard and open alignment recipes.</li>
+  <li><strong>Ecosystem support</strong> across Hugging Face, Colab, VS Code, and PyTorch.</li>
+</ul>
+
+<p>From enterprise AI to classroom demos, Llama 3 lowers the barrier to building impactful, safe, and flexible language systems.</p>
+
+<h2 id="final-thoughts">Final Thoughts</h2>
+
+<p>Meta’s Llama 3 isn’t just an open-source alternative—it’s a flagship offering. It blends benchmark-leading performance with transparency, modularity, and research-grade tooling.</p>
+
+<p>If Llama 2 brought open AI to the masses, Llama 3 brings open AI to the frontier.</p>
+
+<h2 id="references">References</h2>
+
+<p>[1] Meta AI. (2024). Llama 3: Open Foundation and Instruction-Tuned Models. arXiv preprint arXiv:2407.21783. https://arxiv.org/abs/2407.21783<br />
+[2] Cheng, R., Agarwal, A., &amp; Fragkiadaki, K. (2018). Reinforcement Learning of Active Vision for Manipulating Objects under Occlusions. Conference on Robot Learning, 422–431. http://proceedings.mlr.press/v87/cheng18a/cheng18a.pdf<br />
+[3] Cobbe, K., et al. (2021). Training Verifiers to Solve Math Word Problems. arXiv preprint arXiv:2106.03141.<br />
+[4] Hendrycks, D., et al. (2021). Measuring Mathematical Problem Solving With the MATH Dataset. arXiv preprint arXiv:2103.03874.</p>
+
+  </div>
+
+
+  <!-- <div class="page-navigation">
+    
+      <a class="prev" href="/CS269-Projects-2025Spring/2024/12/13/student-01-peekaboo.html">&larr; Peek-A-Boo, Occlusion-Aware Visual Perception through Active Exploration</a>
+    
+
+    <!--  -->
+
+
+  <!--comment-->
+  
+    <div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-ucladeepvision-github-io.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <div style="clear: both;" />
+<footer class="site-footer">
+    2024 &copy; by UCLAdeepvision. All Rights Reserved. Built by <a href="https://jekyllrb.com/"
+        target="_blank">Jekyll</a>
+
+    <!-- <p>
+        <a href="/CS269-Projects-2025Spring/feed.xml" target="_blank">
+            <img src="/CS269-Projects-2025Spring/assets/images/logo_rss.png" />
+        </a>
+        <a href="https://scholar.google.com/citations?user=dCa-pW8AAAAJ&hl=en&oi=ao" target="_blank">
+            <img src="/CS269-Projects-2025Spring/assets/images/logo_scholar.png" />
+        </a>
+        <a href="https://github.com/lilianweng" target="_blank">
+            <img src="/CS269-Projects-2025Spring/assets/images/logo_github.png" />
+        </a>
+    </p> -->
+</footer>
+
+  </body>
+
+</html>
