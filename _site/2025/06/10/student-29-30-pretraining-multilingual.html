@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    
+      
+
+
+
+
+
+
+    
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Pretraining Multilingual Foundation Models</title>
+
+    <meta name="description" content="Multilingual pretraining in large language models (LLMs) may confer cognitive benefits similar to those observed in multilingual humans, including enhanced r...">
+
+    <meta content="2025S, UCLA CS269 Course Projects" property="og:site_name">
+    
+        <meta content="Pretraining Multilingual Foundation Models" property="og:title">
+    
+    
+        <meta content="article" property="og:type">
+    
+    
+        <meta content="Multilingual pretraining in large language models (LLMs) may confer cognitive benefits similar to those observed in multilingual humans, including enhanced reasoning and cross-linguistic generalization. Models often learn better when exposed to linguistic diversity rather than monolingual data, but the optimal balance remains unclear. In this study, we systematically investigate the..." property="og:description">
+    
+    
+        <meta content="http://localhost:4000/2025/06/10/student-29-30-pretraining-multilingual.html" property="og:url">
+    
+<!--
+    
+        <meta content="Sheriff Issaka, Salman Rahman" property="article:author">
+        <meta content="http://localhost:4000/about/" property="article:author">
+     -->
+
+    <!-- 
+        <meta content="2025-06-10T00:00:00-07:00" property="article:published_time">
+        <meta content="http://localhost:4000/about/" property="article:author">
+    
+    
+    
+        
+     -->
+
+    <link rel="shortcut icon" href="/CS269-Projects-2025Spring/assets/ucla_ico.jpg">
+    <link rel="stylesheet" href="/CS269-Projects-2025Spring/assets/css/main.css">
+    <link rel="canonical" href="http://localhost:4000/CS269-Projects-2025Spring/2025/06/10/student-29-30-pretraining-multilingual.html">
+
+    <!-- For Latex -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+    <!-- Google Analytics -->
+    <!-- <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-8161570-6', 'auto');
+        ga('send', 'pageview');
+    </script> -->
+
+    <!-- For Facebook share button -->
+    <!-- <div id="fb-root"></div>
+    <script>
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script> -->
+
+    <!-- Twitter cards -->
+    <!-- <meta name="twitter:site"    content="@">
+    <meta name="twitter:creator" content="@UCLAdeepvision">
+    <meta name="twitter:title"   content="Pretraining Multilingual Foundation Models">
+
+    
+        <meta name="twitter:description" content="<blockquote>
+  <p>Multilingual pretraining in large language models (LLMs) may confer cognitive benefits similar to those observed in multilingual humans, including enhanced reasoning and cross-linguistic generalization. Models often learn better when exposed to linguistic diversity rather than monolingual data, but the optimal balance remains unclear. In this study, we systematically investigate the impact of multilingual exposure by training LLaMA 3.2-1B models on varying ratios of English-Chinese data, characterize the performance changes across multiple benchmarks, and find that 25% multilingual exposure yields optimal results—improving logical reasoning and code synthesis by up to 130% while preventing catastrophic forgetting, though with some trade-offs in fairness metrics.</p>
+</blockquote>
+
+">
+    
+
+    
+        <meta name="twitter:card"  content="summary">
+        <meta name="twitter:image" content="">
+     -->
+    <!-- end of Twitter cards -->
+
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner" id='header-bar'>
+
+    <div class="wrapper">
+        
+        <a class="site-title" style="color:#F2A900" href="/CS269-Projects-2025Spring/">2025S, UCLA CS269 Course Projects  </a>
+
+        <!-- <nav class="site-nav">
+            <a class="page-link" href="http://lilianweng.github.io" target="_blank">&#x1f349; About</a>
+        </nav> -->
+        <nav class="site-nav">
+            <a class="page-link" style="color:#F2A900" href="/CS269-Projects-2025Spring/about.html"> About</a>
+        </nav>
+
+        <nav class="site-nav">
+            <a class="page-link" style="color:#F2A900" href="/CS269-Projects-2025Spring/archive.html"> Archive</a>
+        </nav>
+
+
+        <!-- <nav class="site-nav">
+            <a class="page-link" style="color:#FFD100" href="/CS269-Projects-2025Spring/FAQ.html"> FAQ</a>
+        </nav> -->
+        <!-- <nav class="site-nav">
+            <a class="page-link" href="/CS269-Projects-2025Spring/log.html">&#x231b; Log</a>
+        </nav> -->
+
+
+    </div>
+
+</header>
+
+
+    <!-- Back to top button -->
+    <script src="/CS269-Projects-2025Spring/assets/vanilla-back-to-top.min.js"></script>
+    <script>addBackToTop()</script>
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Pretraining Multilingual Foundation Models</h1>
+    <p class="post-meta">
+
+      <time datetime="2025-06-10T00:00:00-07:00" itemprop="datePublished">
+        
+        Jun 10, 2025
+      </time>
+
+      <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        by <span itemprop="name">Sheriff Issaka, Salman Rahman</span>
+      </span>
+
+      <!-- <span>
+        
+      </span> -->
+      <!--
+      <span class="share-buttons">
+        <span class="share-button"><a class="twitter-share-button" href="https://twitter.com/share" data-show-count="false">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></span>
+
+        <span class="share-button"><span class="fb-like" data-href="/2025/06/10/student-29-30-pretraining-multilingual.html" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></span></span>
+      </span>
+      <div style="clear: both;"/>
+      -->
+
+    </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <blockquote>
+  <p>Multilingual pretraining in large language models (LLMs) may confer cognitive benefits similar to those observed in multilingual humans, including enhanced reasoning and cross-linguistic generalization. Models often learn better when exposed to linguistic diversity rather than monolingual data, but the optimal balance remains unclear. In this study, we systematically investigate the impact of multilingual exposure by training LLaMA 3.2-1B models on varying ratios of English-Chinese data, characterize the performance changes across multiple benchmarks, and find that 25% multilingual exposure yields optimal results—improving logical reasoning and code synthesis by up to 130% while preventing catastrophic forgetting, though with some trade-offs in fairness metrics.</p>
+</blockquote>
+
+<!--more-->
+<ul id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#related-work" id="markdown-toc-related-work">Related Work</a></li>
+  <li><a href="#experimental-design" id="markdown-toc-experimental-design">Experimental Design</a>    <ul>
+      <li><a href="#model-and-pretraining" id="markdown-toc-model-and-pretraining">Model and Pretraining</a></li>
+      <li><a href="#language-splits" id="markdown-toc-language-splits">Language Splits</a></li>
+      <li><a href="#data-source-and-preprocessing" id="markdown-toc-data-source-and-preprocessing">Data Source and Preprocessing</a></li>
+    </ul>
+  </li>
+  <li><a href="#evaluation" id="markdown-toc-evaluation">Evaluation</a></li>
+  <li><a href="#results" id="markdown-toc-results">Results</a>    <ul>
+      <li><a href="#optimal-split" id="markdown-toc-optimal-split">Optimal Split</a></li>
+      <li><a href="#benchmark-performance" id="markdown-toc-benchmark-performance">Benchmark Performance</a></li>
+    </ul>
+  </li>
+  <li><a href="#conclusion" id="markdown-toc-conclusion">Conclusion</a></li>
+  <li><a href="#references" id="markdown-toc-references">References</a></li>
+</ul>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Human multilingualism is widely associated with enhanced cognitive flexibility, improved executive control, and a broadened conceptual repertoire [1,2]. Languages encode distinct semantic frameworks and cultural logics, granting multilingual individuals access to diverse cognitive strategies [3]. Recent advances in large language models (LLMs) have prompted the question of whether similar benefits can emerge in artificial systems through multilingual pretraining.</p>
+
+<p>Transformer-based LLMs have demonstrated strong performance across a wide spectrum of reasoning, generation, and inference tasks [4,5]. However, the potential impact of multilingual training on their cognitive alignment and generalization capacity remains underexplored. This work investigates whether multilingual exposure confers systematic benefits to LLMs in reasoning, fairness, and cross-linguistic generalization, and whether these effects are comparable to the cognitive advantages observed in multilingual humans.</p>
+
+<p>Specifically, we examine whether multilingual pretraining improves logical and cognitive reasoning, introduces emergent capabilities relative to monolingual baselines, mitigates social bias, and enhances generalization to low-resource languages. We further address disparities in language representation by comparing the effects of multilingualism across high- and low-resource settings under matched data and model conditions.</p>
+
+<h2 id="related-work">Related Work</h2>
+
+<p>Multilingual pretraining has shown strong empirical gains across cross-lingual transfer, zero-shot inference, and comprehension tasks [6,7]. Studies such as “Language Models as Multilingual Chain-of-Thought Reasoners” [6] demonstrate that multilingual LLMs can engage in structured reasoning across multiple languages, often outperforming monolingual models on tasks requiring abstraction and inference. Bandarkar et al. introduced the Belebele benchmark, revealing systematic gains in comprehension for MLLMs exposed to linguistic diversity [7].</p>
+
+<p>The underlying mechanism is often attributed to <strong>cross-lingual knowledge transfer</strong>, wherein shared representations across languages allow models to generalize from high-resource to low-resource settings. Large-scale parallel corpora, such as WikiMatrix [8] and the UN Parallel Corpus [9], have been instrumental in supporting these findings. Further, reinforcement learning and instruction-tuning methods have revealed emergent capabilities in multilingual settings [5], analogous to transfer learning and conceptual blending in human cognition [1,2].</p>
+
+<p>Despite these advances, key open questions remain. In particular, it is unclear to what extent the observed gains are attributable to multilingualism itself, rather than confounding factors such as total data scale, domain overlap, or token distribution. Furthermore, continual pretraining techniques—though widely adopted—have not been systematically evaluated in multilingual contexts for their impact on reasoning or fairness.</p>
+
+<p>Our work seeks to isolate the causal effect of multilingual exposure under controlled conditions. We pretrain LLaMA 3.2–1B models on a balanced parallel corpus using carefully tuned sampling ratios and evaluate them on standard benchmarks for reasoning, fairness, and multilingual generalization.</p>
+
+<h2 id="experimental-design">Experimental Design</h2>
+
+<h3 id="model-and-pretraining">Model and Pretraining</h3>
+
+<p>We use the LLaMA 3.2–1B architecture, a compact, decoder-only transformer model pretrained primarily on English. All models are trained from the same initialization using full-parameter finetuning and identical hyperparameters. Pretraining is conducted using DeepSpeed (Stage 3), with 1 epoch over our custom multilingual datasets, employing gradient checkpointing and fused AdamW optimization.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">model_name_or_path</span><span class="pi">:</span> <span class="s">meta-llama/Llama-3.2-1B</span>
+<span class="na">learning_rate</span><span class="pi">:</span> <span class="s">2e-5</span>
+<span class="na">num_train_epochs</span><span class="pi">:</span> <span class="m">1.0</span>
+<span class="na">cutoff_len</span><span class="pi">:</span> <span class="m">2048</span>
+<span class="na">gradient_accumulation_steps</span><span class="pi">:</span> <span class="m">8</span>
+<span class="na">per_device_train_batch_size</span><span class="pi">:</span> <span class="m">8</span>
+<span class="na">warmup_ratio</span><span class="pi">:</span> <span class="m">0.15</span>
+<span class="na">lr_scheduler_type</span><span class="pi">:</span> <span class="s">cosine</span>
+<span class="na">bf16</span><span class="pi">:</span> <span class="no">true</span>
+<span class="na">tf32</span><span class="pi">:</span> <span class="no">true</span>
+</code></pre></div></div>
+
+<p>This consistent configuration ensures that observed differences in performance can be attributed to variations in multilingual exposure rather than architectural or training changes.</p>
+
+<h3 id="language-splits">Language Splits</h3>
+
+<p>We divide our training data into two sets:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>High-resource (Set A)</th>
+      <th>Low-resource (Set B)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Chinese (zh)</td>
+      <td>Farsi (fa)</td>
+    </tr>
+    <tr>
+      <td>Hindi (hi)</td>
+      <td>Swahili (sw)</td>
+    </tr>
+    <tr>
+      <td>Arabic (ar)</td>
+      <td>Bengali (bn)</td>
+    </tr>
+    <tr>
+      <td>Spanish (es)</td>
+      <td>Yoruba (yo)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Set A consists of widely resourced languages with substantial parallel corpora. Set B comprises lower-resourced languages with less digital representation. This division allows us to assess the differential impact of multilingual training across language strata.</p>
+
+<h3 id="data-source-and-preprocessing">Data Source and Preprocessing</h3>
+
+<p>We use the ParaCrawl English–Chinese v1.0 dataset [10], a large-scale, web-mined corpus with approximately 14 million aligned sentence pairs. ParaCrawl was selected for its breadth of domains, sentence-level alignment quality, and scalability, avoiding the domain-specific biases present in datasets like CCAligned [12] or OpenSubtitles [13].</p>
+
+<p>To explore the impact of multilingual exposure, we construct five variants of the training data by varying the proportion of Chinese-to-English examples (<code class="language-plaintext highlighter-rouge">zh_ratio</code> ∈ {0.0, 0.25, 0.5, 0.75, 1.0}). This controls for total dataset size and domain while modulating language diversity:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">zh_ratio = 0.0</code>: Monolingual English</li>
+  <li><code class="language-plaintext highlighter-rouge">zh_ratio = 0.25–0.75</code>: Mixed bilingual</li>
+  <li><code class="language-plaintext highlighter-rouge">zh_ratio = 1.0</code>: Monolingual Chinese</li>
+</ul>
+
+<p>Each sample is selected with the specified probability from the aligned pair. All examples are filtered for language quality, deduplicated, and converted to JSON format compatible with LLaMA-Factory’s pretraining pipeline [14].</p>
+
+<h2 id="evaluation">Evaluation</h2>
+
+<p>We evaluate all models on a suite of tasks probing logical reasoning, fairness, common sense, and multilingual understanding. Our benchmarks include:</p>
+
+<ul>
+  <li><strong>Logical Reasoning:</strong> GSM8K [15], MATH [16], HumanEval [17], GPQA Diamond</li>
+  <li><strong>Fairness:</strong> TruthfulQA [18], AgentHarm [19], TOXIGEN [20]</li>
+  <li><strong>Common Sense:</strong> HellaSwag [21], SuperGLUE [22], BIG-Bench Hard</li>
+  <li><strong>Multilingual Understanding:</strong> MMMLU, Belebele [7], MGSM [6]</li>
+</ul>
+
+<p>These tasks were chosen to evaluate both task-specific and general reasoning improvements, as well as the extent to which multilingual exposure reduces bias and improves robustness across domains.</p>
+
+<h2 id="results">Results</h2>
+
+<h3 id="optimal-split">Optimal Split</h3>
+
+<p>As shown in Figure 1, we see that the optimal split for performance was using the 0.25 data split. This appears to retain the models initial performance and prevents catastrophic knowledge collapse.</p>
+
+<p style="text-align: center;"><img src="/CS269-Projects-2025Spring/assets/images/student-29-30/viz_output_3_2_1/by_model/summary_abs_by_model.png" alt="summary_abs_by_model" /></p>
+<p><em>Fig 1. Model performance across different zh_ratio splits</em></p>
+
+<h3 id="benchmark-performance">Benchmark Performance</h3>
+
+<p>Overall, as shown in Figure 2, all the benchmarks evaluated seem to increase in performance, except for hellaswag. The highest relative gain we see is in humaneval with over 130% performance boost.</p>
+
+<p style="text-align: center;"><img src="/CS269-Projects-2025Spring/assets/images/student-29-30/viz_output_3_2_1/0_25/2025-06-10T18-48-50/summary_rel.png" alt="summary_rel" /></p>
+<p><em>Fig 2. Relative performance gains across benchmarks</em></p>
+
+<h4 id="detailed-benchmark-specific-performance">Detailed Benchmark Specific Performance</h4>
+
+<p>To further understand the nuance driving these performance changes, dive into the specific subtasks for each benchmark.</p>
+
+<p><strong>Belebele:</strong> As shown in Figure 3, 3/4 of the sub tasks are improved. With the biggest increases seen in languages like Urdu, Southern Pashto, and Lithuanian. The languages that see the largest decrease in performance are Standard Tibetan, Macedonian, and Macedonian. Surprisingly, while the training data was in Chinese, that is not where we see the biggest gain.</p>
+
+<p style="text-align: center;"><img src="/CS269-Projects-2025Spring/assets/images/student-29-30/viz_output_3_2_1/0_25/2025-06-10T18-48-50/belebele_rel.png" alt="belebele_rel" /></p>
+<p><em>Fig 3. Belebele benchmark performance by language</em></p>
+
+<p><strong>Math:</strong> For math, as shown in Figure 4, we see increase in subtopics like geometry, algebra, and probability. On the other hand, performance in prealgebra, number theory, and precalculus diminish in score.</p>
+
+<p style="text-align: center;"><img src="/CS269-Projects-2025Spring/assets/images/student-29-30/viz_output_3_2_1/0_25/2025-06-10T18-48-50/hendrycks_math_rel.png" alt="hendrycks_math_rel" /></p>
+<p><em>Fig 4. Mathematics performance by subtopic</em></p>
+
+<p><strong>MGSM:</strong> MGSM is delineated across languages. As shown in Figure 5, we see big performance gains in Chinese, Spanish, and English. On the contrary, Russian, French, and Thai.</p>
+
+<p style="text-align: center;"><img src="/CS269-Projects-2025Spring/assets/images/student-29-30/viz_output_3_2_1/0_25/2025-06-10T18-48-50/mgsm_rel.png" alt="mgsm_rel" /></p>
+<p><em>Fig 5. MGSM multilingual math performance</em></p>
+
+<p><strong>MMLU:</strong> As shown in Figure 6, logical topics like statistics, computer science, and astronomy, see big performance gains. However, public relations, machine learning, and accounting see diminishing performance.</p>
+
+<p style="text-align: center;"><img src="/CS269-Projects-2025Spring/assets/images/student-29-30/viz_output_3_2_1/0_25/2025-06-10T18-48-50/mmlu_rel.png" alt="mmlu_rel" /></p>
+<p><em>Fig 6. MMLU performance across subjects</em></p>
+
+<p><strong>TruthfulQA:</strong> As shown in Figure 7, this metric sees the most decrease in performance; with over a third of the scores decreasing. Surprisingly, we see performance decrease even in the language of interest, Chinese.</p>
+
+<p style="text-align: center;"><img src="/CS269-Projects-2025Spring/assets/images/student-29-30/viz_output_3_2_1/0_25/2025-06-10T18-48-50/truthfulqa_rel.png" alt="truthfulqa_rel" /></p>
+<p><em>Fig 7. TruthfulQA performance changes</em></p>
+
+<p>These nuanced patterns underscore the interplay between linguistic typology and task semantics. Multilingual exposure enhances certain cognitive pathways while occasionally introducing distributional biases that affect domain‑specific tasks.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>This study provides the first causal investigation into the cognitive parallels between human multilingualism and multilingual LLM pretraining. Under matched data, compute, and architectural settings, introducing moderate multilingual exposure (25% non‑English data) yields consistent gains in logical reasoning, code synthesis, and cross‑linguistic generalization, validating the cross‑lingual knowledge transfer hypothesis. These enhancements mirror cognitive benefits documented in polyglot human speakers, including flexible abstraction and resistance to knowledge erosion.</p>
+
+<p>However, not all tasks uniformly benefit: declines in fairness benchmarks (TruthfulQA) and specific common‑sense challenges (HellaSwag) highlight potential trade‑offs. Future work should explore adaptive sampling strategies, continual pretraining techniques, and curriculum learning to maximize multilingual gains while mitigating biases. Additionally, extending analysis to larger architectures and more typologically diverse corpora will further clarify the generality of our findings.</p>
+
+<p>By bridging cognitive science theories of multilingualism with empirical LLM evaluation, our work paves the way for designing more robust, fair, and versatile language models that harness the full spectrum of human linguistic diversity.</p>
+
+<h2 id="references">References</h2>
+
+<p>[1] Perlovsky, L. (2009). Language and cognition. Neural Networks, 22(3), 247–257.</p>
+
+<p>[2] DeKeyser, R., &amp; Koeth, J. (2011). Cognitive aptitudes for second language learning. In Handbook of research in second language teaching and learning.</p>
+
+<p>[3] Bialystok, E., &amp; Poarch, G. (2014). Language experience changes language and cognitive ability. Zeitschrift für Erziehungswissenschaft: ZfE.</p>
+
+<p>[4] Hurst, A., Lerer, A., Goucher, A. P., Perelman, A., Ramesh, A., Clark, A., … Radford, A. (2024). GPT-4o system card. arXiv.</p>
+
+<p>[5] Guo, D., Yang, D., Zhang, H., Song, J., Zhang, R., Xu, R., … Bi, X. (2025). DeepSeek-R1: Incentivizing reasoning capability in LLMs via reinforcement learning. arXiv:2501.12948.</p>
+
+<p>[6] El-Kishky, A., Chaudhary, V., Guzmán, F., &amp; Koehn, P. (2020). CCAligned: A massive collection of cross-lingual web-document pairs. In Proceedings of the EMNLP 2020.</p>
+
+<p>[7] Lison, P., &amp; Tiedemann, J. (2016). OpenSubtitles2016: Extracting large parallel corpora from movie and TV subtitles. In Proceedings of the 10th International Conference on Language Resources and Evaluation (LREC 2016) (pp. 923–929).</p>
+
+<p>[8] Barrault, L., Bojar, O., Costa-jussà, M. R., Federmann, C., Fishel, M., Graham, Y., … Monz, C. (2019). Findings of the 2019 Conference on Machine Translation (WMT19). ACL.</p>
+
+<p>[9] Schwenk, H., &amp; Douze, M. (2019). WikiMatrix: Mining 135M parallel sentences in 1620 language pairs from Wikipedia. arXiv preprint.</p>
+
+<p>[10] Ziemski, M., Junczys-Dowmunt, M., &amp; Pouliquen, B. (2016). The United Nations Parallel Corpus v1.0. In Proceedings of the Tenth International Conference on Language Resources and Evaluation.</p>
+
+<p>[11] Cobbe, K., Kosaraju, V., Bavarian, M., Chen, M., Jun, H., Kaiser, L., … Nakano, R. (2021). Training verifiers to solve math word problems. arXiv preprint arXiv:2110.14168.</p>
+
+<p>[12] Hendrycks, D., Burns, C., Kadavath, S., Arora, A., Basart, S., Tang, D., … Steinhardt, J. (2021). Measuring mathematical problem solving with the MATH dataset. arXiv.</p>
+
+<p>[13] Chen, M., Tworek, J., Jun, H., Yuan, Q., de Oliveira Pinto, H., Kaplan, J., … Brockman, G. (2021). Evaluating large language models trained on code. arXiv preprint arXiv:2107.03374.</p>
+
+<p>[14] Yang, Z., Zhang, S., Thoppilan, R., … (2023). Measuring massive multitask language understanding. arXiv preprint arXiv:2307.16863.</p>
+
+<p>[15] Lin, S., Hilton, J., &amp; Evans, O. (2021). TruthfulQA: Measuring how models mimic human falsehoods. arXiv preprint arXiv:2109.07958.</p>
+
+<p>[16] Li, X., Xu, W., Zhang, Z., McGuffie, K., Gao, T., Henderson, P., … Chang, K.-W. (2023). AgentHarm: Evaluating harmfulness of conversational agents. arXiv preprint.</p>
+
+<p>[17] Hartvigsen, T., Goel, S., Röttger, P., Glaese, A., &amp; Rae, J. (2022). ToxiGen: A large-scale machine-generated dataset for adversarial and implicit hate speech detection. In ACL 2022.</p>
+
+<p>[18] Zellers, R., Holtzman, A., Bisk, Y., Farhadi, A., &amp; Choi, Y. (2019). HellaSwag: Can a machine really finish your sentence? In ACL 2019.</p>
+
+<p>[19] Wang, A., Pruksachatkun, Y., Nangia, N., Singh, A., Michael, J., Hill, F., … Bowman, S. R. (2019). SuperGLUE: A stickier benchmark for general-purpose language understanding systems. In Proceedings of NeurIPS 2019.</p>
+
+<p>[20] Bandarkar, L., Liang, D., Muller, B., Artetxe, M., Shukla, S. N., Husa, D., … Khabsa, M. (2024). Belebele benchmark: Parallel reading comprehension dataset in 122 language variants. ACL. URL: https://aclanthology.org/2024.acl-long.44</p>
+
+<p>[21] Shi, F., Suzgun, M., Freitag, M., Wang, X., Srivats, S., Vosoughi, S., … Wei, J. (2022). Language models are multilingual chain-of-thought reasoners. arXiv preprint. URL: https://arxiv.org/abs/2210.03057</p>
+
+<p>[22] ParaCrawl Project. (2024). ParaCrawl English–Chinese v1.0. Retrieved from https://web-language-models.s3.amazonaws.com/paracrawl/bonus/en-zh-v1.txt.gz</p>
+
+<p>[23] Liu, B., Liu, X., &amp; Ji, H. (2020). ParaMed: A parallel corpus of medical research articles for Chinese-English translation. arXiv preprint arXiv:2005.09133. URL: https://arxiv.org/abs/2005.09133</p>
+
+<p>[24] Zhang, J., Xue, B., Liu, S., &amp; Zhou, G. (2024). Web-crawled corpora for English–Chinese neural machine translation: A systematic comparison. Electronics, 13(7), 1381. https://doi.org/10.3390/electronics13071381</p>
+
+<p>[25] Wu, J., Wei, J., &amp; Duan, W. (2021). A bilingual Chinese-English parallel corpus of financial news articles. Journal of Open Humanities Data, 7, 3. https://doi.org/10.5334/johd.62</p>
+
+<p>[26] Zheng, Y., Zhang, R., Zhang, J., Ye, Y., Luo, Z., Feng, Z., &amp; Ma, Y. (2024). LlamaFactory: Unified efficient fine-tuning of 100+ language models. In Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 3: System Demonstrations) (pp. 400–410). https://doi.org/10.18653/v1/2024.acl-demos.38</p>
+
+<hr />
+
+  </div>
+
+
+  <!-- <div class="page-navigation">
+    
+      <a class="prev" href="/CS269-Projects-2025Spring/2024/12/13/student-01-peekaboo.html">&larr; Peek-A-Boo, Occlusion-Aware Visual Perception through Active Exploration</a>
+    
+
+    <!--  -->
+
+
+  <!--comment-->
+  
+    <div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-ucladeepvision-github-io.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <div style="clear: both;" />
+<footer class="site-footer">
+    2024 &copy; by UCLAdeepvision. All Rights Reserved. Built by <a href="https://jekyllrb.com/"
+        target="_blank">Jekyll</a>
+
+    <!-- <p>
+        <a href="/CS269-Projects-2025Spring/feed.xml" target="_blank">
+            <img src="/CS269-Projects-2025Spring/assets/images/logo_rss.png" />
+        </a>
+        <a href="https://scholar.google.com/citations?user=dCa-pW8AAAAJ&hl=en&oi=ao" target="_blank">
+            <img src="/CS269-Projects-2025Spring/assets/images/logo_scholar.png" />
+        </a>
+        <a href="https://github.com/lilianweng" target="_blank">
+            <img src="/CS269-Projects-2025Spring/assets/images/logo_github.png" />
+        </a>
+    </p> -->
+</footer>
+
+  </body>
+
+</html>
