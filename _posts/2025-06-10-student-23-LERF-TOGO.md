@@ -8,6 +8,11 @@ date: 2025-06-10
 
 > In this article, we examine LERF-TOGO, a zero-shot task-oriented grasper, meaning it can grasp unseen objects at the correct part depending on what its task is. We first conduct an overview of two previous state of the art approaches. Then, we discuss the various foundation models that were used to construct the LERF-TOGO pipeline. Afterwards, we assess the advantages and limitations of LERF-TOGO. Finally, we briefly discuss trends that can be seen throughout the years of research efforts in task-oriented grasping \- namely, the increasing prominence of advanced foundation models in the development of novel task-oriented grasping models.
 
+<!--more-->
+{: class="table-of-content"}
+* TOC
+{:toc}
+
 # Introduction
 
 Imagine that in the distant future, you ask your helper robot to fetch you the flowers from the evening before. You’re excited to examine this gift from your loved one and reminisce about them. As your robot turns the corner, you’re aghast to find your robot grasped the flowers by the bud, crushing them in the process\! Your robot cheerily reports, “Task completed\!”
