@@ -6,7 +6,6 @@ author: Yu Zhou
 date: 2025-06-10
 ---
 
-
 > Foundation models are reshaping embodied AI – from robots that manipulate the physical world to agents that navigate virtual environments. These models leverage vast datasets and high-capacity architectures to learn generalizable policies for perception, reasoning, and action across diverse tasks and domains. This survey reviews recent advances in vision-language-action (VLA) models for embodied decision making, covering their architectures, training pipelines, datasets, benchmarks, reasoning abilities, and current limitations, with an emphasis on cross-domain generalization and strategies for grounding abstract knowledge in embodied action.
 
 <!--more-->
